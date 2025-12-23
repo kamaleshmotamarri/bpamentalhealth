@@ -1,0 +1,73 @@
+/*=============== HOME ===============*/
+.home{
+   &__container{
+      row-gap: 4rem;
+      padding-top: 2rem;
+   }
+   &__data{
+      text-align: center;
+   }
+   &__title{
+      font-size: var(--biggest-font-size);
+      margin-bottom: 1rem;
+
+      & span{
+         font-weight: var(--font-regular);
+      }
+   }
+   &__description{
+      margin-bottom: 2rem;
+   }
+   &__content{
+      background-color: var(--first-color);
+      padding: 3rem 1.5rem 0 1rem;
+      border-radius: 2rem;
+      box-shadow: 0 8px 16px hsla(218, 94%, 45%, .2);
+      row-gap: 2rem;
+   }
+   &__info{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: .75rem;
+   }
+   &__name{
+      font-size: var(--h2-font-size);
+      color: var(--white-color);
+      margin-bottom: .5rem;
+   }
+   &__profession{
+      font-size: var(--small-font-size);
+      font-weight: var(--font-regular);
+      color: var(--white-color);
+      margin-bottom: 2rem;
+   }
+   &__icons{
+      display: flex;
+      gap: .75rem;
+   }
+   &__box{
+      background-color: var(--first-color-alt);
+      color: var(--white-color);
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: .75rem;
+      font-size: 2rem;
+   }
+   &__button{
+      flex-direction: column;
+      padding: 4rem 1rem;
+
+      & i{
+         font-weight: initial;
+         font-size: 2rem;
+      }
+   }
+   &__img{
+      width: 220px;
+      justify-self: center;
+      filter: drop-shadow(0 0 16px hsla(218, 68%, 18%, .3));
+   }
+}

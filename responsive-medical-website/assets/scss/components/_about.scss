@@ -1,0 +1,59 @@
+/*=============== ABOUT ===============*/
+.about{
+   &__container{
+      background-color: var(--dark-color);
+      padding: 3rem 1.5rem 2rem;
+      row-gap: 3rem;
+      border-radius: 2rem;
+      box-shadow: 0 8px 16px hsla(218, 94%, 45%, .2);
+   }
+   &__data{
+      display: grid;
+      row-gap: 3rem;
+   }
+   &__data .section__title{
+      color: var(--white-color);
+   }
+   &__description{
+      color: var(--white-color-light);
+      text-align: center;
+   }
+   &__info{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      text-align: center;
+   }
+   &__number{
+      font-size: var(--h1-font-size);
+      color: var(--white-color);
+      margin-bottom: .25rem;
+   }
+   &__details{
+      font-size: var(--small-font-size);
+      color: var(--white-color-light);
+   }
+   &__stat:not(:last-child){
+      border-inline-end: 2px solid var(--white-color-light);
+   }
+   &__img{
+      width: 250px;
+      border-radius: 1.5rem;
+      filter: drop-shadow(0 16px 24px hsla(218, 68%, 18%, .6));
+      justify-self: center;
+   }
+   &__button{
+      color: var(--white-color);
+      display: inline-flex;
+      justify-self: center;
+      align-items: center;
+      column-gap: .5rem;
+
+      & i{
+         font-size: 1.5rem;
+         transition: transform .4s;
+      }
+      &:hover i{
+         transform: translateX(.25rem);
+      }
+   }
+}

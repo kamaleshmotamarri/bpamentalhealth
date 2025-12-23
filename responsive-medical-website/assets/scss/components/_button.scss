@@ -1,0 +1,52 @@
+/*=============== BUTTON ===============*/
+.button{
+   display: inline-flex;
+   background-color: var(--first-color);
+   color: var(--white-color);
+   font-weight: var(--font-semi-bold);
+   padding: 1rem 2rem;
+   border-radius: .75rem;
+   box-shadow: 0 4px 16px hsla(218, 94%, 45%, .3);
+   transition: background-color .4s;
+
+   &:hover{
+      background-color: var(--first-color-alt);
+   }
+   
+   &__dark{
+      position: relative;
+      background: linear-gradient(var(--dark-color), var(--dark-color)), 
+                  linear-gradient(225deg, var(--second-color) 0%, var(--dark-color) 25%);
+      border: 3px solid transparent;
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      color: var(--white-color);
+      font-weight: var(--font-semi-bold);
+      padding: 1rem 2rem;
+      border-radius: .75rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      box-shadow: 0 4px 16px hsla(218, 68%, 18%, .4);
+      overflow: hidden;
+
+      &::after{
+         content: '';
+         width: 40px;
+         height: 40px;
+         background-color: var(--second-color);
+         border-radius: 50%;
+         position: absolute;
+         top: -.5rem;
+         right: -.5rem;
+         filter: blur(25px);
+      }
+      & i{
+         transition: transform .4s;
+         font-size: 1.5rem;
+      }
+      &:hover i{
+         transform: translateX(.25rem);
+      }
+   }
+}

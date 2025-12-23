@@ -1,0 +1,395 @@
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (max-width: 360px){
+   .container{
+      margin-inline: 1rem;
+   }
+
+   .section__title{
+      font-size: 1.5rem;
+   }
+
+   .prices .swiper{
+      width: 280px;
+   }
+
+   .contact__map{
+      width: 100%;
+   }
+}
+
+@media screen and (max-width: 330px){
+   .home{
+      &__title{
+         font-size: 1.8rem;
+      }
+      &__icons{
+         flex-direction: column;
+      }
+   }
+
+   .delivery__img{
+      width: 270px;
+   }
+
+   .about__container{
+      padding-inline: 1rem;
+   }
+
+   .prices .swiper{
+      width: 250px;
+   }
+
+   .footer__links{
+      column-gap: 1.5rem;
+   }
+}
+
+/* For medium devices */
+@media screen and (min-width: 440px){
+   .home__container,
+   .delivery__container,
+   .contact__container{
+      grid-template-columns: 350px;
+      justify-content: center;
+   }
+
+   .about__container,
+   .prices__container{
+      width: 350px;
+      margin-inline: auto;
+   }
+
+   .gallery__container{
+      grid-template-columns: repeat(2, 190px);
+      justify-content: center;
+   }
+}
+
+@media screen and (min-width: 768px){
+   .home{
+      &__container{
+         grid-template-columns: repeat(2, 350px);
+         row-gap: 2rem;
+      }
+      &__data{
+         grid-column: 2 / 3;
+         text-align: initial;
+      }
+      &__content{
+         grid-column: 1 / 3;
+         grid-row: 2 / 3;
+         grid-template-columns: repeat(2, 1fr);
+         padding: 0 5rem;
+      }
+      &__info{
+         order: 1;
+         padding-block: 2rem;
+      }
+      &__image{
+         position: relative;
+      }
+      &__img{
+         position: absolute;
+         bottom: 0;
+         width: 300px;
+      }
+   }
+
+   .delivery{
+      &__container{
+         grid-template-columns: repeat(2, 350px);
+         align-items: center;
+      }
+      &__data .section__title,
+      &__description{
+         text-align: initial;
+      }
+      &__data{
+         order: 1;
+      }
+   }
+
+   .about{
+      &__container{
+         width: 700px;
+         grid-template-columns: repeat(2, 1fr);
+         align-items: center;
+      }
+      &__data .section__title,
+      &__description{
+         text-align: initial;
+      }
+      &__info{
+         justify-items: flex-start;
+      }
+      &__stat{
+         padding-right: 1.5rem;
+      }
+      &__button{
+         justify-self: flex-start;
+      }
+   }
+
+   .prices{
+      &__container{
+         width: 700px;
+      }
+      &__description{
+         width: 540px;
+         margin-inline: auto;
+      }
+      &__box{
+         width: 460px;
+      }
+      &__content{
+         overflow-x: clip;
+      }
+   }
+
+   .contact{
+      &__container{
+         grid-template-columns: repeat(2, 350px);
+         align-items: center;
+      }
+      &__data .section__title,
+      &__description{
+         text-align: initial;
+      }
+      &__info{
+         grid-template-columns: repeat(2, 1fr);
+         justify-items: flex-start;
+      }
+   }
+}
+
+/* For large devices */
+@media screen and (min-width: 1150px){
+   .container{
+      margin-inline: auto;
+   }
+
+   .section{
+      padding-block: 7rem 2rem;
+
+      &__title{
+         margin-bottom: 1.5rem;
+      }
+   }
+
+   .nav{
+      height: calc(var(--header-height) + 2rem);
+
+      &__toggle,
+      &__close{
+         display: none;
+      }
+      &__list{
+         flex-direction: row;
+         column-gap: 4rem;
+      }
+   }
+
+   .dark-theme .nav__menu{
+      box-shadow: none;
+   }
+
+   .home{
+      &__container{
+         grid-template-columns: repeat(2, 1fr);
+         gap: 3rem;
+         padding-top: 4rem;
+      }
+      &__title{
+         margin-bottom: 1.5rem;
+      }
+      &__description{
+         padding-right: 10rem;
+         margin-bottom: 3rem;
+      }
+      &__content{
+         column-gap: 3rem;
+      }
+      &__img{
+         width: 440px;
+      }
+      &__info{
+         padding-block: 3rem;
+      }
+      &__name{
+         font-size: var(--h1-font-size);
+      }
+      &__profession{
+         font-size: var(--normal-font-size);
+         margin-bottom: 3rem;
+      }
+      &__box{
+         width: 88px;
+         height: 88px;
+         font-size: 2.5rem;
+      }
+      &__button{
+         padding: 7rem 2rem;
+         border-radius: 1rem;
+      }
+   }
+
+   .delivery{
+      &__container{
+         grid-template-columns: 380px 450px;
+         column-gap: 10rem;
+      }
+      &__content{
+         width: 280px;
+         padding-block: 4rem 3rem;
+      }
+      &__title{
+         font-size: var(--h2-font-size);
+      }
+      &__image{
+         margin-bottom: 4rem;
+      }
+      &__img{
+         width: 380px;
+      }
+      &__description{
+         margin-bottom: 3rem;
+      }
+      &__info{
+         grid-template-columns: repeat(3, 180px);
+         column-gap: 6rem;
+         padding-bottom: 3rem;
+      }
+      &__icon{
+         margin-bottom: .75rem;
+      }
+      &__subtitle{
+         font-size: var(--normal-font-size);
+         margin-bottom: .75rem;
+      }
+   }
+
+   .about{
+      &__container{
+         width: initial;
+         grid-template-columns: 440px 320px;
+         justify-content: center;
+         column-gap: 10rem;
+         padding-block: 3rem;
+      }
+      &__stat{
+         padding-right: 2.5rem;
+      }
+      &__number{
+         margin-bottom: .5rem;
+      }
+      &__details{
+         font-size: var(--normal-font-size);
+      }
+      &__img{
+         width: 320px;
+      }
+   }
+
+   .prices{
+      &__container{
+         row-gap: 4rem;
+      }
+      &__box{
+         width: 660px;
+         border-radius: 2rem;
+      }
+      &__details{
+         font-size: var(--normal-font-size);
+         padding-bottom: 2.5rem;
+      }
+      & .swiper{
+         width: 460px;
+         padding-block: 2.5rem 7rem;
+      }
+      &__heading{
+         padding: 1.5rem;
+      }
+      &__number{
+         font-size: var(--h1-font-size);
+      }
+      &__list{
+         padding: 2rem 1.5rem 3.5rem;
+         row-gap: 1rem;
+      }
+      &__item{
+         font-size: var(--normal-font-size);
+      }
+      &__box::after{
+         width: 100px;
+         height: 100px;
+         filter: blur(60px);
+      }
+   }
+
+   .gallery{
+      &__container{
+         grid-template-columns: repeat(2, 400px);
+         gap: 2rem;
+      }
+      &__image:nth-child(1){
+         height: 400px;
+      }
+   }
+
+   .contact{
+      &__container{
+         grid-template-columns: 440px 450px;
+         column-gap: 10rem;
+      }
+      &__description{
+         margin-bottom: 3rem;
+      }
+      &__info{
+         gap: 4rem 6rem;
+      }
+      &__icon{
+         margin-bottom: .75rem;
+      }
+      &__subtitle{
+         font-size: var(--normal-font-size);
+         margin-bottom: .75rem;
+      }
+      &__map{
+         width: 450px;
+         height: 450px;
+         border-radius: 2rem;
+      }
+   }
+
+   .footer{
+      padding-top: 6rem;
+
+      &__container{
+         grid-template-columns: repeat(3, 1fr);
+         align-items: center;
+      }
+      &__logo{
+         margin-bottom: 0;
+         font-size: var(--h2-font-size);
+         justify-self: flex-start;
+      }
+      &__social{
+         justify-self: flex-end;
+      }
+      &__link{
+         font-size: var(--normal-font-size);
+      }
+   }
+
+   .scrollup{
+      right: 3rem;
+   }
+}
+
+/* For 2K resolutions (2048 x 1152, 2048 x 1536) */
+@media screen and (min-width: 2048px){
+   body{
+      zoom: 1.2;
+   }
+}
