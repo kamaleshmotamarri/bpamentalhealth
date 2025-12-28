@@ -45,7 +45,7 @@ function addMessage(text, isUser = false) {
    if (isUser && chatbotWelcome && chatbotWelcome.parentNode) {
       removeWelcomeMessage();
    }
-   
+
    // Hide suggestions after first message
    const suggestions = document.getElementById('chatbot-suggestions');
    if (suggestions && messageCount === 0) {
@@ -54,58 +54,58 @@ function addMessage(text, isUser = false) {
          suggestions.style.display = 'none';
       }, 300);
    }
-   
+
    const messageDiv = document.createElement('div');
    messageDiv.className = `chatbot__message chatbot__message--${isUser ? 'user' : 'bot'}`;
    messageDiv.style.opacity = '0';
    messageDiv.style.transform = 'translateY(10px)';
-   
+
    const avatar = document.createElement('div');
    avatar.className = 'chatbot__message-avatar';
    avatar.innerHTML = isUser ? '<i class="ri-user-fill"></i>' : '<i class="ri-robot-2-fill"></i>';
-   
+
    const content = document.createElement('div');
    content.className = 'chatbot__message-content';
-   
+
    const messageText = document.createElement('p');
    messageText.className = 'chatbot__message-text';
    messageText.textContent = text;
-   
+
    const messageTime = document.createElement('span');
    messageTime.className = 'chatbot__message-time';
    const now = new Date();
-   messageTime.textContent = now.toLocaleTimeString('en-US', { 
-      hour: '2-digit', 
-      minute: '2-digit' 
+   messageTime.textContent = now.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit'
    });
-   
+
    content.appendChild(messageText);
    content.appendChild(messageTime);
-   
+
    messageDiv.appendChild(avatar);
    messageDiv.appendChild(content);
-   
+
    chatbotMessages.appendChild(messageDiv);
-   
+
    // Animate message appearance
    setTimeout(() => {
       messageDiv.style.transition = 'opacity .3s ease-out, transform .3s ease-out';
       messageDiv.style.opacity = '1';
       messageDiv.style.transform = 'translateY(0)';
    }, 10);
-   
+
    // Scroll to bottom
    setTimeout(() => {
       chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
    }, 100);
-   
+
    messageCount++;
 }
 
 // Generate bot response (simulated)
 function generateBotResponse(userMessage) {
    const lowerMessage = userMessage.toLowerCase();
-   
+
    // Simple response logic (can be replaced with API call)
    if (lowerMessage.includes('anxious') || lowerMessage.includes('anxiety')) {
       return "I understand that anxiety can be overwhelming. Let's take some deep breaths together. Try the 4-7-8 breathing technique: inhale for 4 counts, hold for 7, and exhale for 8. Would you like to talk more about what's causing your anxiety?";
@@ -128,13 +128,13 @@ function sendMessage() {
    if (message) {
       addMessage(message, true);
       chatbotInput.value = '';
-      
+
       // Show typing indicator
       showTypingIndicator();
-      
+
       // Simulate bot thinking time
       const thinkingTime = Math.random() * 1000 + 800; // 800-1800ms
-      
+
       setTimeout(() => {
          hideTypingIndicator();
          const botResponse = generateBotResponse(message);
@@ -152,7 +152,7 @@ function clearConversation() {
          msg.style.animation = 'fadeOut .3s ease-out';
          setTimeout(() => msg.remove(), 300);
       });
-      
+
       // Show welcome message again
       chatbotWelcome = chatbotMessages.querySelector('.chatbot__welcome');
       if (!chatbotWelcome || !chatbotWelcome.parentNode) {
@@ -171,14 +171,14 @@ function clearConversation() {
          chatbotWelcome.style.display = 'block';
          chatbotWelcome.style.animation = 'fadeInUp .5s ease-out';
       }
-      
+
       // Show suggestions again
       const suggestions = document.getElementById('chatbot-suggestions');
       if (suggestions) {
          suggestions.style.display = 'flex';
          suggestions.style.animation = 'fadeInUp .3s ease-out';
       }
-      
+
       messageCount = 0;
    }
 }
@@ -199,7 +199,7 @@ if (chatbotInput) {
          sendMessage();
       }
    });
-   
+
    // Auto-resize input (if needed)
    chatbotInput.addEventListener('input', () => {
       chatbotInput.style.height = 'auto';

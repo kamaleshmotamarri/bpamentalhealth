@@ -1,0 +1,52 @@
+# Environment and Configuration Files
+.env
+.env.local
+.env.*.local
+
+# Firebase Config Files (with real credentials)
+**/config/firebase-config.prod.js
+**/config/firebase-config.test.js
+config/firebase-config.prod.js
+config/firebase-config.test.js
+
+# Keep example files (safe to commit
+!.env.example
+!config/firebase-config.*.example.js
+!config/README.md
+!config/env.js
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencies (if using npm/node)
+node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+build/
+*.min.js
+*.min.css
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+

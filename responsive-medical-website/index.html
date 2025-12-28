@@ -62,6 +62,19 @@
          </div>
 
          <div class="nav__buttons">
+            <!-- User info (shown when logged in) -->
+            <div class="nav__user-info" id="user-info" style="display: none;">
+               <span class="user-name"></span>
+               <button class="nav__logout" id="logout-button" style="display: none;">
+                  <i class="ri-logout-box-line"></i> Logout
+               </button>
+            </div>
+
+            <!-- Login button (shown when logged out) -->
+            <button class="nav__login" id="login-button">
+               <i class="ri-login-box-line"></i> Login
+            </button>
+
             <!-- Theme button -->
             <i class="ri-moon-fill nav__theme" id="theme-button"></i>
 
@@ -642,14 +655,117 @@
       <i class="ri-arrow-up-line"></i>
    </a>
 
+   <!--==================== AUTHENTICATION MODALS ====================-->
+   <!-- Login Modal -->
+   <div class="auth-modal" id="login-modal">
+      <div class="auth-modal__content">
+         <div class="auth-modal__header">
+            <h2 class="auth-modal__title">Sign In</h2>
+            <button class="auth-modal-close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="auth-modal__body">
+            <form id="login-form" class="auth-form">
+               <div class="auth-form__group">
+                  <label for="login-email" class="auth-form__label">Email</label>
+                  <input type="email" id="login-email" class="auth-form__input" placeholder="Enter your email" required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="login-password" class="auth-form__label">Password</label>
+                  <input type="password" id="login-password" class="auth-form__input" placeholder="Enter your password"
+                     required>
+               </div>
+               <button type="submit" class="auth-form__button button">Sign In</button>
+            </form>
+            <div class="auth-divider">
+               <span>OR</span>
+            </div>
+            <button id="google-signin-btn" class="auth-google-button">
+               <i class="ri-google-fill"></i>
+               Sign in with Google
+            </button>
+            <p class="auth-switch">
+               Don't have an account? <a href="#" id="switch-to-signup">Sign up</a>
+            </p>
+         </div>
+      </div>
+   </div>
+
+   <!-- Signup Modal -->
+   <div class="auth-modal" id="signup-modal">
+      <div class="auth-modal__content">
+         <div class="auth-modal__header">
+            <h2 class="auth-modal__title">Sign Up</h2>
+            <button class="auth-modal-close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="auth-modal__body">
+            <form id="signup-form" class="auth-form">
+               <div class="auth-form__group">
+                  <label for="signup-name" class="auth-form__label">Full Name</label>
+                  <input type="text" id="signup-name" class="auth-form__input" placeholder="Enter your full name"
+                     required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="signup-email" class="auth-form__label">Email</label>
+                  <input type="email" id="signup-email" class="auth-form__input" placeholder="Enter your email"
+                     required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="signup-password" class="auth-form__label">Password</label>
+                  <input type="password" id="signup-password" class="auth-form__input"
+                     placeholder="Enter your password (min 6 characters)" required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="signup-confirm-password" class="auth-form__label">Confirm Password</label>
+                  <input type="password" id="signup-confirm-password" class="auth-form__input"
+                     placeholder="Confirm your password" required>
+               </div>
+               <button type="submit" class="auth-form__button button">Sign Up</button>
+            </form>
+            <div class="auth-divider">
+               <span>OR</span>
+            </div>
+            <button id="google-signup-btn" class="auth-google-button">
+               <i class="ri-google-fill"></i>
+               Sign up with Google
+            </button>
+            <p class="auth-switch">
+               Already have an account? <a href="#" id="switch-to-login">Sign in</a>
+            </p>
+         </div>
+      </div>
+   </div>
+
    <!--=============== SCROLLREVEAL ===============-->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js"></script>
 
    <!--=============== SWIPER JS ===============-->
    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 
+   <!--=============== ENVIRONMENT CONFIG ===============-->
+   <script src="config/env.js"></script>
+
+   <!--=============== FIREBASE CONFIG (Environment Based) ===============-->
+   <script src="config/firebase-config.test.js"></script>
+
+   <!--=============== FIREBASE SDK ===============-->
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+   <!--=============== FIREBASE INITIALIZATION ===============-->
+   <script src="assets/js/firebase-config.js"></script>
+
+   <!--=============== AUTH JS ===============-->
+   <script src="assets/js/auth.js"></script>
+
    <!--=============== MAIN JS ===============-->
    <script src="assets/js/main.js"></script>
+
+   <!--=============== DIAGNOSTICS ===============-->
+   <script src="assets/js/debug-diagnostics.js"></script>
 </body>
 
 </html>
