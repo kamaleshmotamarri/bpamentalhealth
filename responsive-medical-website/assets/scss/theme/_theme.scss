@@ -1,39 +1,42 @@
 /*=============== THEME ===============*/
 /*========== Variables Dark theme ==========*/
-.dark-theme{
+.dark-theme {
 	--title-color: hsl(218, 48%, 95%);
-   --text-color: hsl(218, 24%, 75%);
-   --gray-color: hsl(218, 24%, 20%);
-   --body-color: hsl(218, 24%, 8%);
+	--text-color: hsl(218, 24%, 75%);
+	--gray-color: hsl(218, 24%, 20%);
+	--body-color: hsl(218, 24%, 8%);
 }
 
 /*========== 
 	Color changes in some parts of 
 	the website, in dark theme
 ==========*/
-.dark-theme{
-	& :is(.shadow-header, .scrollup){
+.dark-theme {
+	& :is(.shadow-header, .scrollup) {
 		box-shadow: 0 2px 16px hsla(218, 68%, 4%, .7);
 	}
-	& .nav__menu{
+
+	& .nav__menu {
 		box-shadow: 0 4px 16px hsla(218, 68%, 4%, .7);
 	}
-	& .prices__card{
+
+	& .prices__card {
 		background-color: var(--white-color);
 	}
-	& .prices__item{
+
+	& .prices__item {
 		color: var(--gray-color);
 	}
-	&::-webkit-scrollbar{
+
+	&::-webkit-scrollbar {
 		background-color: hsl(218, 8%, 12%);
 
-		&-thumb{
+		&-thumb {
 			background-color: hsl(218, 8%, 20%);
-			
-			&:hover{
+
+			&:hover {
 				background-color: hsl(218, 8%, 30%);
 			}
 		}
 	}
 }
-

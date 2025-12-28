@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,368 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
    <link rel="stylesheet" href="assets/css/styles.css">
    <title>Local and National Helplines - MentalMed</title>
+   <style>
+      .helplines__container {
+         padding-top: calc(var(--header-height) + 3rem);
+         padding-bottom: 5rem;
+         background: linear-gradient(180deg, var(--body-color) 0%, var(--first-color-light) 100%);
+      }
+
+      .helplines__header {
+         text-align: center;
+         margin-bottom: 3rem;
+         position: relative;
+      }
+
+      .helplines__subtitle {
+         display: block;
+         font-size: var(--normal-font-size);
+         color: var(--first-color);
+         font-weight: var(--font-semi-bold);
+         margin-bottom: 0.5rem;
+      }
+
+      .helplines__title {
+         font-size: var(--biggest-font-size);
+         margin-bottom: 1rem;
+         line-height: 1.2;
+      }
+
+      .helplines__info {
+         text-align: center;
+         margin-bottom: 3rem;
+         color: var(--text-color);
+         max-width: 700px;
+         margin-left: auto;
+         margin-right: auto;
+         font-size: var(--normal-font-size);
+         line-height: 1.6;
+      }
+
+      /* Search Styles */
+      .helplines__search {
+         max-width: 600px;
+         margin: 0 auto 4rem;
+         position: relative;
+         z-index: 10;
+      }
+
+      .helplines__search-wrapper {
+         position: relative;
+         box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+         border-radius: 1.5rem;
+         /* Pill shape */
+         background: var(--body-color);
+         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      .helplines__search-wrapper:focus-within {
+         transform: translateY(-2px);
+         box-shadow: 0 16px 32px -8px rgba(var(--first-color-alt-rgb, 14, 88, 199), 0.25);
+      }
+
+      .helplines__search-input {
+         width: 100%;
+         padding: 1.5rem 2rem;
+         padding-right: 4rem;
+         border: 2px solid transparent;
+         border-radius: 1.5rem;
+         font-size: var(--normal-font-size);
+         background: transparent;
+         color: var(--title-color);
+         transition: all 0.3s;
+      }
+
+      .helplines__search-input:focus {
+         outline: none;
+         border-color: var(--first-color);
+      }
+
+      .helplines__search-input::placeholder {
+         color: var(--text-color-light);
+      }
+
+      .helplines__search-icon {
+         position: absolute;
+         right: 1.5rem;
+         top: 50%;
+         transform: translateY(-50%);
+         color: var(--first-color);
+         font-size: 1.5rem;
+         pointer-events: none;
+      }
+
+      /* Dropdown Styles */
+      .helplines__dropdown {
+         position: absolute;
+         top: calc(100% + 1rem);
+         left: 0;
+         right: 0;
+         background: var(--body-color);
+         border-radius: 1rem;
+         max-height: 350px;
+         overflow-y: auto;
+         z-index: 100;
+         opacity: 0;
+         visibility: hidden;
+         transform: translateY(-10px);
+         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+         box-shadow: 0 20px 40px -4px rgba(0, 0, 0, 0.15);
+         padding: 0.5rem;
+      }
+
+      .helplines__dropdown.show {
+         opacity: 1;
+         visibility: visible;
+         transform: translateY(0);
+         display: block;
+      }
+
+      .helplines__dropdown-item {
+         padding: 1rem 1.5rem;
+         cursor: pointer;
+         transition: all 0.2s;
+         border-radius: 0.75rem;
+         display: flex;
+         align-items: center;
+         gap: 1rem;
+         color: var(--title-color);
+      }
+
+      .helplines__dropdown-item:hover {
+         background-color: var(--first-color-light);
+         color: var(--title-color);
+         /* Kept consistent */
+      }
+
+      .helplines__dropdown-flag {
+         font-size: 1.5rem;
+         flex-shrink: 0;
+      }
+
+      /* Results Grid */
+      .helplines__results {
+         display: grid;
+         gap: 2rem;
+         grid-template-columns: 1fr;
+      }
+
+      /* Card Styles */
+      .helplines__card {
+         background: var(--body-color);
+         border-radius: 1.5rem;
+         padding: 0;
+         box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+         border: 1px solid rgba(0, 0, 0, 0.05);
+         overflow: hidden;
+         position: relative;
+         animation: cardAppear 0.6s ease-out forwards;
+      }
+
+      @keyframes cardAppear {
+         from {
+            opacity: 0;
+            transform: translateY(20px);
+         }
+
+         to {
+            opacity: 1;
+            transform: translateY(0);
+         }
+      }
+
+      .helplines__card:hover {
+         transform: translateY(-8px);
+         box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+         border-color: var(--first-color-light);
+      }
+
+      .helplines__card-header {
+         padding: 2rem 2rem 1.5rem;
+         display: flex;
+         align-items: flex-start;
+         gap: 1rem;
+         border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+         background: linear-gradient(to right, rgba(var(--first-color-rgb), 0.03), transparent);
+      }
+
+      .helplines__flag {
+         font-size: 2.5rem;
+         line-height: 1;
+         filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+      }
+
+      .helplines__card-info {
+         flex: 1;
+      }
+
+      .helplines__card-title {
+         font-size: var(--h2-font-size);
+         font-weight: var(--font-bold);
+         color: var(--title-color);
+         margin-bottom: 0.25rem;
+      }
+
+      .helplines__card-location {
+         color: var(--text-color-light);
+         font-size: var(--small-font-size);
+         font-weight: var(--font-medium);
+         display: flex;
+         align-items: center;
+         gap: 0.5rem;
+      }
+
+      .helplines__card-location i {
+         color: var(--first-color);
+      }
+
+      .helplines__card-content {
+         padding: 1.5rem 2rem 2rem;
+         display: flex;
+         flex-direction: column;
+         gap: 1.25rem;
+      }
+
+      /* Number Item Styles */
+      .helplines__number {
+         display: flex;
+         flex-direction: column;
+         gap: 0.75rem;
+      }
+
+      .helplines__number-meta {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         flex-wrap: wrap;
+         gap: 0.5rem;
+      }
+
+      .helplines__number-label {
+         font-weight: var(--font-semi-bold);
+         color: var(--title-color);
+         font-size: var(--normal-font-size);
+      }
+
+      .helplines__number-available {
+         font-size: 0.75rem;
+         color: var(--first-color);
+         background: rgba(var(--first-color-rgb), 0.1);
+         /* Fallback */
+         background: var(--first-color-light);
+         padding: 0.25rem 0.75rem;
+         border-radius: 1rem;
+         font-weight: var(--font-medium);
+         display: inline-flex;
+         align-items: center;
+         gap: 0.25rem;
+      }
+
+      .helplines__btn {
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         gap: 0.5rem;
+         padding: 0.8rem 1.25rem;
+         background-color: var(--first-color);
+         color: var(--white-color);
+         border-radius: 0.75rem;
+         font-weight: var(--font-medium);
+         transition: all 0.3s;
+         text-decoration: none;
+         width: 100%;
+         position: relative;
+         overflow: hidden;
+      }
+
+      .helplines__btn::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: rgba(255, 255, 255, 0.1);
+         transform: translateX(-100%);
+         transition: transform 0.4s;
+      }
+
+      .helplines__btn:hover {
+         background-color: var(--first-color-alt);
+         transform: translateY(-2px);
+         box-shadow: 0 4px 12px rgba(var(--first-color-rgb), 0.4);
+      }
+
+      .helplines__btn:hover::before {
+         transform: translateX(0);
+      }
+
+      /* Empty State */
+      .helplines__empty {
+         text-align: center;
+         padding: 4rem 2rem;
+         color: var(--text-color-light);
+         grid-column: 1 / -1;
+      }
+
+      .helplines__empty-icon {
+         font-size: 4rem;
+         margin-bottom: 1.5rem;
+         display: inline-block;
+         color: var(--text-color-light);
+         opacity: 0.5;
+         animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+
+         0%,
+         100% {
+            transform: translateY(0);
+         }
+
+         50% {
+            transform: translateY(-10px);
+         }
+      }
+
+      /* Responsive */
+      @media (min-width: 600px) {
+         .helplines__results {
+            grid-template-columns: repeat(2, 1fr);
+         }
+      }
+
+      @media (min-width: 968px) {
+         .helplines__results {
+            grid-template-columns: repeat(3, 1fr);
+         }
+
+         .helplines__container {
+            padding-top: calc(var(--header-height) + 4rem);
+         }
+      }
+
+      /* Dark Theme Overrides */
+      .dark-theme .helplines__card,
+      .dark-theme .helplines__dropdown,
+      .dark-theme .helplines__search-wrapper {
+         background-color: var(--container-color);
+         border-color: rgba(255, 255, 255, 0.05);
+      }
+
+      .dark-theme .helplines__card-header {
+         border-bottom-color: rgba(255, 255, 255, 0.05);
+      }
+
+      .dark-theme .helplines__dropdown-item:hover {
+         background-color: rgba(255, 255, 255, 0.05);
+      }
+   </style>
+
 </head>
+
 <body>
    <header class="header" id="header">
       <nav class="nav container">
@@ -36,14 +398,37 @@
       </nav>
    </header>
    <main class="main">
-      <section class="section" style="padding-top: calc(var(--header-height) + 2rem);">
+      <section class="section helplines__container">
          <div class="container">
-            <h1 class="section__title">Local and National Helplines</h1>
-            <p style="text-align: center; margin-top: 2rem;">This page is under construction.</p>
+            <header class="helplines__header">
+               <span class="helplines__subtitle">Here available for you</span>
+               <h1 class="helplines__title">Local & National<br>Helplines</h1>
+               <p class="helplines__info">
+                  Find confidential mental health support in your area. <br>
+                  Search by country, state, or region to find the help you need.
+               </p>
+            </header>
+
+            <div class="helplines__search">
+               <div class="helplines__search-wrapper">
+                  <input type="text" class="helplines__search-input" id="helplines-search"
+                     placeholder="Type a country or region name..." autocomplete="off">
+                  <i class="ri-search-line helplines__search-icon"></i>
+               </div>
+               <div class="helplines__dropdown" id="helplines-dropdown"></div>
+            </div>
+
+            <div class="helplines__results" id="helplines-results"></div>
+
+            <div class="helplines__empty" id="helplines-empty" style="display: none;">
+               <i class="ri-search-line helplines__empty-icon"></i>
+               <p>No helplines found. Try searching for a different location.</p>
+            </div>
          </div>
       </section>
    </main>
    <script src="assets/js/main.js"></script>
+   <script src="assets/js/helplines.js"></script>
 </body>
-</html>
 
+</html>
