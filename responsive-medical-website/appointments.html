@@ -28,6 +28,19 @@
             </div>
          </div>
          <div class="nav__buttons">
+            <!-- User info (shown when logged in) -->
+            <div class="nav__user-info" id="user-info" style="display: none;">
+               <span class="user-name"></span>
+               <button class="nav__logout" id="logout-button" style="display: none;">
+                  <i class="ri-logout-box-line"></i> Logout
+               </button>
+            </div>
+
+            <!-- Login button (shown when logged out) -->
+            <button class="nav__login" id="login-button">
+               <i class="ri-login-box-line"></i> Login
+            </button>
+
             <i class="ri-moon-fill nav__theme" id="theme-button"></i>
             <div class="nav__toggle" id="nav-toggle">
                <i class="ri-menu-line"></i>
@@ -38,12 +51,228 @@
    <main class="main">
       <section class="section" style="padding-top: calc(var(--header-height) + 2rem);">
          <div class="container">
-            <h1 class="section__title">Online Counseling Appointment Scheduler</h1>
-            <p style="text-align: center; margin-top: 2rem;">This page is under construction.</p>
+            <div style="text-align: center; margin-bottom: 2rem;">
+               <h1 class="section__title" style="margin-bottom: 0.75rem;">
+                  <span style="display: inline-block; margin-right: 0.5rem;">💙</span>
+                  Online Counseling Appointment Scheduler
+               </h1>
+               <p class="section__subtitle" style="text-align: center; margin-top: 1rem; color: var(--text-color-light); max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                  Schedule your counseling session with licensed mental health professionals. 
+                  Choose a date and time that works best for you.
+               </p>
+            </div>
+
+            <!-- Authentication Required Message -->
+            <div id="auth-required-message" class="appointment-message appointment-message--warning" style="display: none;">
+               <i class="ri-lock-line"></i>
+               <p>Please <a href="#" id="login-link" style="color: var(--first-color); text-decoration: underline;">sign in</a> to schedule an appointment.</p>
+            </div>
+
+            <!-- User Already Has Appointment Message -->
+            <div id="existing-appointment-message" class="appointment-message appointment-message--info" style="display: none;">
+               <i class="ri-calendar-check-line"></i>
+               <div>
+                  <p><strong>You already have an appointment scheduled:</strong></p>
+                  <div id="existing-appointment-details" class="existing-appointment-details"></div>
+               </div>
+            </div>
+
+            <!-- Appointment Scheduler (shown when authenticated and no existing appointment) -->
+            <div id="appointment-scheduler" class="appointment-scheduler" style="display: none;">
+               <!-- Month Navigation -->
+               <div class="appointment-nav">
+                  <button id="prev-month" class="appointment-nav__button">
+                     <i class="ri-arrow-left-s-line"></i>
+                  </button>
+                  <h2 id="current-month-year" class="appointment-nav__title">January 2026</h2>
+                  <button id="next-month" class="appointment-nav__button">
+                     <i class="ri-arrow-right-s-line"></i>
+                  </button>
+               </div>
+
+               <!-- Calendar Grid -->
+               <div class="appointment-calendar">
+                  <div class="appointment-calendar__header">
+                     <div class="appointment-calendar__day-name">Sun</div>
+                     <div class="appointment-calendar__day-name">Mon</div>
+                     <div class="appointment-calendar__day-name">Tue</div>
+                     <div class="appointment-calendar__day-name">Wed</div>
+                     <div class="appointment-calendar__day-name">Thu</div>
+                     <div class="appointment-calendar__day-name">Fri</div>
+                     <div class="appointment-calendar__day-name">Sat</div>
+                  </div>
+                  <div id="calendar-grid" class="appointment-calendar__grid"></div>
+               </div>
+
+               <!-- Selected Date Info -->
+               <div id="selected-date-info" class="selected-date-info" style="display: none;">
+                  <h3 id="selected-date-title" class="selected-date-info__title"></h3>
+                  <p class="selected-date-info__subtitle">Choose a time slot:</p>
+                  <div id="time-slots" class="time-slots"></div>
+               </div>
+            </div>
          </div>
       </section>
    </main>
+
+   <!-- Appointment Confirmation Modal -->
+   <div id="appointment-modal" class="appointment-modal">
+      <div class="appointment-modal__content">
+         <div class="appointment-modal__header">
+            <h2 class="appointment-modal__title">Confirm Appointment</h2>
+            <button class="appointment-modal__close" id="close-modal">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="appointment-modal__body">
+            <div class="appointment-confirm__details">
+               <div class="appointment-confirm__item">
+                  <i class="ri-calendar-line"></i>
+                  <div>
+                     <strong>Date:</strong>
+                     <span id="confirm-date"></span>
+                  </div>
+               </div>
+               <div class="appointment-confirm__item">
+                  <i class="ri-time-line"></i>
+                  <div>
+                     <strong>Time:</strong>
+                     <span id="confirm-time"></span>
+                  </div>
+               </div>
+               <div class="appointment-confirm__item">
+                  <i class="ri-user-line"></i>
+                  <div>
+                     <strong>Patient:</strong>
+                     <span id="confirm-patient"></span>
+                  </div>
+               </div>
+            </div>
+            <div class="appointment-modal__actions">
+               <button id="confirm-appointment" class="button">Confirm Appointment</button>
+               <button id="cancel-appointment" class="button button--outline">Cancel</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- Loading Spinner -->
+   <div id="loading-spinner" class="loading-spinner" style="display: none;">
+      <div class="loading-spinner__content">
+         <i class="ri-loader-4-line"></i>
+         <p>Loading...</p>
+      </div>
+   </div>
+
+   <!-- Success/Error Messages -->
+   <div id="appointment-message" class="appointment-message" style="display: none;"></div>
+
+   <!--==================== AUTHENTICATION MODALS ====================-->
+   <!-- Login Modal -->
+   <div class="auth-modal" id="login-modal">
+      <div class="auth-modal__content">
+         <div class="auth-modal__header">
+            <h2 class="auth-modal__title">Sign In</h2>
+            <button class="auth-modal-close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="auth-modal__body">
+            <form id="login-form" class="auth-form">
+               <div class="auth-form__group">
+                  <label for="login-email" class="auth-form__label">Email</label>
+                  <input type="email" id="login-email" class="auth-form__input" placeholder="Enter your email" required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="login-password" class="auth-form__label">Password</label>
+                  <input type="password" id="login-password" class="auth-form__input" placeholder="Enter your password"
+                     required>
+               </div>
+               <button type="submit" class="auth-form__button button">Sign In</button>
+            </form>
+            <div class="auth-divider">
+               <span>OR</span>
+            </div>
+            <button id="google-signin-btn" class="auth-google-button">
+               <i class="ri-google-fill"></i>
+               Sign in with Google
+            </button>
+            <p class="auth-switch">
+               Don't have an account? <a href="#" id="switch-to-signup">Sign up</a>
+            </p>
+         </div>
+      </div>
+   </div>
+
+   <!-- Signup Modal -->
+   <div class="auth-modal" id="signup-modal">
+      <div class="auth-modal__content">
+         <div class="auth-modal__header">
+            <h2 class="auth-modal__title">Sign Up</h2>
+            <button class="auth-modal-close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="auth-modal__body">
+            <form id="signup-form" class="auth-form">
+               <div class="auth-form__group">
+                  <label for="signup-name" class="auth-form__label">Full Name</label>
+                  <input type="text" id="signup-name" class="auth-form__input" placeholder="Enter your full name"
+                     required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="signup-email" class="auth-form__label">Email</label>
+                  <input type="email" id="signup-email" class="auth-form__input" placeholder="Enter your email"
+                     required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="signup-password" class="auth-form__label">Password</label>
+                  <input type="password" id="signup-password" class="auth-form__input"
+                     placeholder="Enter your password (min 6 characters)" required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="signup-confirm-password" class="auth-form__label">Confirm Password</label>
+                  <input type="password" id="signup-confirm-password" class="auth-form__input"
+                     placeholder="Confirm your password" required>
+               </div>
+               <button type="submit" class="auth-form__button button">Sign Up</button>
+            </form>
+            <div class="auth-divider">
+               <span>OR</span>
+            </div>
+            <button id="google-signup-btn" class="auth-google-button">
+               <i class="ri-google-fill"></i>
+               Sign up with Google
+            </button>
+            <p class="auth-switch">
+               Already have an account? <a href="#" id="switch-to-login">Sign in</a>
+            </p>
+         </div>
+      </div>
+   </div>
+
+   <!--=============== ENVIRONMENT CONFIG ===============-->
+   <script src="config/env.js"></script>
+
+   <!--=============== FIREBASE CONFIG (Environment Based) ===============-->
+   <script src="config/firebase-config.test.js"></script>
+
+   <!--=============== FIREBASE SDK ===============-->
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+   <!--=============== FIREBASE INITIALIZATION ===============-->
+   <script src="assets/js/firebase-config.js"></script>
+
+   <!--=============== AUTH JS ===============-->
+   <script src="assets/js/auth.js"></script>
+
+   <!--=============== MAIN JS ===============-->
    <script src="assets/js/main.js"></script>
+
+   <!--=============== APPOINTMENTS JS ===============-->
+   <script src="assets/js/appointments.js"></script>
 </body>
 </html>
 

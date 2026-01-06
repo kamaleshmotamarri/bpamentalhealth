@@ -22,7 +22,7 @@ const MAX_AUTH_INIT_RETRIES = 20; // Try for up to 4 seconds (20 * 200ms)
 function initializeAuth() {
   // Check if Firebase auth is available (retry if not ready)
   const auth = getAuth();
-  
+
   if (!auth) {
     authInitRetries++;
     if (authInitRetries < MAX_AUTH_INIT_RETRIES) {
@@ -74,7 +74,7 @@ function updateUIForSignedInUser(user) {
   const userInfo = document.getElementById('user-info');
   const logoutButton = document.getElementById('logout-button');
   const authModals = document.querySelectorAll('.auth-modal');
-  
+
   if (loginButton) loginButton.style.display = 'none';
   if (userInfo) {
     userInfo.style.display = 'flex';
@@ -83,8 +83,8 @@ function updateUIForSignedInUser(user) {
     if (userEmail) userEmail.textContent = user.email || 'User';
     if (userName) userName.textContent = user.displayName || user.email || 'User';
   }
-  if (logoutButton) logoutButton.style.display = 'block';
-  
+  if (logoutButton) logoutButton.style.display = 'inline-flex';
+
   // Close any open modals
   authModals.forEach(modal => {
     if (modal) modal.classList.remove('show-modal');
@@ -96,8 +96,8 @@ function updateUIForSignedOutUser() {
   const loginButton = document.getElementById('login-button');
   const userInfo = document.getElementById('user-info');
   const logoutButton = document.getElementById('logout-button');
-  
-  if (loginButton) loginButton.style.display = 'block';
+
+  if (loginButton) loginButton.style.display = 'inline-flex';
   if (userInfo) userInfo.style.display = 'none';
   if (logoutButton) logoutButton.style.display = 'none';
 }
@@ -107,14 +107,14 @@ async function signUpWithEmail(email, password, displayName) {
   console.log('[Auth] signUpWithEmail called');
   let auth = getAuth();
   console.log('[Auth] Auth object:', auth ? 'available' : 'NOT available');
-  
+
   // If auth is not available, try waiting a bit and retry once
   if (!auth) {
     console.warn('[Auth] Auth not available, waiting 500ms and retrying...');
     await new Promise(resolve => setTimeout(resolve, 500));
     auth = getAuth();
   }
-  
+
   if (!auth) {
     console.error('[Auth] Auth still not available after retry!');
     console.error('[Auth] Debug info:', {
@@ -126,13 +126,13 @@ async function signUpWithEmail(email, password, displayName) {
     showMessage('Authentication service is not available. Please refresh the page and check the console for errors.', 'error');
     return;
   }
-  
+
   try {
     console.log('[Auth] Creating user with email:', email);
     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
     const user = userCredential.user;
     console.log('[Auth] User created:', user.uid);
-    
+
     // Update profile with display name
     if (displayName) {
       await user.updateProfile({
@@ -140,13 +140,13 @@ async function signUpWithEmail(email, password, displayName) {
       });
       console.log('[Auth] Display name updated');
     }
-    
+
     // Close modal
     closeAuthModal('signup-modal');
-    
+
     // Show success message
     showMessage('Account created successfully!', 'success');
-    
+
     return user;
   } catch (error) {
     console.error('[Auth] Signup error:', error.code, error.message);
@@ -160,14 +160,14 @@ async function signInWithEmail(email, password) {
   console.log('[Auth] signInWithEmail called');
   let auth = getAuth();
   console.log('[Auth] Auth object:', auth ? 'available' : 'NOT available');
-  
+
   // If auth is not available, try waiting a bit and retry once
   if (!auth) {
     console.warn('[Auth] Auth not available, waiting 500ms and retrying...');
     await new Promise(resolve => setTimeout(resolve, 500));
     auth = getAuth();
   }
-  
+
   if (!auth) {
     console.error('[Auth] Auth still not available after retry!');
     console.error('[Auth] Debug info:', {
@@ -179,19 +179,19 @@ async function signInWithEmail(email, password) {
     showMessage('Authentication service is not available. Please refresh the page and check the console for errors.', 'error');
     return;
   }
-  
+
   try {
     console.log('[Auth] Signing in with email:', email);
     const userCredential = await auth.signInWithEmailAndPassword(email, password);
     const user = userCredential.user;
     console.log('[Auth] User signed in:', user.uid);
-    
+
     // Close modal
     closeAuthModal('login-modal');
-    
+
     // Show success message
     showMessage('Signed in successfully!', 'success');
-    
+
     return user;
   } catch (error) {
     console.error('[Auth] Signin error:', error.code, error.message);
@@ -208,18 +208,18 @@ async function signInWithGoogle() {
     showMessage('Authentication service is not available. Please refresh the page.', 'error');
     return;
   }
-  
+
   try {
     const result = await auth.signInWithPopup(provider);
     const user = result.user;
-    
+
     // Close any open modals
     closeAuthModal('login-modal');
     closeAuthModal('signup-modal');
-    
+
     // Show success message
     showMessage('Signed in with Google successfully!', 'success');
-    
+
     return user;
   } catch (error) {
     handleAuthError(error);
@@ -234,7 +234,7 @@ async function signOut() {
     showMessage('Authentication service is not available. Please refresh the page.', 'error');
     return;
   }
-  
+
   try {
     await auth.signOut();
     showMessage('Signed out successfully!', 'success');
@@ -246,7 +246,7 @@ async function signOut() {
 // Handle authentication errors
 function handleAuthError(error) {
   let errorMessage = 'An error occurred. Please try again.';
-  
+
   switch (error.code) {
     case 'auth/email-already-in-use':
       errorMessage = 'This email is already registered. Please sign in instead.';
@@ -278,7 +278,7 @@ function handleAuthError(error) {
     default:
       errorMessage = error.message || errorMessage;
   }
-  
+
   showMessage(errorMessage, 'error');
 }
 
@@ -289,20 +289,20 @@ function showMessage(message, type = 'info') {
   if (existingMessage) {
     existingMessage.remove();
   }
-  
+
   // Create message element
   const messageEl = document.createElement('div');
   messageEl.className = `auth-message auth-message-${type}`;
   messageEl.textContent = message;
-  
+
   // Add to body
   document.body.appendChild(messageEl);
-  
+
   // Show message
   setTimeout(() => {
     messageEl.classList.add('show');
   }, 10);
-  
+
   // Remove message after 5 seconds
   setTimeout(() => {
     messageEl.classList.remove('show');
@@ -330,13 +330,13 @@ function closeAuthModal(modalId) {
   if (modal) {
     modal.classList.remove('show-modal');
     document.body.style.overflow = '';
-    
+
     // Clear form fields
     const form = modal.querySelector('form');
     if (form) {
       form.reset();
     }
-    
+
     // Clear error messages
     const errorMessages = modal.querySelectorAll('.error-message');
     errorMessages.forEach(msg => msg.remove());
@@ -354,33 +354,33 @@ document.addEventListener('click', (e) => {
 // Event listeners for sign up form
 document.addEventListener('DOMContentLoaded', () => {
   console.log('[Auth] Setting up event listeners...');
-  
+
   const signupForm = document.getElementById('signup-form');
   if (signupForm) {
     console.log('[Auth] Signup form found');
     signupForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       console.log('[Auth] Signup form submitted');
-      
+
       const email = signupForm.querySelector('#signup-email').value;
       const password = signupForm.querySelector('#signup-password').value;
       const displayName = signupForm.querySelector('#signup-name').value;
       const confirmPassword = signupForm.querySelector('#signup-confirm-password').value;
-      
+
       console.log('[Auth] Signup attempt:', { email, hasPassword: !!password, hasName: !!displayName });
-      
+
       // Validate passwords match
       if (password !== confirmPassword) {
         showMessage('Passwords do not match!', 'error');
         return;
       }
-      
+
       // Validate password length
       if (password.length < 6) {
         showMessage('Password must be at least 6 characters!', 'error');
         return;
       }
-      
+
       try {
         await signUpWithEmail(email, password, displayName);
       } catch (error) {
@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     console.error('[Auth] Signup form NOT found!');
   }
-  
+
   // Event listeners for sign in form
   const loginForm = document.getElementById('login-form');
   if (loginForm) {
@@ -399,12 +399,12 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       console.log('[Auth] Login form submitted');
-      
+
       const email = loginForm.querySelector('#login-email').value;
       const password = loginForm.querySelector('#login-password').value;
-      
+
       console.log('[Auth] Login attempt:', { email, hasPassword: !!password });
-      
+
       try {
         await signInWithEmail(email, password);
       } catch (error) {
@@ -415,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     console.error('[Auth] Login form NOT found!');
   }
-  
+
   // Google sign in button
   const googleSignInBtn = document.getElementById('google-signin-btn');
   if (googleSignInBtn) {
@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  
+
   // Google sign up button
   const googleSignUpBtn = document.getElementById('google-signup-btn');
   if (googleSignUpBtn) {
@@ -439,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  
+
   // Logout button
   const logoutButton = document.getElementById('logout-button');
   if (logoutButton) {
@@ -449,7 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  
+
   // Switch between login and signup modals
   const switchToSignup = document.getElementById('switch-to-signup');
   if (switchToSignup) {
@@ -461,7 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 300);
     });
   }
-  
+
   const switchToLogin = document.getElementById('switch-to-login');
   if (switchToLogin) {
     switchToLogin.addEventListener('click', (e) => {
@@ -472,7 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 300);
     });
   }
-  
+
   // Close modal buttons
   const closeModalButtons = document.querySelectorAll('.auth-modal-close');
   closeModalButtons.forEach(button => {
@@ -483,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-  
+
   // Login button
   const loginButton = document.getElementById('login-button');
   if (loginButton) {
@@ -497,7 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     console.error('[Auth] Login button NOT found!');
   }
-  
+
   console.log('[Auth] Event listeners setup complete');
 });
 

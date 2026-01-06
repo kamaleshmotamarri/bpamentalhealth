@@ -44,7 +44,15 @@
     window.firebaseAuth = firebase.auth();
     window.firebaseAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-    // 7. Verify
+    // 7. Initialize Firestore (if available)
+    if (typeof firebase.firestore === 'function') {
+      window.firebaseFirestore = firebase.firestore();
+      console.log('[Firebase] Firestore initialized.');
+    } else {
+      console.warn('[Firebase] Firestore SDK not loaded. Some features may not work.');
+    }
+
+    // 8. Verify
     if (!window.firebaseAuth) {
       throw new Error('firebase.auth() returned null/undefined despite SDK being present.');
     }

@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+   <link rel="stylesheet" href="assets/css/styles.css">
+   <title>Famous Failures - MentalMed</title>
+   <style>
+      .failures__container {
+         padding-top: calc(var(--header-height) + 3rem);
+         padding-bottom: 5rem;
+         background: linear-gradient(180deg, var(--body-color) 0%, hsla(220, 80%, 50%, 0.03) 100%);
+      }
+
+      .failures__header {
+         text-align: center;
+         margin-bottom: 4rem;
+         position: relative;
+      }
+
+      .failures__subtitle {
+         display: block;
+         font-size: var(--normal-font-size);
+         color: var(--first-color);
+         font-weight: var(--font-semi-bold);
+         margin-bottom: 0.5rem;
+         text-transform: uppercase;
+         letter-spacing: 2px;
+      }
+
+      .failures__title {
+         font-size: var(--biggest-font-size);
+         margin-bottom: 1rem;
+         line-height: 1.2;
+         background: linear-gradient(135deg, var(--first-color) 0%, var(--second-color) 100%);
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         background-clip: text;
+      }
+
+      .failures__intro {
+         text-align: center;
+         margin-bottom: 4rem;
+         color: var(--text-color);
+         max-width: 800px;
+         margin-left: auto;
+         margin-right: auto;
+         font-size: var(--normal-font-size);
+         line-height: 1.8;
+      }
+
+      /* Story Cards */
+      .failures__grid {
+         display: grid;
+         gap: 3rem;
+         grid-template-columns: 1fr;
+         max-width: 1200px;
+         margin: 0 auto;
+      }
+
+      .failure__card {
+         background: var(--white-color);
+         border-radius: 2rem;
+         overflow: hidden;
+         box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+         border: 1px solid rgba(0, 0, 0, 0.05);
+         position: relative;
+         animation: cardFadeIn 0.6s ease-out forwards;
+         opacity: 0;
+      }
+
+      .failure__card:nth-child(1) {
+         animation-delay: 0.1s;
+      }
+
+      .failure__card:nth-child(2) {
+         animation-delay: 0.2s;
+      }
+
+      .failure__card:nth-child(3) {
+         animation-delay: 0.3s;
+      }
+
+      .failure__card:nth-child(4) {
+         animation-delay: 0.4s;
+      }
+
+      .failure__card:nth-child(5) {
+         animation-delay: 0.5s;
+      }
+
+      .failure__card:nth-child(6) {
+         animation-delay: 0.6s;
+      }
+
+      .failure__card:nth-child(7) {
+         animation-delay: 0.7s;
+      }
+
+      .failure__card:nth-child(8) {
+         animation-delay: 0.8s;
+      }
+
+      .failure__card:nth-child(9) {
+         animation-delay: 0.9s;
+      }
+
+      @keyframes cardFadeIn {
+         from {
+            opacity: 0;
+            transform: translateY(30px);
+         }
+
+         to {
+            opacity: 1;
+            transform: translateY(0);
+         }
+      }
+
+      .failure__card:hover {
+         transform: translateY(-12px);
+         box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.2);
+         border-color: var(--first-color);
+      }
+
+      .failure__card-header {
+         padding: 3rem 2.5rem 2rem;
+         background: linear-gradient(135deg, var(--first-color) 0%, var(--first-color-alt) 100%);
+         color: var(--white-color);
+         position: relative;
+         overflow: hidden;
+      }
+
+      .failure__card-header::before {
+         content: '';
+         position: absolute;
+         top: -50%;
+         right: -50%;
+         width: 200%;
+         height: 200%;
+         background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+         animation: rotate 20s linear infinite;
+      }
+
+      @keyframes rotate {
+         from {
+            transform: rotate(0deg);
+         }
+
+         to {
+            transform: rotate(360deg);
+         }
+      }
+
+      .failure__icon {
+         width: 80px;
+         height: 80px;
+         background: rgba(255, 255, 255, 0.2);
+         backdrop-filter: blur(10px);
+         border-radius: 50%;
+         display: grid;
+         place-items: center;
+         font-size: 2.5rem;
+         margin-bottom: 1.5rem;
+         position: relative;
+         z-index: 1;
+         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .failure__name {
+         font-size: var(--h1-font-size);
+         font-weight: var(--font-bold);
+         margin-bottom: 0.5rem;
+         position: relative;
+         z-index: 1;
+      }
+
+      .failure__title {
+         font-size: var(--h3-font-size);
+         font-weight: var(--font-medium);
+         opacity: 0.95;
+         position: relative;
+         z-index: 1;
+      }
+
+      .failure__content {
+         padding: 2.5rem;
+      }
+
+      .failure__section {
+         margin-bottom: 2.5rem;
+      }
+
+      .failure__section:last-child {
+         margin-bottom: 0;
+      }
+
+      .failure__section-title {
+         font-size: var(--h3-font-size);
+         color: var(--title-color);
+         margin-bottom: 1rem;
+         display: flex;
+         align-items: center;
+         gap: 0.75rem;
+         font-weight: var(--font-bold);
+      }
+
+      .failure__section-title i {
+         color: var(--first-color);
+         font-size: 1.5rem;
+      }
+
+      .failure__text {
+         font-size: var(--normal-font-size);
+         color: var(--text-color);
+         line-height: 1.8;
+         margin-bottom: 1rem;
+      }
+
+      .failure__text:last-child {
+         margin-bottom: 0;
+      }
+
+      .failure__quote {
+         background: linear-gradient(135deg, hsla(220, 80%, 50%, 0.05) 0%, hsla(170, 75%, 40%, 0.05) 100%);
+         border-left: 4px solid var(--first-color);
+         padding: 1.5rem 2rem;
+         border-radius: 0.75rem;
+         margin: 1.5rem 0;
+         font-style: italic;
+         font-size: var(--normal-font-size);
+         color: var(--title-color);
+         position: relative;
+      }
+
+      .failure__quote::before {
+         content: '"';
+         font-size: 4rem;
+         color: var(--first-color);
+         opacity: 0.2;
+         position: absolute;
+         top: -0.5rem;
+         left: 0.5rem;
+         font-family: serif;
+      }
+
+      .failure__highlight {
+         background: linear-gradient(135deg, var(--first-color) 0%, var(--second-color) 100%);
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         background-clip: text;
+         font-weight: var(--font-bold);
+      }
+
+      .failure__timeline {
+         display: flex;
+         flex-direction: column;
+         gap: 1rem;
+         margin-top: 1rem;
+      }
+
+      .failure__timeline-item {
+         display: flex;
+         gap: 1rem;
+         padding: 1rem;
+         background: var(--gray-color);
+         border-radius: 0.75rem;
+         transition: all 0.3s;
+      }
+
+      .failure__timeline-item:hover {
+         background: hsla(220, 80%, 50%, 0.1);
+         transform: translateX(5px);
+      }
+
+      .failure__timeline-year {
+         font-weight: var(--font-bold);
+         color: var(--first-color);
+         min-width: 80px;
+         font-size: var(--h3-font-size);
+      }
+
+      .failure__timeline-text {
+         flex: 1;
+         color: var(--text-color);
+         line-height: 1.6;
+      }
+
+      .failure__wikipedia {
+         display: inline-flex;
+         align-items: center;
+         gap: 0.5rem;
+         margin-top: 1rem;
+         padding: 0.75rem 1.5rem;
+         background: rgba(255, 255, 255, 0.15);
+         backdrop-filter: blur(10px);
+         border-radius: 0.75rem;
+         color: var(--white-color);
+         text-decoration: none;
+         font-size: var(--small-font-size);
+         font-weight: var(--font-medium);
+         transition: all 0.3s;
+         position: relative;
+         z-index: 1;
+         border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .failure__wikipedia:hover {
+         background: rgba(255, 255, 255, 0.25);
+         transform: translateY(-2px);
+         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .failure__wikipedia i {
+         font-size: 1.25rem;
+      }
+
+      /* Responsive */
+      @media (min-width: 768px) {
+         .failures__grid {
+            grid-template-columns: 1fr;
+            gap: 4rem;
+         }
+
+         .failure__card-header {
+            padding: 4rem 3rem 2.5rem;
+         }
+
+         .failure__content {
+            padding: 3rem;
+         }
+      }
+
+      @media (min-width: 968px) {
+         .failures__container {
+            padding-top: calc(var(--header-height) + 4rem);
+         }
+
+         .failure__card {
+            display: grid;
+            grid-template-columns: 1fr;
+         }
+      }
+
+      /* Dark Theme */
+      .dark-theme .failure__card {
+         background-color: hsl(220, 24%, 12%);
+         border-color: hsl(220, 24%, 20%);
+      }
+
+      .dark-theme .failure__content {
+         background-color: hsl(220, 24%, 12%);
+      }
+
+      .dark-theme .failure__quote {
+         background: linear-gradient(135deg, hsla(220, 80%, 50%, 0.1) 0%, hsla(170, 75%, 40%, 0.1) 100%);
+         border-left-color: var(--first-color);
+      }
+
+      .dark-theme .failure__timeline-item {
+         background-color: hsl(220, 24%, 18%);
+      }
+
+      .dark-theme .failure__timeline-item:hover {
+         background-color: hsla(220, 80%, 50%, 0.15);
+      }
+   </style>
+</head>
+
+<body>
+   <header class="header" id="header">
+      <nav class="nav container">
+         <a href="index.html" class="nav__logo">
+            <i class="ri-stethoscope-fill"></i> MentalMed
+         </a>
+         <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+               <li><a href="index.html#home" class="nav__link">Home</a></li>
+               <li><a href="index.html#delivery" class="nav__link">Delivery</a></li>
+               <li><a href="index.html#about" class="nav__link">About Us</a></li>
+               <li><a href="index.html#prices" class="nav__link">Prices</a></li>
+               <li><a href="index.html#contact" class="nav__link">Contact</a></li>
+               <li><a href="therapai.html" class="nav__link">TherapAI</a></li>
+            </ul>
+            <div class="nav__close" id="nav-close">
+               <i class="ri-close-large-line"></i>
+            </div>
+         </div>
+         <div class="nav__buttons">
+            <i class="ri-moon-fill nav__theme" id="theme-button"></i>
+            <div class="nav__toggle" id="nav-toggle">
+               <i class="ri-menu-line"></i>
+            </div>
+         </div>
+      </nav>
+   </header>
+
+   <main class="main">
+      <section class="section failures__container">
+         <div class="container">
+            <header class="failures__header">
+               <span class="failures__subtitle">Inspiration & Resilience</span>
+               <h1 class="failures__title">Famous Failures</h1>
+               <p class="failures__intro">
+                  Behind every success story lies a journey of setbacks, rejections, and failures. 
+                  These remarkable individuals faced incredible challenges but refused to give up. 
+                  Their stories remind us that failure is not the opposite of success—it's part of it.
+               </p>
+            </header>
+
+            <div class="failures__grid">
+               <!-- Steve Jobs -->
+               <article class="failure__card">
+                  <div class="failure__card-header">
+                     <div class="failure__icon">
+                        <i class="ri-apple-fill"></i>
+                     </div>
+                     <h2 class="failure__name">Steve Jobs</h2>
+                     <p class="failure__title">Co-founder of Apple Inc.</p>
+                     <a href="https://en.wikipedia.org/wiki/Steve_Jobs" target="_blank" class="failure__wikipedia">
+                        <i class="ri-external-link-line"></i>
+                        Read on Wikipedia
+                     </a>
+                  </div>
+                  <div class="failure__content">
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-error-warning-line"></i>
+                           The Failure
+                        </h3>
+                        <p class="failure__text">
+                           In 1985, at the age of 30, Steve Jobs was <span class="failure__highlight">fired from Apple</span>, 
+                           the company he co-founded. After a power struggle with the board of directors, he was removed 
+                           from his position and stripped of all operational responsibilities. This was devastating for someone 
+                           who had poured his heart and soul into building the company.
+                        </p>
+                        <p class="failure__text">
+                           Jobs later described this as one of the best things that could have happened to him. He felt 
+                           the weight of being a successful person replaced by the lightness of being a beginner again, 
+                           less sure about everything.
+                        </p>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-arrow-up-circle-line"></i>
+                           The Comeback
+                        </h3>
+                        <p class="failure__text">
+                           After leaving Apple, Jobs founded <span class="failure__highlight">NeXT Computer</span> and 
+                           purchased <span class="failure__highlight">Pixar Animation Studios</span>. NeXT struggled 
+                           commercially but developed technologies that would later become integral to Apple's success. 
+                           Pixar, on the other hand, became a massive success, producing groundbreaking animated films.
+                        </p>
+                        <p class="failure__text">
+                           In 1997, Apple was on the verge of bankruptcy. The company acquired NeXT, bringing Jobs back 
+                           as an advisor. He soon became interim CEO and then permanent CEO, leading one of the most 
+                           remarkable corporate turnarounds in history.
+                        </p>
+                        <div class="failure__quote">
+                           "I didn't see it then, but it turned out that getting fired from Apple was the best thing 
+                           that could have ever happened to me. The heaviness of being successful was replaced by the 
+                           lightness of being a beginner again."
+                        </div>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-trophy-line"></i>
+                           The Success
+                        </h3>
+                        <p class="failure__text">
+                           Under Jobs' leadership, Apple introduced revolutionary products like the <span class="failure__highlight">iMac</span>, 
+                           <span class="failure__highlight">iPod</span>, <span class="failure__highlight">iPhone</span>, and 
+                           <span class="failure__highlight">iPad</span>. The company went from near bankruptcy to becoming 
+                           one of the most valuable companies in the world. Jobs' vision and innovation transformed entire 
+                           industries and changed how we interact with technology.
+                        </p>
+                     </div>
+                  </div>
+               </article>
+
+               <!-- Oprah Winfrey -->
+               <article class="failure__card">
+                  <div class="failure__card-header">
+                     <div class="failure__icon">
+                        <i class="ri-mic-line"></i>
+                     </div>
+                     <h2 class="failure__name">Oprah Winfrey</h2>
+                     <p class="failure__title">Media Executive & Philanthropist</p>
+                     <a href="https://en.wikipedia.org/wiki/Oprah_Winfrey" target="_blank" class="failure__wikipedia">
+                        <i class="ri-external-link-line"></i>
+                        Read on Wikipedia
+                     </a>
+                  </div>
+                  <div class="failure__content">
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-error-warning-line"></i>
+                           The Failure
+                        </h3>
+                        <p class="failure__text">
+                           Oprah Winfrey's early life was marked by <span class="failure__highlight">poverty, abuse, and 
+                           numerous setbacks</span>. She was born to a teenage single mother in rural Mississippi and 
+                           spent her early years in extreme poverty. She was sexually abused as a child and became 
+                           pregnant at 14, losing the baby shortly after birth.
+                        </p>
+                        <p class="failure__text">
+                           In her first television job as a news anchor in Baltimore, Oprah was <span class="failure__highlight">demoted 
+                           and eventually fired</span> because she was deemed "too emotional" and "unfit for TV news." 
+                           Her boss told her she wasn't right for television and removed her from the anchor position.
+                        </p>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-arrow-up-circle-line"></i>
+                           The Comeback
+                        </h3>
+                        <p class="failure__text">
+                           Instead of giving up, Oprah moved to Chicago to host a low-rated morning talk show called 
+                           "AM Chicago." She transformed the show by being authentic, empathetic, and connecting with her 
+                           audience in ways that traditional news anchors couldn't. Her "too emotional" nature became 
+                           her greatest strength.
+                        </p>
+                        <p class="failure__text">
+                           The show's ratings skyrocketed, and it was renamed "The Oprah Winfrey Show." She took control 
+                           of the production and eventually started her own production company, <span class="failure__highlight">Harpo Productions</span>, 
+                           becoming one of the first women to own and produce her own talk show.
+                        </p>
+                        <div class="failure__quote">
+                           "Think like a queen. A queen is not afraid to fail. Failure is another steppingstone to greatness."
+                        </div>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-trophy-line"></i>
+                           The Success
+                        </h3>
+                        <p class="failure__text">
+                           "The Oprah Winfrey Show" became the <span class="failure__highlight">highest-rated talk show 
+                           in television history</span>, running for 25 years and reaching millions of viewers worldwide. 
+                           Oprah became a billionaire, media mogul, and one of the most influential people in the world. 
+                           She launched her own network (OWN), magazine, and became a powerful advocate for education and 
+                           philanthropy through the Oprah Winfrey Foundation.
+                        </p>
+                        <p class="failure__text">
+                           Her journey from poverty and rejection to becoming one of the most successful and influential 
+                           women in the world demonstrates that our greatest weaknesses can become our greatest strengths 
+                           when we embrace them authentically.
+                        </p>
+                     </div>
+                  </div>
+               </article>
+
+               <!-- J.K. Rowling -->
+               <article class="failure__card">
+                  <div class="failure__card-header">
+                     <div class="failure__icon">
+                        <i class="ri-book-open-line"></i>
+                     </div>
+                     <h2 class="failure__name">J.K. Rowling</h2>
+                     <p class="failure__title">Author of Harry Potter Series</p>
+                     <a href="https://en.wikipedia.org/wiki/J._K._Rowling" target="_blank" class="failure__wikipedia">
+                        <i class="ri-external-link-line"></i>
+                        Read on Wikipedia
+                     </a>
+                  </div>
+                  <div class="failure__content">
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-error-warning-line"></i>
+                           The Failure
+                        </h3>
+                        <p class="failure__text">
+                           Before becoming one of the world's most successful authors, J.K. Rowling faced <span class="failure__highlight">extreme 
+                           poverty, depression, and rejection</span>. In her early 30s, she was a single mother living 
+                           on welfare benefits in Edinburgh, Scotland. She was clinically depressed and contemplated suicide.
+                        </p>
+                        <p class="failure__text">
+                           Rowling wrote the first Harry Potter book while struggling financially. When she finished the 
+                           manuscript, she sent it to <span class="failure__highlight">12 different publishers, and all 
+                           12 rejected it</span>. One publisher even told her not to quit her day job. The rejection 
+                           letters piled up, and she faced the very real possibility that her dream of becoming a published 
+                           author would never come true.
+                        </p>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-arrow-up-circle-line"></i>
+                           The Comeback
+                        </h3>
+                        <p class="failure__text">
+                           After a year of rejections, a small London publisher called <span class="failure__highlight">Bloomsbury</span> 
+                           finally agreed to publish "Harry Potter and the Philosopher's Stone" in 1997. The publisher's 
+                           chairman gave the manuscript to his 8-year-old daughter to read, and she loved it. They offered 
+                           Rowling a small advance of £2,500 (about $3,000).
+                        </p>
+                        <p class="failure__text">
+                           The book became a word-of-mouth success, winning several awards. Rowling continued writing, 
+                           and each subsequent book in the series became more successful than the last. She went from 
+                           being on welfare to becoming one of the wealthiest women in the world.
+                        </p>
+                        <div class="failure__quote">
+                           "It is impossible to live without failing at something, unless you live so cautiously that 
+                           you might as well not have lived at all—in which case, you fail by default."
+                        </div>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-trophy-line"></i>
+                           The Success
+                        </h3>
+                        <p class="failure__text">
+                           The Harry Potter series has sold over <span class="failure__highlight">500 million copies 
+                           worldwide</span> and has been translated into 80 languages. The books spawned a multi-billion 
+                           dollar franchise including movies, theme parks, merchandise, and a stage play. Rowling became 
+                           the first billionaire author, though she later lost that status due to her extensive charitable 
+                           donations.
+                        </p>
+                        <p class="failure__text">
+                           Today, J.K. Rowling is not only one of the most successful authors in history but also a 
+                           prominent philanthropist. She founded Lumos, a charity helping disadvantaged children, and has 
+                           donated hundreds of millions of dollars to various causes. Her story is a powerful reminder that 
+                           persistence and belief in your work can overcome even the most discouraging rejections.
+                        </p>
+                     </div>
+                  </div>
+               </article>
+
+               <!-- Dwayne Johnson -->
+               <article class="failure__card">
+                  <div class="failure__card-header">
+                     <div class="failure__icon">
+                        <i class="ri-muscle-line"></i>
+                     </div>
+                     <h2 class="failure__name">Dwayne "The Rock" Johnson</h2>
+                     <p class="failure__title">Actor, Producer & Former Professional Wrestler</p>
+                     <a href="https://en.wikipedia.org/wiki/Dwayne_Johnson" target="_blank" class="failure__wikipedia">
+                        <i class="ri-external-link-line"></i>
+                        Read on Wikipedia
+                     </a>
+                  </div>
+                  <div class="failure__content">
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-error-warning-line"></i>
+                           The Failure
+                        </h3>
+                        <p class="failure__text">
+                           Dwayne Johnson's dream of becoming a professional football player was <span class="failure__highlight">shattered 
+                           when he was cut from the Canadian Football League</span> in 1995. With only $7 in his pocket, 
+                           he returned home to his parents' apartment, feeling like a complete failure. His family was 
+                           struggling financially, and he had no backup plan.
+                        </p>
+                        <p class="failure__text">
+                           Johnson had also faced numerous challenges growing up, including being evicted from his home 
+                           at age 14 and dealing with depression. His football career, which he had dedicated his life to, 
+                           was over before it really began.
+                        </p>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-arrow-up-circle-line"></i>
+                           The Comeback
+                        </h3>
+                        <p class="failure__text">
+                           After his football dreams ended, Johnson decided to follow in his father's footsteps and become 
+                           a professional wrestler. He joined the <span class="failure__highlight">World Wrestling Federation 
+                           (WWF, now WWE)</span> in 1996, initially struggling to find his character and connect with audiences. 
+                           He was initially booed by fans and struggled to establish himself.
+                        </p>
+                        <p class="failure__text">
+                           Through persistence and reinvention, Johnson developed "The Rock" persona, becoming one of the 
+                           most popular wrestlers in history. He then transitioned to acting, starting with small roles 
+                           and working his way up despite initial skepticism about wrestlers becoming actors.
+                        </p>
+                        <div class="failure__quote">
+                           "Success isn't always about greatness. It's about consistency. Consistent hard work leads to 
+                           success. Greatness will come."
+                        </div>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-trophy-line"></i>
+                           The Success
+                        </h3>
+                        <p class="failure__text">
+                           Today, Dwayne Johnson is one of the <span class="failure__highlight">highest-paid actors in Hollywood</span>, 
+                           starring in blockbuster films like "Fast & Furious," "Jumanji," and "Black Adam." He's also a 
+                           successful producer and entrepreneur, with his own production company (Seven Bucks Productions) 
+                           and tequila brand (Teremana). He's become one of the most recognizable and beloved figures 
+                           in entertainment, known for his work ethic, positivity, and connection with fans.
+                        </p>
+                     </div>
+                  </div>
+               </article>
+
+               <!-- Elon Musk -->
+               <article class="failure__card">
+                  <div class="failure__card-header">
+                     <div class="failure__icon">
+                        <i class="ri-rocket-line"></i>
+                     </div>
+                     <h2 class="failure__name">Elon Musk</h2>
+                     <p class="failure__title">CEO of Tesla, SpaceX & Neuralink</p>
+                     <a href="https://en.wikipedia.org/wiki/Elon_Musk" target="_blank" class="failure__wikipedia">
+                        <i class="ri-external-link-line"></i>
+                        Read on Wikipedia
+                     </a>
+                  </div>
+                  <div class="failure__content">
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-error-warning-line"></i>
+                           The Failure
+                        </h3>
+                        <p class="failure__text">
+                           Elon Musk has faced numerous <span class="failure__highlight">spectacular failures and near-bankruptcies</span> 
+                           throughout his career. In 2008, both Tesla and SpaceX were on the verge of collapse. Tesla 
+                           was burning through cash, production was delayed, and the company was running out of money. 
+                           SpaceX had three consecutive rocket launch failures, and Musk was running out of personal funds.
+                        </p>
+                        <p class="failure__text">
+                           Musk was going through a divorce, sleeping on a couch in the factory, and had to borrow money 
+                           from friends just to pay rent. He described 2008 as "the worst year of my life" and said he was 
+                           "within single-digit weeks" of both companies going bankrupt.
+                        </p>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-arrow-up-circle-line"></i>
+                           The Comeback
+                        </h3>
+                        <p class="failure__text">
+                           Just when things seemed hopeless, SpaceX successfully launched its fourth rocket in September 
+                           2008, securing a $1.6 billion contract with NASA. Around the same time, Tesla secured crucial 
+                           funding and began production of the Roadster. Musk had invested his last dollars into both 
+                           companies, refusing to give up.
+                        </p>
+                        <p class="failure__text">
+                           Musk continued to face challenges, including production hell at Tesla, rocket explosions at 
+                           SpaceX, and constant criticism from skeptics. However, he persisted through each setback, 
+                           learning from failures and iterating on his designs.
+                        </p>
+                        <div class="failure__quote">
+                           "When something is important enough, you do it even if the odds are not in your favor."
+                        </div>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-trophy-line"></i>
+                           The Success
+                        </h3>
+                        <p class="failure__text">
+                           Today, Tesla is the <span class="failure__highlight">world's most valuable automaker</span>, 
+                           revolutionizing the electric vehicle industry. SpaceX has become the first private company to 
+                           send astronauts to the International Space Station and is working toward making humanity a 
+                           multi-planetary species. Musk has also founded or co-founded Neuralink, The Boring Company, 
+                           and other innovative ventures, becoming one of the wealthiest people in the world.
+                        </p>
+                     </div>
+                  </div>
+               </article>
+
+               <!-- Albert Einstein -->
+               <article class="failure__card">
+                  <div class="failure__card-header">
+                     <div class="failure__icon">
+                        <i class="ri-lightbulb-line"></i>
+                     </div>
+                     <h2 class="failure__name">Albert Einstein</h2>
+                     <p class="failure__title">Theoretical Physicist & Nobel Prize Winner</p>
+                     <a href="https://en.wikipedia.org/wiki/Albert_Einstein" target="_blank" class="failure__wikipedia">
+                        <i class="ri-external-link-line"></i>
+                        Read on Wikipedia
+                     </a>
+                  </div>
+                  <div class="failure__content">
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-error-warning-line"></i>
+                           The Failure
+                        </h3>
+                        <p class="failure__text">
+                           Albert Einstein faced numerous <span class="failure__highlight">academic and professional setbacks</span> 
+                           early in his life. He was considered a slow learner as a child and didn't speak until he was 
+                           four years old. His teachers thought he was lazy and would never amount to anything. He was 
+                           expelled from school and failed his first entrance exam to the Swiss Federal Polytechnic.
+                        </p>
+                        <p class="failure__text">
+                           After graduating, Einstein struggled to find academic positions. He was <span class="failure__highlight">rejected 
+                           from multiple teaching positions</span> and ended up working as a patent clerk, a job far below 
+                           his intellectual capabilities. Many of his early papers were initially rejected or ignored by 
+                           the scientific community.
+                        </p>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-arrow-up-circle-line"></i>
+                           The Comeback
+                        </h3>
+                        <p class="failure__text">
+                           While working at the patent office, Einstein continued his scientific research in his spare time. 
+                           In 1905, his "miracle year," he published four groundbreaking papers that revolutionized physics, 
+                           including his theory of special relativity. Despite initial skepticism, his work gradually gained 
+                           recognition in the scientific community.
+                        </p>
+                        <p class="failure__text">
+                           Einstein persisted despite rejections and criticism, continuing to develop his theories. His 
+                           work on general relativity, published in 1915, was initially met with skepticism but eventually 
+                           revolutionized our understanding of gravity and the universe.
+                        </p>
+                        <div class="failure__quote">
+                           "It's not that I'm so smart, it's just that I stay with problems longer."
+                        </div>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-trophy-line"></i>
+                           The Success
+                        </h3>
+                        <p class="failure__text">
+                           Einstein won the <span class="failure__highlight">Nobel Prize in Physics in 1921</span> and became 
+                           one of the most famous scientists in history. His theories of relativity fundamentally changed 
+                           our understanding of space, time, and gravity. Today, Einstein's name is synonymous with genius, 
+                           and his work continues to influence physics and technology, including GPS systems and nuclear 
+                           energy.
+                        </p>
+                     </div>
+                  </div>
+               </article>
+
+               <!-- Walt Disney -->
+               <article class="failure__card">
+                  <div class="failure__card-header">
+                     <div class="failure__icon">
+                        <i class="ri-movie-2-line"></i>
+                     </div>
+                     <h2 class="failure__name">Walt Disney</h2>
+                     <p class="failure__title">Entrepreneur, Animator & Film Producer</p>
+                     <a href="https://en.wikipedia.org/wiki/Walt_Disney" target="_blank" class="failure__wikipedia">
+                        <i class="ri-external-link-line"></i>
+                        Read on Wikipedia
+                     </a>
+                  </div>
+                  <div class="failure__content">
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-error-warning-line"></i>
+                           The Failure
+                        </h3>
+                        <p class="failure__text">
+                           Walt Disney faced numerous <span class="failure__highlight">business failures and rejections</span> 
+                           before achieving success. His first animation company, Laugh-O-Gram Studio, went bankrupt in 1923. 
+                           He was fired from a newspaper job because his editor felt he "lacked imagination and had no good 
+                           ideas."
+                        </p>
+                        <p class="failure__text">
+                           Disney moved to Hollywood with only $40 in his pocket and a suitcase. He created a character 
+                           called Oswald the Lucky Rabbit, but lost the rights to the character and most of his animators 
+                           to a distributor. This was a devastating blow that left him with almost nothing.
+                        </p>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-arrow-up-circle-line"></i>
+                           The Comeback
+                        </h3>
+                        <p class="failure__text">
+                           After losing Oswald, Disney created <span class="failure__highlight">Mickey Mouse</span> on a 
+                           train ride back from New York. Despite initial struggles to find distributors, Mickey Mouse 
+                           became a sensation. However, Disney continued to face financial challenges, with his first 
+                           feature-length animated film, "Snow White and the Seven Dwarfs," being called "Disney's Folly" 
+                           by industry insiders who thought audiences wouldn't sit through a full-length cartoon.
+                        </p>
+                        <p class="failure__text">
+                           Disney mortgaged his house and risked everything to complete "Snow White." The film became a 
+                           massive success, winning an honorary Academy Award and proving that animated feature films 
+                           could be commercially viable.
+                        </p>
+                        <div class="failure__quote">
+                           "All our dreams can come true, if we have the courage to pursue them."
+                        </div>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-trophy-line"></i>
+                           The Success
+                        </h3>
+                        <p class="failure__text">
+                           Walt Disney went on to create an entertainment empire, producing numerous successful films and 
+                           creating <span class="failure__highlight">Disneyland and Walt Disney World</span>, revolutionizing 
+                           the theme park industry. The Walt Disney Company became one of the largest and most successful 
+                           media conglomerates in the world. Disney won 22 Academy Awards and is considered one of the most 
+                           influential figures in entertainment history.
+                        </p>
+                     </div>
+                  </div>
+               </article>
+
+               <!-- Michael Jordan -->
+               <article class="failure__card">
+                  <div class="failure__card-header">
+                     <div class="failure__icon">
+                        <i class="ri-basketball-line"></i>
+                     </div>
+                     <h2 class="failure__name">Michael Jordan</h2>
+                     <p class="failure__title">Professional Basketball Player & Businessman</p>
+                     <a href="https://en.wikipedia.org/wiki/Michael_Jordan" target="_blank" class="failure__wikipedia">
+                        <i class="ri-external-link-line"></i>
+                        Read on Wikipedia
+                     </a>
+                  </div>
+                  <div class="failure__content">
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-error-warning-line"></i>
+                           The Failure
+                        </h3>
+                        <p class="failure__text">
+                           Michael Jordan was <span class="failure__highlight">cut from his high school basketball team</span> 
+                           as a sophomore. His coach told him he wasn't good enough to play varsity basketball. This was 
+                           devastating for Jordan, who had dreams of becoming a great basketball player. He went home, 
+                           locked himself in his room, and cried.
+                        </p>
+                        <p class="failure__text">
+                           Even after making it to the NBA, Jordan faced setbacks. In his second season, he broke his foot 
+                           and missed 64 games. Many doubted he would return to form. Later, after winning three championships, 
+                           he retired to play baseball but struggled in the minor leagues, hitting just .202.
+                        </p>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-arrow-up-circle-line"></i>
+                           The Comeback
+                        </h3>
+                        <p class="failure__text">
+                           After being cut from the team, Jordan dedicated himself to improving. He practiced relentlessly, 
+                           often starting at 6 AM before school. He made the team the following year and continued to work 
+                           harder than anyone else. This work ethic became the foundation of his legendary career.
+                        </p>
+                        <p class="failure__text">
+                           After his baseball experiment, Jordan returned to basketball and led the Chicago Bulls to three 
+                           more championships, completing two "three-peats." He became known for his incredible work ethic, 
+                           competitive drive, and ability to perform under pressure.
+                        </p>
+                        <div class="failure__quote">
+                           "I've missed more than 9,000 shots in my career. I've lost almost 300 games. Twenty-six times 
+                           I've been trusted to take the game-winning shot and missed. I've failed over and over and over 
+                           again in my life. And that is why I succeed."
+                        </div>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-trophy-line"></i>
+                           The Success
+                        </h3>
+                        <p class="failure__text">
+                           Michael Jordan became widely considered the <span class="failure__highlight">greatest basketball 
+                           player of all time</span>. He won six NBA championships, five MVP awards, and was a 14-time All-Star. 
+                           He also became a successful businessman, with his Air Jordan brand becoming one of the most 
+                           successful athletic shoe lines in history. Jordan's story demonstrates that initial rejection 
+                           can fuel determination and lead to unprecedented success.
+                        </p>
+                     </div>
+                  </div>
+               </article>
+
+               <!-- Thomas Edison -->
+               <article class="failure__card">
+                  <div class="failure__card-header">
+                     <div class="failure__icon">
+                        <i class="ri-flashlight-line"></i>
+                     </div>
+                     <h2 class="failure__name">Thomas Edison</h2>
+                     <p class="failure__title">Inventor & Businessman</p>
+                     <a href="https://en.wikipedia.org/wiki/Thomas_Edison" target="_blank" class="failure__wikipedia">
+                        <i class="ri-external-link-line"></i>
+                        Read on Wikipedia
+                     </a>
+                  </div>
+                  <div class="failure__content">
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-error-warning-line"></i>
+                           The Failure
+                        </h3>
+                        <p class="failure__text">
+                           Thomas Edison faced <span class="failure__highlight">thousands of failed experiments</span> 
+                           throughout his career. He was told by his teachers that he was "too stupid to learn anything" 
+                           and was homeschooled by his mother. As an adult, he experienced numerous business failures, 
+                           including losing his entire fortune in a mining venture.
+                        </p>
+                        <p class="failure__text">
+                           When developing the light bulb, Edison tried over 1,000 different materials for the filament 
+                           before finding one that worked. Each failure was costly and time-consuming, but he persisted. 
+                           Many of his other inventions also required hundreds or thousands of attempts before success.
+                        </p>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-arrow-up-circle-line"></i>
+                           The Comeback
+                        </h3>
+                        <p class="failure__text">
+                           Edison viewed each failure as a learning opportunity, famously saying he found 1,000 ways not 
+                           to make a light bulb. He maintained an incredibly positive attitude toward failure, seeing it 
+                           as a necessary part of the invention process. This mindset allowed him to persist through 
+                           countless setbacks.
+                        </p>
+                        <p class="failure__text">
+                           Despite losing his fortune, Edison rebuilt his business and continued inventing. He established 
+                           research laboratories and surrounded himself with talented people, creating an environment where 
+                           failure was accepted as part of the innovation process.
+                        </p>
+                        <div class="failure__quote">
+                           "I have not failed. I've just found 10,000 ways that won't work."
+                        </div>
+                     </div>
+
+                     <div class="failure__section">
+                        <h3 class="failure__section-title">
+                           <i class="ri-trophy-line"></i>
+                           The Success
+                        </h3>
+                        <p class="failure__text">
+                           Thomas Edison held <span class="failure__highlight">1,093 patents</span> and invented or 
+                           significantly improved numerous devices, including the phonograph, motion picture camera, and 
+                           the practical electric light bulb. He founded General Electric, one of the largest companies 
+                           in the world. His persistence and positive attitude toward failure made him one of the most 
+                           prolific inventors in history, demonstrating that failure is simply part of the path to success.
+                        </p>
+                     </div>
+                  </div>
+               </article>
+            </div>
+         </div>
+      </section>
+   </main>
+
+   <footer class="footer">
+      <div class="footer__container container grid">
+         <a href="index.html" class="footer__logo">
+            <i class="ri-stethoscope-fill"></i> MentalMed
+         </a>
+         <div class="footer__links">
+            <a href="index.html#home" class="footer__link">Home</a>
+            <a href="index.html#about" class="footer__link">About Us</a>
+            <a href="index.html#prices" class="footer__link">Prices</a>
+         </div>
+         <div class="footer__social">
+            <a href="https://www.facebook.com/bedimcode" target="_blank" class="footer__social-link">
+               <i class="ri-facebook-circle-fill"></i>
+            </a>
+            <a href="https://www.instagram.com/bedimcode/" target="_blank" class="footer__social-link">
+               <i class="ri-instagram-fill"></i>
+            </a>
+            <a href="twitter.com/" target="_blank" class="footer__social-link">
+               <i class="ri-twitter-x-line"></i>
+            </a>
+            <a href="https://www.youtube.com/@Bedimcode" target="_blank" class="footer__social-link">
+               <i class="ri-youtube-fill"></i>
+            </a>
+         </div>
+      </div>
+      <span class="footer__copy">
+         &#169; Made by Kamalesh Motamarri, Harshul Neelam, Adithya Aanand and Yojitsri Thirrukovalur
+      </span>
+   </footer>
+
+   <a href="#" class="scrollup" id="scroll-up">
+      <i class="ri-arrow-up-line"></i>
+   </a>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js"></script>
+   <script src="assets/js/main.js"></script>
+</body>
+
+</html>
+

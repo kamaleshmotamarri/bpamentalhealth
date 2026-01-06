@@ -138,4 +138,7 @@ sr.reveal(`.prices__swiper`, { origin: 'bottom', delay: 600 })
 
 sr.reveal(`.gallery__image`, { interval: 100 })
 
+sr.reveal(`.disorders__card`, { interval: 100, origin: 'bottom' })
+sr.reveal(`.resources__card`, { interval: 100, origin: 'bottom' })
+
 sr.reveal(`.footer__container`)
