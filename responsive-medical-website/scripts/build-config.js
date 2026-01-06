@@ -25,14 +25,15 @@ const testConfig = {
   appId: process.env.FIREBASE_TEST_APP_ID || ''
 };
 
-// Always get production config from FIREBASE_PROD_* variables
+// Get production config from FIREBASE_PROD_* variables, fallback to test if not set
+// This allows using the same Firebase project for both test and production
 const prodConfig = {
-  apiKey: process.env.FIREBASE_PROD_API_KEY || '',
-  authDomain: process.env.FIREBASE_PROD_AUTH_DOMAIN || '',
-  projectId: process.env.FIREBASE_PROD_PROJECT_ID || '',
-  storageBucket: process.env.FIREBASE_PROD_STORAGE_BUCKET || '',
-  messagingSenderId: process.env.FIREBASE_PROD_MESSAGING_SENDER_ID || '',
-  appId: process.env.FIREBASE_PROD_APP_ID || ''
+  apiKey: process.env.FIREBASE_PROD_API_KEY || testConfig.apiKey,
+  authDomain: process.env.FIREBASE_PROD_AUTH_DOMAIN || testConfig.authDomain,
+  projectId: process.env.FIREBASE_PROD_PROJECT_ID || testConfig.projectId,
+  storageBucket: process.env.FIREBASE_PROD_STORAGE_BUCKET || testConfig.storageBucket,
+  messagingSenderId: process.env.FIREBASE_PROD_MESSAGING_SENDER_ID || testConfig.messagingSenderId,
+  appId: process.env.FIREBASE_PROD_APP_ID || testConfig.appId
 };
 
 // Helper function to escape strings for JavaScript (prevents injection issues)
@@ -116,5 +117,12 @@ const otherEnv = isProduction ? 'test' : 'production';
 const otherMissingFields = requiredFields.filter(field => !otherConfig[field] || otherConfig[field] === '');
 if (otherMissingFields.length > 0) {
   console.warn(`⚠️  Note: ${otherEnv} environment config is incomplete (this is OK if you're only using ${env})`);
+}
+
+// If production config is using test values (no separate prod vars set), log a note
+if (!isProduction && (!process.env.FIREBASE_PROD_API_KEY || process.env.FIREBASE_PROD_API_KEY === '')) {
+  console.log('ℹ️  Production config will use test Firebase credentials (no FIREBASE_PROD_* vars set)');
+} else if (isProduction && (!process.env.FIREBASE_PROD_API_KEY || process.env.FIREBASE_PROD_API_KEY === '')) {
+  console.log('ℹ️  Using test Firebase credentials for production (no FIREBASE_PROD_* vars set)');
 }
 
