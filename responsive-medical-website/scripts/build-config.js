@@ -92,9 +92,14 @@ console.log('✅ Generated env-inject.js with environment:', env);
 // Write config files
 fs.writeFileSync(path.join(configDir, 'firebase-config.test.js'), testConfigContent, 'utf8');
 console.log('✅ Generated firebase-config.test.js from environment variables');
+console.log(`   Test config project: ${testConfig.projectId || 'MISSING'}`);
 
 fs.writeFileSync(path.join(configDir, 'firebase-config.prod.js'), prodConfigContent, 'utf8');
 console.log('✅ Generated firebase-config.prod.js from environment variables');
+console.log(`   Prod config project: ${prodConfig.projectId || 'MISSING'}`);
+if (!process.env.FIREBASE_PROD_API_KEY || process.env.FIREBASE_PROD_API_KEY === '') {
+  console.log('   ℹ️  Production config is using test Firebase credentials (no FIREBASE_PROD_* vars set)');
+}
 
 // Validate that required values are present for the active environment
 const activeConfig = isProduction ? prodConfig : testConfig;
@@ -111,18 +116,16 @@ if (missingFields.length > 0) {
   console.log(`   Using project: ${activeConfig.projectId}`);
 }
 
-// Also validate the other environment's config (for reference)
+// Also validate the other environment's config - BOTH must be valid since HTML loads both
 const otherConfig = isProduction ? testConfig : prodConfig;
 const otherEnv = isProduction ? 'test' : 'production';
 const otherMissingFields = requiredFields.filter(field => !otherConfig[field] || otherConfig[field] === '');
 if (otherMissingFields.length > 0) {
-  console.warn(`⚠️  Note: ${otherEnv} environment config is incomplete (this is OK if you're only using ${env})`);
-}
-
-// If production config is using test values (no separate prod vars set), log a note
-if (!isProduction && (!process.env.FIREBASE_PROD_API_KEY || process.env.FIREBASE_PROD_API_KEY === '')) {
-  console.log('ℹ️  Production config will use test Firebase credentials (no FIREBASE_PROD_* vars set)');
-} else if (isProduction && (!process.env.FIREBASE_PROD_API_KEY || process.env.FIREBASE_PROD_API_KEY === '')) {
-  console.log('ℹ️  Using test Firebase credentials for production (no FIREBASE_PROD_* vars set)');
+  console.error(`❌ ERROR: ${otherEnv} environment config is incomplete but required (HTML loads both config files)`);
+  console.error(`   Missing fields: ${otherMissingFields.join(', ')}`);
+  console.error(`   Since you're using test credentials for production, make sure FIREBASE_TEST_* variables are set`);
+  process.exit(1);
+} else {
+  console.log(`✅ ${otherEnv} environment config is also valid (using ${isProduction ? 'test' : 'test'} Firebase credentials)`);
 }
 
