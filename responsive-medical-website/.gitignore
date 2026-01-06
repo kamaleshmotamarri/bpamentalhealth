@@ -1,0 +1,30 @@
+# Firebase Config Files (with real credentials)
+# These are generated during Vercel build from environment variables
+config/firebase-config.prod.js
+config/firebase-config.test.js
+
+# Note: env-inject.js is committed for local dev but gets overwritten during Vercel builds
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+
+# Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
