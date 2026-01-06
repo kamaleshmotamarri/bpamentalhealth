@@ -1,0 +1,13 @@
+{
+  "name": "medical-website",
+  "version": "1.0.0",
+  "description": "Medical Website with Firebase",
+  "scripts": {
+    "build": "node scripts/build-config.js",
+    "vercel-build": "node scripts/build-config.js"
+  },
+  "engines": {
+    "node": ">=14.x"
+  }
+}
+

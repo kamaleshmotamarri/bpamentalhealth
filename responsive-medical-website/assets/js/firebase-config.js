@@ -7,13 +7,26 @@
 
     // 1. Get Environment
     const currentEnv = window.APP_ENV?.current || 'test';
+    const isProduction = window.APP_ENV?.isProduction || false;
 
-    // 2. Get Config
+    // 2. Get Config (check both test and prod)
     let firebaseConfig;
-    if (window.FIREBASE_CONFIG_TEST) {
+    if (isProduction && window.FIREBASE_CONFIG_PROD) {
+      firebaseConfig = window.FIREBASE_CONFIG_PROD;
+      console.log('[Firebase] Using production configuration');
+    } else if (!isProduction && window.FIREBASE_CONFIG_TEST) {
       firebaseConfig = window.FIREBASE_CONFIG_TEST;
+      console.log('[Firebase] Using test configuration');
+    } else if (window.FIREBASE_CONFIG_PROD) {
+      // Fallback to prod if test not available
+      firebaseConfig = window.FIREBASE_CONFIG_PROD;
+      console.log('[Firebase] Using production configuration (fallback)');
+    } else if (window.FIREBASE_CONFIG_TEST) {
+      // Fallback to test if prod not available
+      firebaseConfig = window.FIREBASE_CONFIG_TEST;
+      console.log('[Firebase] Using test configuration (fallback)');
     } else {
-      throw new Error('Firebase configuration object (window.FIREBASE_CONFIG_TEST) is missing. Check config/firebase-config.test.js.');
+      throw new Error('Firebase configuration object is missing. Check config/firebase-config.test.js or config/firebase-config.prod.js.');
     }
 
     // 3. Validate Config
