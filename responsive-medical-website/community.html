@@ -28,7 +28,23 @@
             </div>
          </div>
          <div class="nav__buttons">
-            <i class="ri-moon-fill nav__theme" id="theme-button"></i>
+            <!-- User info (shown when logged in) -->
+            <div class="nav__user-info" id="user-info" style="display: none;">
+               <span class="user-name"></span>
+               <button class="nav__logout" id="logout-button" style="display: none;">
+                  <i class="ri-logout-box-line"></i> Logout
+               </button>
+            </div>
+
+            <!-- Login button (shown when logged out) -->
+            <button class="nav__login" id="login-button">
+               <i class="ri-login-box-line"></i> Login
+            </button>
+
+            <!-- Settings button -->
+            <i class="ri-settings-3-fill nav__settings" id="settings-button" title="Settings"></i>
+
+            <!-- Toggle button -->
             <div class="nav__toggle" id="nav-toggle">
                <i class="ri-menu-line"></i>
             </div>
@@ -36,14 +52,328 @@
       </nav>
    </header>
    <main class="main">
-      <section class="section" style="padding-top: calc(var(--header-height) + 2rem);">
-         <div class="container">
-            <h1 class="section__title">Interactive Support Community</h1>
-            <p style="text-align: center; margin-top: 2rem;">This page is under construction.</p>
+      <!--==================== COMMUNITY HERO ====================-->
+      <section class="community-hero section" style="padding-top: calc(var(--header-height) + 3rem);">
+         <div class="community-hero__container container">
+            <div class="community-hero__content">
+               <div class="community-hero__icon-wrapper">
+                  <div class="community-hero__glow"></div>
+                  <div class="community-hero__icon">
+                     <i class="ri-community-line"></i>
+                  </div>
+               </div>
+               <h1 class="community-hero__title">
+                  Support <span>Community</span>
+               </h1>
+               <p class="community-hero__description">
+                  Connect with others, share experiences, and find support in a safe, welcoming space. 
+                  Browse discussions freely, or log in to join the conversation.
+               </p>
+            </div>
+         </div>
+      </section>
+
+      <!--==================== FORUM CONTAINER ====================-->
+      <section class="forum section">
+         <div class="forum__container container">
+            <div class="forum__layout">
+               <!-- Sidebar -->
+               <aside class="forum__sidebar">
+                  <div class="forum__sidebar-card">
+                     <h3 class="forum__sidebar-title">
+                        <i class="ri-fire-line"></i> Categories
+                     </h3>
+                     <div class="forum__categories">
+                        <button class="forum__category active" data-category="all">
+                           <i class="ri-global-line"></i>
+                           <span>All Posts</span>
+                        </button>
+                        <button class="forum__category" data-category="anxiety">
+                           <i class="ri-empathize-line"></i>
+                           <span>Anxiety</span>
+                        </button>
+                        <button class="forum__category" data-category="depression">
+                           <i class="ri-heart-pulse-line"></i>
+                           <span>Depression</span>
+                        </button>
+                        <button class="forum__category" data-category="support">
+                           <i class="ri-hand-heart-line"></i>
+                           <span>Support</span>
+                        </button>
+                        <button class="forum__category" data-category="resources">
+                           <i class="ri-book-open-line"></i>
+                           <span>Resources</span>
+                        </button>
+                        <button class="forum__category" data-category="general">
+                           <i class="ri-chat-3-line"></i>
+                           <span>General</span>
+                        </button>
+                     </div>
+                  </div>
+
+                  <div class="forum__sidebar-card forum__sidebar-card--cta">
+                     <div class="forum__cta-icon">
+                        <i class="ri-add-circle-line"></i>
+                     </div>
+                     <h3 class="forum__cta-title">Share Your Story</h3>
+                     <p class="forum__cta-text">Join the conversation and help others by sharing your experiences.</p>
+                     <button class="forum__cta-button button" id="create-post-btn">
+                        <i class="ri-edit-box-line"></i>
+                        Create Post
+                     </button>
+                  </div>
+               </aside>
+
+               <!-- Main Content -->
+               <div class="forum__main">
+                  <!-- Filter Bar -->
+                  <div class="forum__filter-bar">
+                     <div class="forum__filter-left">
+                        <button class="forum__filter-btn active" data-sort="recent">
+                           <i class="ri-time-line"></i> Recent
+                        </button>
+                        <button class="forum__filter-btn" data-sort="popular">
+                           <i class="ri-fire-line"></i> Popular
+                        </button>
+                        <button class="forum__filter-btn" data-sort="trending">
+                           <i class="ri-trending-up-line"></i> Trending
+                        </button>
+                     </div>
+                     <div class="forum__search">
+                        <i class="ri-search-line"></i>
+                        <input type="text" id="forum-search" placeholder="Search discussions...">
+                     </div>
+                  </div>
+
+                  <!-- Posts Container -->
+                  <div class="forum__posts" id="forum-posts">
+                     <!-- Posts will be dynamically inserted here -->
+                  </div>
+
+                  <!-- Loading Indicator -->
+                  <div class="forum__loading" id="forum-loading">
+                     <div class="forum__spinner"></div>
+                     <p>Loading discussions...</p>
+                  </div>
+
+                  <!-- Empty State -->
+                  <div class="forum__empty" id="forum-empty" style="display: none;">
+                     <div class="forum__empty-icon">
+                        <i class="ri-inbox-line"></i>
+                     </div>
+                     <h3>No discussions yet</h3>
+                     <p>Be the first to start a conversation!</p>
+                  </div>
+               </div>
+            </div>
          </div>
       </section>
    </main>
+
+   <!--==================== CREATE POST MODAL ====================-->
+   <div class="forum-modal" id="create-post-modal">
+      <div class="forum-modal__overlay"></div>
+      <div class="forum-modal__content">
+         <div class="forum-modal__header">
+            <h2 class="forum-modal__title">
+               <i class="ri-edit-box-line"></i> Create New Post
+            </h2>
+            <button class="forum-modal__close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <form class="forum-modal__form" id="create-post-form">
+            <div class="forum-modal__group">
+               <label for="post-title" class="forum-modal__label">Title</label>
+               <input type="text" id="post-title" class="forum-modal__input" placeholder="Enter a descriptive title..." required>
+            </div>
+            <div class="forum-modal__group">
+               <label for="post-category" class="forum-modal__label">Category</label>
+               <select id="post-category" class="forum-modal__select" required>
+                  <option value="">Select a category</option>
+                  <option value="anxiety">Anxiety</option>
+                  <option value="depression">Depression</option>
+                  <option value="support">Support</option>
+                  <option value="resources">Resources</option>
+                  <option value="general">General</option>
+               </select>
+            </div>
+            <div class="forum-modal__group">
+               <label for="post-content" class="forum-modal__label">Content</label>
+               <textarea id="post-content" class="forum-modal__textarea" rows="8" placeholder="Share your thoughts, experiences, or ask questions..." required></textarea>
+               <small class="forum-modal__hint">Be respectful and supportive. This is a safe space for everyone.</small>
+            </div>
+            <div class="forum-modal__actions">
+               <button type="button" class="forum-modal__cancel button button--outline">Cancel</button>
+               <button type="submit" class="forum-modal__submit button">
+                  <i class="ri-send-plane-line"></i> Post
+               </button>
+            </div>
+         </form>
+      </div>
+   </div>
+
+   <!--==================== POST DETAIL MODAL ====================-->
+   <div class="forum-modal" id="post-detail-modal">
+      <div class="forum-modal__overlay"></div>
+      <div class="forum-modal__content forum-modal__content--large">
+         <div class="forum-modal__header">
+            <h2 class="forum-modal__title" id="detail-post-title"></h2>
+            <button class="forum-modal__close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="forum-modal__body" id="post-detail-body">
+            <!-- Post content and comments will be inserted here -->
+         </div>
+      </div>
+   </div>
+
+   <!--==================== LOGIN PROMPT MODAL ====================-->
+   <div class="forum-modal" id="login-prompt-modal">
+      <div class="forum-modal__overlay"></div>
+      <div class="forum-modal__content forum-modal__content--small">
+         <div class="forum-modal__header">
+            <h2 class="forum-modal__title">
+               <i class="ri-login-box-line"></i> Login Required
+            </h2>
+            <button class="forum-modal__close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="forum-modal__body">
+            <div class="forum-login-prompt">
+               <div class="forum-login-prompt__icon">
+                  <i class="ri-lock-line"></i>
+               </div>
+               <h3>Please log in to continue</h3>
+               <p>You need to be logged in to create posts and join discussions. Don't worry, you can still browse all content!</p>
+               <button class="forum-login-prompt__button button" id="forum-login-button">
+                  <i class="ri-login-box-line"></i> Login Now
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!--==================== SETTINGS MODAL ====================-->
+   <div class="settings-modal" id="settings-modal">
+      <div class="settings-modal__content">
+         <div class="settings-modal__header">
+            <h2 class="settings-modal__title">Settings & Dashboard</h2>
+            <button class="settings-modal-close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="settings-modal__body">
+            <div class="settings-dashboard" id="settings-dashboard">
+               <h3 class="settings-section__title">
+                  <i class="ri-dashboard-line"></i> Dashboard
+               </h3>
+               <div class="settings-dashboard__info">
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Name:</span>
+                     <span class="settings-info__value" id="dashboard-name">-</span>
+                  </div>
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Email:</span>
+                     <span class="settings-info__value" id="dashboard-email">-</span>
+                  </div>
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Account Created:</span>
+                     <span class="settings-info__value" id="dashboard-created">-</span>
+                  </div>
+               </div>
+            </div>
+            <div class="settings-profile" id="settings-profile">
+               <h3 class="settings-section__title">
+                  <i class="ri-user-settings-line"></i> Update Profile
+               </h3>
+               <form id="profile-update-form" class="settings-form">
+                  <div class="settings-form__group">
+                     <label for="profile-name" class="settings-form__label">Full Name</label>
+                     <input type="text" id="profile-name" class="settings-form__input" placeholder="Enter your full name">
+                  </div>
+                  <div class="settings-form__group">
+                     <label for="profile-email" class="settings-form__label">Email</label>
+                     <input type="email" id="profile-email" class="settings-form__input" placeholder="Enter your email" disabled>
+                     <small class="settings-form__hint">Email cannot be changed</small>
+                  </div>
+                  <button type="submit" class="settings-form__button button">Update Profile</button>
+               </form>
+            </div>
+            <div class="settings-login-prompt" id="settings-login-prompt" style="display: none;">
+               <p class="settings-login-prompt__text">Please log in to access your settings and dashboard.</p>
+               <button class="settings-login-prompt__button button" id="settings-login-button">Login</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!--==================== AUTH MODAL (from auth.js) ====================-->
+   <div class="auth-modal" id="auth-modal">
+      <div class="auth-modal__content">
+         <div class="auth-modal__header">
+            <h2 class="auth-modal__title" id="auth-modal-title">Login</h2>
+            <button class="auth-modal-close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="auth-modal__body">
+            <form class="auth-form" id="auth-form">
+               <div class="auth-form__group">
+                  <label for="auth-email" class="auth-form__label">Email</label>
+                  <input type="email" id="auth-email" class="auth-form__input" placeholder="Enter your email" required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="auth-password" class="auth-form__label">Password</label>
+                  <input type="password" id="auth-password" class="auth-form__input" placeholder="Enter your password" required>
+               </div>
+               <button type="submit" class="auth-form__button button" id="auth-submit-btn">
+                  <span id="auth-submit-text">Login</span>
+               </button>
+            </form>
+            <div class="auth-divider">
+               <span>or</span>
+            </div>
+            <button class="auth-google-button" id="auth-google-btn">
+               <i class="ri-google-fill"></i>
+               Continue with Google
+            </button>
+            <div class="auth-switch">
+               <span id="auth-switch-text">Don't have an account?</span>
+               <a href="#" id="auth-switch-link">Sign up</a>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!--=============== ENVIRONMENT CONFIG ===============-->
+   <script src="config/env-inject.js"></script>
+   <script src="config/env.js"></script>
+
+   <!--=============== FIREBASE CONFIG (Environment Based) ===============-->
+   <script src="config/firebase-config.test.js"></script>
+   <script src="config/firebase-config.prod.js"></script>
+
+   <!--=============== FIREBASE SDK ===============-->
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+   <!--=============== FIREBASE INITIALIZATION ===============-->
+   <script src="assets/js/firebase-config.js"></script>
+
+   <!--=============== AUTH JS ===============-->
+   <script src="assets/js/auth.js"></script>
+
+   <!--=============== SETTINGS JS ===============-->
+   <script src="assets/js/settings.js"></script>
+
+   <!--=============== MAIN JS ===============-->
    <script src="assets/js/main.js"></script>
+
+   <!--=============== FORUM JS ===============-->
+   <script src="assets/js/forum.js"></script>
 </body>
 </html>
 

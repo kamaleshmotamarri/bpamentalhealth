@@ -75,8 +75,8 @@
                <i class="ri-login-box-line"></i> Login
             </button>
 
-            <!-- Theme button -->
-            <i class="ri-moon-fill nav__theme" id="theme-button"></i>
+            <!-- Settings button -->
+            <i class="ri-settings-3-fill nav__settings" id="settings-button" title="Settings"></i>
 
             <!-- Toggle button -->
             <div class="nav__toggle" id="nav-toggle">
@@ -129,6 +129,10 @@
                      Contact
                   </a>
                </div>
+            </div>
+
+            <div class="home__image-wrapper">
+               <img src="assets/img/happiness.jpg" alt="Happiness and Mental Well-being" class="home__hero-image">
             </div>
          </div>
       </section>
@@ -743,6 +747,65 @@
       </div>
    </div>
 
+   <!--==================== SETTINGS MODAL ====================-->
+   <div class="settings-modal" id="settings-modal">
+      <div class="settings-modal__content">
+         <div class="settings-modal__header">
+            <h2 class="settings-modal__title">Settings & Dashboard</h2>
+            <button class="settings-modal-close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="settings-modal__body">
+            <!-- User Dashboard Section -->
+            <div class="settings-dashboard" id="settings-dashboard">
+               <h3 class="settings-section__title">
+                  <i class="ri-dashboard-line"></i> Dashboard
+               </h3>
+               <div class="settings-dashboard__info">
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Name:</span>
+                     <span class="settings-info__value" id="dashboard-name">-</span>
+                  </div>
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Email:</span>
+                     <span class="settings-info__value" id="dashboard-email">-</span>
+                  </div>
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Account Created:</span>
+                     <span class="settings-info__value" id="dashboard-created">-</span>
+                  </div>
+               </div>
+            </div>
+
+            <!-- Profile Settings Section -->
+            <div class="settings-profile" id="settings-profile">
+               <h3 class="settings-section__title">
+                  <i class="ri-user-settings-line"></i> Update Profile
+               </h3>
+               <form id="profile-update-form" class="settings-form">
+                  <div class="settings-form__group">
+                     <label for="profile-name" class="settings-form__label">Full Name</label>
+                     <input type="text" id="profile-name" class="settings-form__input" placeholder="Enter your full name">
+                  </div>
+                  <div class="settings-form__group">
+                     <label for="profile-email" class="settings-form__label">Email</label>
+                     <input type="email" id="profile-email" class="settings-form__input" placeholder="Enter your email" disabled>
+                     <small class="settings-form__hint">Email cannot be changed</small>
+                  </div>
+                  <button type="submit" class="settings-form__button button">Update Profile</button>
+               </form>
+            </div>
+
+            <!-- Not logged in message -->
+            <div class="settings-login-prompt" id="settings-login-prompt" style="display: none;">
+               <p class="settings-login-prompt__text">Please log in to access your settings and dashboard.</p>
+               <button class="settings-login-prompt__button button" id="settings-login-button">Login</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
    <!--=============== SCROLLREVEAL ===============-->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js"></script>
 
@@ -767,6 +830,9 @@
 
    <!--=============== AUTH JS ===============-->
    <script src="assets/js/auth.js"></script>
+
+   <!--=============== SETTINGS JS ===============-->
+   <script src="assets/js/settings.js"></script>
 
    <!--=============== MAIN JS ===============-->
    <script src="assets/js/main.js"></script>

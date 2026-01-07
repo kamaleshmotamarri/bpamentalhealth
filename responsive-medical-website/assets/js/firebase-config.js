@@ -65,6 +65,14 @@
       console.warn('[Firebase] Firestore SDK not loaded. Some features may not work.');
     }
 
+    // 8. Initialize Functions (if available)
+    if (typeof firebase.functions === 'function') {
+      window.firebaseFunctions = firebase.functions();
+      console.log('[Firebase] Functions initialized.');
+    } else {
+      console.warn('[Firebase] Functions SDK not loaded. Cloud Functions may not work.');
+    }
+
     // 8. Verify
     if (!window.firebaseAuth) {
       throw new Error('firebase.auth() returned null/undefined despite SDK being present.');

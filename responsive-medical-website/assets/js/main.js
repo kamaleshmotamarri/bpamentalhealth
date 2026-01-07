@@ -83,35 +83,19 @@ const scrollActive = () => {
 }
 window.addEventListener('scroll', scrollActive)
 
-/*=============== DARK LIGHT THEME ===============*/
-const themeButton = document.getElementById('theme-button')
-const darkTheme = 'dark-theme'
-const iconTheme = 'ri-sun-fill'
+/*=============== SETTINGS BUTTON ===============*/
+const settingsButton = document.getElementById('settings-button')
 
-// Previously selected topic (if user selected)
-const selectedTheme = localStorage.getItem('selected-theme')
-const selectedIcon = localStorage.getItem('selected-icon')
-
-// We obtain the current theme that the interface has by validating the dark-theme class
-const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light'
-const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'ri-moon-fill' : 'ri-sun-fill'
-
-// We validate if the user previously chose a topic
-if (selectedTheme) {
-   // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
-   document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme)
-   themeButton.classList[selectedIcon === 'ri-moon-fill' ? 'add' : 'remove'](iconTheme)
+// Open settings modal when settings button is clicked
+if (settingsButton) {
+   settingsButton.addEventListener('click', () => {
+      if (window.openSettingsModal) {
+         window.openSettingsModal()
+      } else {
+         console.warn('[Main] openSettingsModal function not available. Make sure settings.js is loaded.')
+      }
+   })
 }
-
-// Activate / deactivate the theme manually with the button
-themeButton.addEventListener('click', () => {
-   // Add or remove the dark / icon theme
-   document.body.classList.toggle(darkTheme)
-   themeButton.classList.toggle(iconTheme)
-   // We save the theme and the current icon that the user chose
-   localStorage.setItem('selected-theme', getCurrentTheme())
-   localStorage.setItem('selected-icon', getCurrentIcon())
-})
 
 /*=============== SCROLL REVEAL ANIMATION ===============*/
 const sr = ScrollReveal({

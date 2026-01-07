@@ -30,7 +30,8 @@
             </div>
          </div>
          <div class="nav__buttons">
-            <i class="ri-moon-fill nav__theme" id="theme-button"></i>
+            <!-- Settings button -->
+            <i class="ri-settings-3-fill nav__settings" id="settings-button" title="Settings"></i>
             <div class="nav__toggle" id="nav-toggle">
                <i class="ri-menu-line"></i>
             </div>
@@ -178,6 +179,63 @@
          </div>
       </section>
    </main>
+
+   <!--==================== SETTINGS MODAL ====================-->
+   <div class="settings-modal" id="settings-modal">
+      <div class="settings-modal__content">
+         <div class="settings-modal__header">
+            <h2 class="settings-modal__title">Settings & Dashboard</h2>
+            <button class="settings-modal-close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="settings-modal__body">
+            <div class="settings-dashboard" id="settings-dashboard">
+               <h3 class="settings-section__title">
+                  <i class="ri-dashboard-line"></i> Dashboard
+               </h3>
+               <div class="settings-dashboard__info">
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Name:</span>
+                     <span class="settings-info__value" id="dashboard-name">-</span>
+                  </div>
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Email:</span>
+                     <span class="settings-info__value" id="dashboard-email">-</span>
+                  </div>
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Account Created:</span>
+                     <span class="settings-info__value" id="dashboard-created">-</span>
+                  </div>
+               </div>
+            </div>
+            <div class="settings-profile" id="settings-profile">
+               <h3 class="settings-section__title">
+                  <i class="ri-user-settings-line"></i> Update Profile
+               </h3>
+               <form id="profile-update-form" class="settings-form">
+                  <div class="settings-form__group">
+                     <label for="profile-name" class="settings-form__label">Full Name</label>
+                     <input type="text" id="profile-name" class="settings-form__input" placeholder="Enter your full name">
+                  </div>
+                  <div class="settings-form__group">
+                     <label for="profile-email" class="settings-form__label">Email</label>
+                     <input type="email" id="profile-email" class="settings-form__input" placeholder="Enter your email" disabled>
+                     <small class="settings-form__hint">Email cannot be changed</small>
+                  </div>
+                  <button type="submit" class="settings-form__button button">Update Profile</button>
+               </form>
+            </div>
+            <div class="settings-login-prompt" id="settings-login-prompt" style="display: none;">
+               <p class="settings-login-prompt__text">Please log in to access your settings and dashboard.</p>
+               <button class="settings-login-prompt__button button" id="settings-login-button">Login</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <script src="assets/js/auth.js"></script>
+   <script src="assets/js/settings.js"></script>
    <script src="assets/js/main.js"></script>
 </body>
 

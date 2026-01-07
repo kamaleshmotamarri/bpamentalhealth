@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+   <link rel="stylesheet" href="assets/css/styles.css">
+   <title>Admin Portal - MentalMed</title>
+</head>
+<body class="admin-page">
+   <header class="header" id="header">
+      <nav class="nav container">
+         <a href="index.html" class="nav__logo">
+            <i class="ri-stethoscope-fill"></i> MentalMed Admin
+         </a>
+         <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+               <li><a href="index.html#home" class="nav__link">Home</a></li>
+               <li><a href="community.html" class="nav__link">Community</a></li>
+               <li><a href="admin.html" class="nav__link active-link">Admin Portal</a></li>
+            </ul>
+            <div class="nav__close" id="nav-close">
+               <i class="ri-close-large-line"></i>
+            </div>
+         </div>
+         <div class="nav__buttons">
+            <!-- User info (shown when logged in) -->
+            <div class="nav__user-info" id="user-info" style="display: none;">
+               <span class="user-name"></span>
+               <button class="nav__logout" id="logout-button" style="display: none;">
+                  <i class="ri-logout-box-line"></i> Logout
+               </button>
+            </div>
+
+            <!-- Login button (shown when logged out) -->
+            <button class="nav__login" id="login-button">
+               <i class="ri-login-box-line"></i> Login
+            </button>
+
+            <!-- Settings button -->
+            <i class="ri-settings-3-fill nav__settings" id="settings-button" title="Settings"></i>
+
+            <!-- Toggle button -->
+            <div class="nav__toggle" id="nav-toggle">
+               <i class="ri-menu-line"></i>
+            </div>
+         </div>
+      </nav>
+   </header>
+
+   <main class="main">
+      <!--==================== ADMIN ACCESS DENIED ====================-->
+      <section class="admin-access-denied section" id="admin-access-denied" style="display: none; padding-top: calc(var(--header-height) + 3rem);">
+         <div class="admin-access-denied__container container">
+            <div class="admin-access-denied__content">
+               <div class="admin-access-denied__icon">
+                  <i class="ri-shield-cross-line"></i>
+               </div>
+               <h1 class="admin-access-denied__title">Access Denied</h1>
+               <p class="admin-access-denied__description">
+                  You do not have permission to access the admin portal. 
+                  Only authorized administrators can access this page.
+               </p>
+               <a href="index.html" class="button">
+                  <i class="ri-home-line"></i> Go Home
+               </a>
+            </div>
+         </div>
+      </section>
+
+      <!--==================== ADMIN PORTAL ====================-->
+      <section class="admin-portal section" id="admin-portal" style="display: none; padding-top: calc(var(--header-height) + 3rem);">
+         <!-- Admin Hero -->
+         <div class="admin-hero">
+            <div class="admin-hero__container container">
+               <div class="admin-hero__content">
+                  <div class="admin-hero__icon-wrapper">
+                     <div class="admin-hero__glow"></div>
+                     <div class="admin-hero__icon">
+                        <i class="ri-shield-user-line"></i>
+                     </div>
+                  </div>
+                  <h1 class="admin-hero__title">Admin <span>Portal</span></h1>
+                  <p class="admin-hero__description">
+                     Manage users, monitor activity, and control system access.
+                  </p>
+               </div>
+            </div>
+         </div>
+
+         <!-- Admin Dashboard -->
+         <div class="admin-dashboard container">
+            <!-- Stats Cards -->
+            <div class="admin-stats">
+               <div class="admin-stat-card">
+                  <div class="admin-stat-card__icon admin-stat-card__icon--users">
+                     <i class="ri-user-line"></i>
+                  </div>
+                  <div class="admin-stat-card__content">
+                     <h3 class="admin-stat-card__value" id="total-users">0</h3>
+                     <p class="admin-stat-card__label">Total Users</p>
+                  </div>
+               </div>
+               <div class="admin-stat-card">
+                  <div class="admin-stat-card__icon admin-stat-card__icon--active">
+                     <i class="ri-user-star-line"></i>
+                  </div>
+                  <div class="admin-stat-card__content">
+                     <h3 class="admin-stat-card__value" id="active-users">0</h3>
+                     <p class="admin-stat-card__label">Active Users</p>
+                  </div>
+               </div>
+               <div class="admin-stat-card">
+                  <div class="admin-stat-card__icon admin-stat-card__icon--posts">
+                     <i class="ri-file-list-line"></i>
+                  </div>
+                  <div class="admin-stat-card__content">
+                     <h3 class="admin-stat-card__value" id="total-posts">0</h3>
+                     <p class="admin-stat-card__label">Total Posts</p>
+                  </div>
+               </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="admin-actions">
+               <div class="admin-search">
+                  <i class="ri-search-line"></i>
+                  <input type="text" id="admin-user-search" placeholder="Search users by email or name...">
+               </div>
+               <button class="admin-action-btn button" id="add-user-btn">
+                  <i class="ri-user-add-line"></i> Add User
+               </button>
+               <button class="admin-action-btn button button--outline" id="refresh-users-btn">
+                  <i class="ri-refresh-line"></i> Refresh
+               </button>
+            </div>
+
+            <!-- Info Banner -->
+            <div class="admin-info-banner">
+               <i class="ri-information-line"></i>
+               <div class="admin-info-banner__content">
+                  <strong>User Tracking:</strong> Users are automatically tracked when they sign up or log in. 
+                  Users from forum posts and comments are also included. 
+                  <span class="admin-info-banner__note">Note: This shows users from this browser's localStorage. For all Firebase users, use Firebase Admin SDK.</span>
+               </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="admin-users-table">
+               <div class="admin-table-header">
+                  <h2 class="admin-table-title">
+                     <i class="ri-group-line"></i> All Users
+                  </h2>
+                  <div class="admin-table-actions">
+                     <select id="admin-filter-status" class="admin-filter-select">
+                        <option value="all">All Users</option>
+                        <option value="enabled">Enabled</option>
+                        <option value="disabled">Disabled</option>
+                     </select>
+                  </div>
+               </div>
+
+               <!-- Loading State -->
+               <div class="admin-loading" id="admin-loading">
+                  <div class="admin-spinner"></div>
+                  <p>Loading users...</p>
+               </div>
+
+               <!-- Users List -->
+               <div class="admin-users-list" id="admin-users-list">
+                  <!-- Users will be dynamically inserted here -->
+               </div>
+
+               <!-- Empty State -->
+               <div class="admin-empty" id="admin-empty" style="display: none;">
+                  <div class="admin-empty__icon">
+                     <i class="ri-user-search-line"></i>
+                  </div>
+                  <h3>No users found</h3>
+                  <p>Try adjusting your search or filters</p>
+               </div>
+            </div>
+         </div>
+      </section>
+   </main>
+
+   <!--==================== ADD USER MODAL ====================-->
+   <div class="admin-modal" id="add-user-modal">
+      <div class="admin-modal__overlay"></div>
+      <div class="admin-modal__content">
+         <div class="admin-modal__header">
+            <h2 class="admin-modal__title">
+               <i class="ri-user-add-line"></i> Add New User
+            </h2>
+            <button class="admin-modal__close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <form class="admin-modal__form" id="add-user-form">
+            <div class="admin-modal__group">
+               <label for="new-user-email" class="admin-modal__label">Email Address</label>
+               <input type="email" id="new-user-email" class="admin-modal__input" placeholder="user@example.com" required>
+               <small class="admin-modal__hint">User will receive an email invitation</small>
+            </div>
+            <div class="admin-modal__group">
+               <label for="new-user-password" class="admin-modal__label">Temporary Password</label>
+               <input type="password" id="new-user-password" class="admin-modal__input" placeholder="Enter temporary password" required minlength="6">
+               <small class="admin-modal__hint">User should change this on first login</small>
+            </div>
+            <div class="admin-modal__group">
+               <label for="new-user-name" class="admin-modal__label">Display Name (Optional)</label>
+               <input type="text" id="new-user-name" class="admin-modal__input" placeholder="John Doe">
+            </div>
+            <div class="admin-modal__actions">
+               <button type="button" class="admin-modal__cancel button button--outline">Cancel</button>
+               <button type="submit" class="admin-modal__submit button">
+                  <i class="ri-user-add-line"></i> Create User
+               </button>
+            </div>
+         </form>
+      </div>
+   </div>
+
+   <!--==================== USER DETAIL MODAL ====================-->
+   <div class="admin-modal" id="user-detail-modal">
+      <div class="admin-modal__overlay"></div>
+      <div class="admin-modal__content admin-modal__content--large">
+         <div class="admin-modal__header">
+            <h2 class="admin-modal__title" id="user-detail-title">
+               <i class="ri-user-line"></i> User Details
+            </h2>
+            <button class="admin-modal__close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="admin-modal__body" id="user-detail-body">
+            <!-- User details will be inserted here -->
+         </div>
+      </div>
+   </div>
+
+   <!--==================== SETTINGS MODAL ====================-->
+   <div class="settings-modal" id="settings-modal">
+      <div class="settings-modal__content">
+         <div class="settings-modal__header">
+            <h2 class="settings-modal__title">Settings & Dashboard</h2>
+            <button class="settings-modal-close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="settings-modal__body">
+            <div class="settings-dashboard" id="settings-dashboard">
+               <h3 class="settings-section__title">
+                  <i class="ri-dashboard-line"></i> Dashboard
+               </h3>
+               <div class="settings-dashboard__info">
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Name:</span>
+                     <span class="settings-info__value" id="dashboard-name">-</span>
+                  </div>
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Email:</span>
+                     <span class="settings-info__value" id="dashboard-email">-</span>
+                  </div>
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Account Created:</span>
+                     <span class="settings-info__value" id="dashboard-created">-</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!--==================== AUTH MODAL ====================-->
+   <div class="auth-modal" id="auth-modal">
+      <div class="auth-modal__content">
+         <div class="auth-modal__header">
+            <h2 class="auth-modal__title" id="auth-modal-title">Login</h2>
+            <button class="auth-modal-close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="auth-modal__body">
+            <form class="auth-form" id="auth-form">
+               <div class="auth-form__group">
+                  <label for="auth-email" class="auth-form__label">Email</label>
+                  <input type="email" id="auth-email" class="auth-form__input" placeholder="Enter your email" required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="auth-password" class="auth-form__label">Password</label>
+                  <input type="password" id="auth-password" class="auth-form__input" placeholder="Enter your password" required>
+               </div>
+               <button type="submit" class="auth-form__button button" id="auth-submit-btn">
+                  <span id="auth-submit-text">Login</span>
+               </button>
+            </form>
+            <div class="auth-divider">
+               <span>or</span>
+            </div>
+            <button class="auth-google-button" id="auth-google-btn">
+               <i class="ri-google-fill"></i>
+               Continue with Google
+            </button>
+            <div class="auth-switch">
+               <span id="auth-switch-text">Don't have an account?</span>
+               <a href="#" id="auth-switch-link">Sign up</a>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!--=============== ENVIRONMENT CONFIG ===============-->
+   <script src="config/env-inject.js"></script>
+   <script src="config/env.js"></script>
+
+   <!--=============== FIREBASE CONFIG (Environment Based) ===============-->
+   <script src="config/firebase-config.test.js"></script>
+   <script src="config/firebase-config.prod.js"></script>
+
+   <!--=============== FIREBASE SDK ===============-->
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-functions-compat.js"></script>
+
+   <!--=============== FIREBASE INITIALIZATION ===============-->
+   <script src="assets/js/firebase-config.js"></script>
+
+   <!--=============== AUTH JS ===============-->
+   <script src="assets/js/auth.js"></script>
+
+   <!--=============== SETTINGS JS ===============-->
+   <script src="assets/js/settings.js"></script>
+
+   <!--=============== MAIN JS ===============-->
+   <script src="assets/js/main.js"></script>
+
+   <!--=============== ADMIN JS ===============-->
+   <script src="assets/js/admin.js"></script>
+</body>
+</html>
+

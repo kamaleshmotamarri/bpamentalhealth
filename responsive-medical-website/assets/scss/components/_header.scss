@@ -35,12 +35,16 @@
    }
    &__toggle,
    &__close,
-   &__theme{
+   &__theme,
+   &__settings{
       display: inline-flex;
       font-size: 1.5rem;
       cursor: pointer;
       color: var(--title-color);
       transition: color .4s;
+   }
+   &__settings:hover{
+      color: var(--first-color);
    }
    &__buttons{
       display: flex;
