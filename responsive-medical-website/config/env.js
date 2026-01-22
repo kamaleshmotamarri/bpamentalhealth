@@ -5,8 +5,8 @@
 
 // Check if environment is set via build-time injection (Vercel)
 // The build script creates env-inject.js which sets window.BUILD_ENVIRONMENT
-const ENVIRONMENT = (typeof window !== 'undefined' && window.BUILD_ENVIRONMENT) 
-  ? window.BUILD_ENVIRONMENT 
+const ENVIRONMENT = (typeof window !== 'undefined' && window.BUILD_ENVIRONMENT)
+  ? window.BUILD_ENVIRONMENT
   : 'test';
 
 // Environment-specific settings

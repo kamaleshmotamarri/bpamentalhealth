@@ -281,13 +281,8 @@
     width: 100%;
     aspect-ratio: 1;
     max-height: 220px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    font-weight: var(--font-bold);
-    color: var(--white-color);
-    letter-spacing: 0.02em;
+    object-fit: cover;
+    display: block;
 }
 
 .team__avatar--1 {
