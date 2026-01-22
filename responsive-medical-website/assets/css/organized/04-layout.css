@@ -1,0 +1,67 @@
+/* Layout and Reusable Classes */
+/* Extracted from styles.css */
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  max-width: 1200px;
+  /* Slight increase */
+  margin-inline: 1rem;
+  padding-inline: 0.75rem;
+}
+
+/* Improved mobile container spacing */
+@media screen and (min-width: 576px) {
+  .container {
+    margin-inline: 1.5rem;
+    padding-inline: 1rem;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Better grid spacing on larger screens */
+@media screen and (min-width: 576px) {
+  .grid {
+    gap: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .grid {
+    gap: 2rem;
+  }
+}
+
+.section {
+  padding-block: 3rem 1rem;
+}
+
+/* Better section spacing on mobile */
+@media screen and (min-width: 768px) {
+  .section {
+    padding-block: 4rem 1.5rem;
+  }
+}
+
+@media screen and (min-width: 1150px) {
+  .section {
+    padding-block: 5rem 2rem;
+  }
+}
+
+.section__title {
+  text-align: center;
+  font-size: var(--bigger-font-size);
+  margin-bottom: 1rem;
+}
+
+.section__title span {
+  font-weight: var(--font-regular);
+}
+
+.main {
+  overflow: hidden;
+}

@@ -1,5 +1,4 @@
 // Build-time environment injection
-// Defaults to 'test' for local development
-// This file is overwritten during Vercel build with the actual environment
-window.BUILD_ENVIRONMENT = window.BUILD_ENVIRONMENT || 'test';
-
+// Auto-generated during Vercel build
+window.BUILD_ENVIRONMENT = "test";
+window.GEMINI_API_KEY = "AIzaSyAfGOLpuhUr4iZBUhCs-zibgJrhVEHcjmM";

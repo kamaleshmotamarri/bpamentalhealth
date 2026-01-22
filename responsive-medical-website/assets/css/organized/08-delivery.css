@@ -1,0 +1,109 @@
+/* Delivery Section */
+/* Extracted from styles.css */
+
+/*=============== DELIVERY ===============*/
+.delivery__container {
+  row-gap: 4rem;
+}
+
+.delivery__data {
+  overflow: hidden;
+}
+
+.delivery__description {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.delivery__info {
+  display: grid;
+  grid-template-columns: repeat(3, 160px);
+  gap: 2rem;
+  overflow: auto;
+  padding-bottom: 2rem;
+  justify-content: start;
+}
+
+/* Custom Scrollbar for horizontal scroll */
+.delivery__info::-webkit-scrollbar {
+  height: 6px;
+  background-color: var(--gray-color);
+  border-radius: 1rem;
+}
+
+.delivery__info::-webkit-scrollbar-thumb {
+  background-color: var(--first-color);
+  border-radius: 1rem;
+}
+
+.delivery__icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--first-color), var(--first-color-alt));
+  color: var(--white-color);
+  border-radius: 1.25rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px hsla(220, 80%, 50%, .2);
+  transition: transform .3s;
+}
+
+.delivery__info div:hover .delivery__icon {
+  transform: rotate(-10deg) scale(1.1);
+}
+
+.delivery__subtitle {
+  font-size: var(--h3-font-size);
+  margin-bottom: .5rem;
+}
+
+.delivery__content {
+  width: 100%;
+  max-width: 320px;
+  background-color: var(--white-color);
+  padding: 3rem 2rem;
+  border-radius: 2.5rem;
+  text-align: center;
+  justify-self: center;
+  display: grid;
+  justify-items: center;
+  box-shadow: 0 16px 32px hsla(220, 40%, 15%, .08);
+  border: 1px solid var(--white-color-light);
+}
+
+.delivery__title {
+  font-size: var(--h1-font-size);
+  color: var(--white-color);
+  margin-bottom: 1.5rem;
+}
+
+.delivery__patients {
+  background-color: var(--first-color-alt);
+  color: var(--white-color);
+  padding: 1rem 2rem;
+  border-radius: .75rem;
+  display: flex;
+  column-gap: .5rem;
+}
+
+.delivery__patients span {
+  font-weight: var(--font-semi-bold);
+}
+
+.delivery__image {
+  position: relative;
+  width: 100%;
+  height: 186px;
+  margin-bottom: 2rem;
+  display: grid;
+}
+
+.delivery__img {
+  position: absolute;
+  max-width: initial;
+  width: 300px;
+  justify-self: center;
+  filter: drop-shadow(0 16px 24px hsla(218, 68%, 18%, .6));
+}

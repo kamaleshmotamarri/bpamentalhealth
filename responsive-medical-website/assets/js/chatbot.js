@@ -1,29 +1,107 @@
 /*=============== CHATBOT FUNCTIONALITY ===============*/
-const chatbotMessages = document.getElementById('chatbot-messages');
-const chatbotInput = document.getElementById('chatbot-input');
-const chatbotSend = document.getElementById('chatbot-send');
-const chatbotClear = document.getElementById('chatbot-clear');
-const chatbotTyping = document.getElementById('chatbot-typing');
-const suggestionButtons = document.querySelectorAll('.chatbot__suggestion-btn');
-
+let chatbotMessages, chatbotInput, chatbotSend, chatbotClear, chatbotTyping, suggestionButtons;
 let chatbotWelcome = null;
 let messageCount = 0;
 
-// Initialize welcome message reference
-if (chatbotMessages) {
-   chatbotWelcome = chatbotMessages.querySelector('.chatbot__welcome');
+// Initialize chatbot when DOM is ready
+function initializeChatbot() {
+   chatbotMessages = document.getElementById('chatbot-messages');
+   chatbotInput = document.getElementById('chatbot-input');
+   chatbotSend = document.getElementById('chatbot-send');
+   chatbotClear = document.getElementById('chatbot-clear');
+   chatbotTyping = document.getElementById('chatbot-typing');
+   suggestionButtons = document.querySelectorAll('.chatbot__suggestion-btn');
+
+   // Initialize welcome message reference
+   if (chatbotMessages) {
+      chatbotWelcome = chatbotMessages.querySelector('.chatbot__welcome');
+   }
+
+   // Setup event listeners
+   setupEventListeners();
+}
+
+// Setup all event listeners
+function setupEventListeners() {
+   // Send button
+   if (chatbotSend) {
+      chatbotSend.addEventListener('click', sendMessage);
+   }
+
+   // Clear button
+   if (chatbotClear) {
+      chatbotClear.addEventListener('click', clearConversation);
+   }
+
+   // Input field
+   if (chatbotInput) {
+      chatbotInput.addEventListener('keypress', (e) => {
+         if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+         }
+      });
+
+      // Auto-resize input
+      chatbotInput.addEventListener('input', () => {
+         chatbotInput.style.height = 'auto';
+         chatbotInput.style.height = chatbotInput.scrollHeight + 'px';
+      });
+   }
+
+   // Suggestion buttons
+   if (suggestionButtons && suggestionButtons.length > 0) {
+      suggestionButtons.forEach(btn => {
+         btn.addEventListener('click', () => {
+            const textElement = btn.querySelector('span');
+            const text = textElement ? textElement.textContent : btn.textContent;
+            if (chatbotInput && text) {
+               chatbotInput.value = text;
+               sendMessage();
+            }
+         });
+      });
+   }
 }
 
 // Show typing indicator
 function showTypingIndicator() {
-   if (chatbotTyping) {
-      chatbotTyping.style.display = 'flex';
-      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+   if (!chatbotMessages) return;
+
+   // Create typing indicator if it doesn't exist in messages container
+   let typingIndicator = chatbotMessages.querySelector('.chatbot__typing-indicator');
+   if (!typingIndicator) {
+      typingIndicator = document.createElement('div');
+      typingIndicator.className = 'chatbot__typing-indicator';
+      typingIndicator.id = 'chatbot-typing';
+      typingIndicator.innerHTML = `
+         <div class="chatbot__typing-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+         </div>
+      `;
+      chatbotMessages.appendChild(typingIndicator);
    }
+
+   typingIndicator.style.display = 'flex';
+   setTimeout(() => {
+      if (chatbotMessages) {
+         chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+      }
+   }, 100);
 }
 
 // Hide typing indicator
 function hideTypingIndicator() {
+   if (!chatbotMessages) return;
+
+   const typingIndicator = chatbotMessages.querySelector('.chatbot__typing-indicator');
+   if (typingIndicator) {
+      typingIndicator.style.display = 'none';
+   }
+
+   // Also check the standalone typing indicator (if it exists outside messages)
    if (chatbotTyping) {
       chatbotTyping.style.display = 'none';
    }
@@ -102,49 +180,134 @@ function addMessage(text, isUser = false) {
    messageCount++;
 }
 
-// Generate bot response (simulated)
-function generateBotResponse(userMessage) {
-   const lowerMessage = userMessage.toLowerCase();
+// Generate bot response using Gemini API
+async function generateBotResponse(userMessage) {
+   // Wait for API key to be available (with timeout)
+   let API_KEY = window.GEMINI_API_KEY;
+   let attempts = 0;
+   while ((!API_KEY || API_KEY === 'not_set') && attempts < 10) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      API_KEY = window.GEMINI_API_KEY;
+      attempts++;
+   }
 
-   // Simple response logic (can be replaced with API call)
-   if (lowerMessage.includes('anxious') || lowerMessage.includes('anxiety')) {
-      return "I understand that anxiety can be overwhelming. Let's take some deep breaths together. Try the 4-7-8 breathing technique: inhale for 4 counts, hold for 7, and exhale for 8. Would you like to talk more about what's causing your anxiety?";
-   } else if (lowerMessage.includes('stress') || lowerMessage.includes('stressed')) {
-      return "Stress is a natural response, but it's important to manage it. Some helpful techniques include mindfulness, exercise, and breaking tasks into smaller steps. What specific situation is causing you stress right now?";
-   } else if (lowerMessage.includes('down') || lowerMessage.includes('sad') || lowerMessage.includes('depressed')) {
-      return "I'm sorry you're feeling this way. Your feelings are valid, and it's brave of you to reach out. Remember that you're not alone. Would it help to talk about what's been weighing on you?";
-   } else if (lowerMessage.includes('thank') || lowerMessage.includes('thanks')) {
-      return "You're very welcome! I'm here whenever you need to talk. Remember, taking care of your mental health is important, and reaching out is a sign of strength.";
-   } else if (lowerMessage.includes('help') || lowerMessage.includes('support')) {
-      return "I'm here to support you. You can share anything that's on your mind - your thoughts, feelings, or concerns. I'll listen without judgment. What would you like to talk about?";
-   } else {
-      return "Thank you for sharing that with me. I'm listening and here to support you. Can you tell me more about how you're feeling or what's on your mind?";
+   if (!API_KEY || API_KEY === 'not_set' || !API_KEY.trim()) {
+      console.error('Gemini API Key is not configured');
+      return "I'm having trouble connecting to my brain right now. Please make sure the API key is configured correctly. If you're the administrator, please check the configuration files.";
+   }
+
+   // Using Gemini 2.5 Flash model
+   const model = 'gemini-2.5-flash';
+   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${API_KEY}`;
+
+   const systemPrompt = "You are TherapAI, a compassionate AI mental health assistant. You are available 24/7 to listen, support, and guide users on their wellness journey. Your tone should be empathetic, non-judgmental, and supportive. Your goal is to provide a safe space for users to share their thoughts and feelings. Important: You are not a doctor. For emergencies, always advise the user to contact a professional or emergency services. If a user expresses self-harm or immediate danger, provide resources and urge them to seek immediate help local to them. Keep your responses concise yet warm (2-4 sentences typically).";
+
+   try {
+      const response = await fetch(url, {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json',
+         },
+         body: JSON.stringify({
+            system_instruction: {
+               parts: [{ text: systemPrompt }]
+            },
+            contents: [
+               {
+                  role: "user",
+                  parts: [{ text: userMessage }]
+               }
+            ],
+            generationConfig: {
+               temperature: 0.7,
+               topK: 40,
+               topP: 0.95,
+               maxOutputTokens: 1024,
+            }
+         })
+      });
+
+      if (!response.ok) {
+         const errorText = await response.text();
+         let errorData;
+         try {
+            errorData = JSON.parse(errorText);
+         } catch (e) {
+            errorData = { error: { message: errorText } };
+         }
+         console.error('Gemini API Error:', errorData);
+
+         // Provide user-friendly error messages
+         if (response.status === 401 || response.status === 403) {
+            return "I'm having authentication issues. Please check the API key configuration.";
+         } else if (response.status === 429) {
+            return "I'm receiving too many requests right now. Please wait a moment and try again.";
+         } else {
+            return "I'm experiencing some technical difficulties. Please try again in a moment.";
+         }
+      }
+
+      const data = await response.json();
+      if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
+         return data.candidates[0].content.parts[0].text;
+      } else {
+         console.warn('Unexpected response format:', data);
+         return "I'm sorry, I'm finding it hard to process that right now. Could you try rephrasing?";
+      }
+   } catch (error) {
+      console.error('Chatbot Error:', error);
+      if (error.message && error.message.includes('fetch')) {
+         return "I'm having trouble connecting to the server. Please check your internet connection and try again.";
+      }
+      return "I'm sorry, I'm experiencing some technical difficulties. Please try again in a moment.";
    }
 }
 
 // Send message
-function sendMessage() {
+async function sendMessage() {
+   if (!chatbotInput || !chatbotMessages) {
+      console.error('Chatbot elements not initialized');
+      return;
+   }
+
    const message = chatbotInput.value.trim();
-   if (message) {
-      addMessage(message, true);
-      chatbotInput.value = '';
+   if (!message) {
+      return;
+   }
 
-      // Show typing indicator
-      showTypingIndicator();
+   // Disable input while processing
+   chatbotInput.disabled = true;
+   if (chatbotSend) chatbotSend.disabled = true;
 
-      // Simulate bot thinking time
-      const thinkingTime = Math.random() * 1000 + 800; // 800-1800ms
+   addMessage(message, true);
+   chatbotInput.value = '';
 
-      setTimeout(() => {
-         hideTypingIndicator();
-         const botResponse = generateBotResponse(message);
-         addMessage(botResponse, false);
-      }, thinkingTime);
+   // Reset input height
+   chatbotInput.style.height = 'auto';
+
+   // Show typing indicator
+   showTypingIndicator();
+
+   try {
+      const botResponse = await generateBotResponse(message);
+      hideTypingIndicator();
+      addMessage(botResponse, false);
+   } catch (error) {
+      console.error('Error in sendMessage:', error);
+      hideTypingIndicator();
+      addMessage("I'm sorry, I encountered an error. Please try again.", false);
+   } finally {
+      // Re-enable input
+      chatbotInput.disabled = false;
+      if (chatbotSend) chatbotSend.disabled = false;
+      chatbotInput.focus();
    }
 }
 
 // Clear conversation
 function clearConversation() {
+   if (!chatbotMessages) return;
+
    if (confirm('Are you sure you want to clear the conversation?')) {
       // Remove all messages
       const messages = chatbotMessages.querySelectorAll('.chatbot__message');
@@ -152,6 +315,13 @@ function clearConversation() {
          msg.style.animation = 'fadeOut .3s ease-out';
          setTimeout(() => msg.remove(), 300);
       });
+
+      // Remove typing indicator if present
+      hideTypingIndicator();
+      const typingIndicator = chatbotMessages.querySelector('.chatbot__typing-indicator');
+      if (typingIndicator) {
+         typingIndicator.remove();
+      }
 
       // Show welcome message again
       chatbotWelcome = chatbotMessages.querySelector('.chatbot__welcome');
@@ -183,40 +353,6 @@ function clearConversation() {
    }
 }
 
-// Event listeners
-if (chatbotSend) {
-   chatbotSend.addEventListener('click', sendMessage);
-}
-
-if (chatbotClear) {
-   chatbotClear.addEventListener('click', clearConversation);
-}
-
-if (chatbotInput) {
-   chatbotInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-         e.preventDefault();
-         sendMessage();
-      }
-   });
-
-   // Auto-resize input (if needed)
-   chatbotInput.addEventListener('input', () => {
-      chatbotInput.style.height = 'auto';
-      chatbotInput.style.height = chatbotInput.scrollHeight + 'px';
-   });
-}
-
-// Suggestion buttons
-suggestionButtons.forEach(btn => {
-   btn.addEventListener('click', () => {
-      const textElement = btn.querySelector('span');
-      const text = textElement ? textElement.textContent : btn.textContent;
-      chatbotInput.value = text;
-      sendMessage();
-   });
-});
-
 // Add fadeOut animation
 const style = document.createElement('style');
 style.textContent = `
@@ -232,4 +368,12 @@ style.textContent = `
    }
 `;
 document.head.appendChild(style);
+
+// Initialize chatbot when DOM is ready
+if (document.readyState === 'loading') {
+   document.addEventListener('DOMContentLoaded', initializeChatbot);
+} else {
+   // DOM is already loaded
+   initializeChatbot();
+}
 

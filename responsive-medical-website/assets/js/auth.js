@@ -104,10 +104,10 @@ function trackUser(user) {
   try {
     // Get existing tracked users
     const trackedUsers = getTrackedUsers();
-    
+
     // Check if user already exists
     const existingUserIndex = trackedUsers.findIndex(u => u.uid === user.uid);
-    
+
     const userData = {
       uid: user.uid,
       email: user.email || 'No Email',
@@ -181,12 +181,12 @@ function updateUIForSignedOutUser() {
 function updateAdminLink(user) {
   const ADMIN_EMAIL = 'kamaleshmotamarri@gmail.com';
   const navList = document.querySelector('.nav__list');
-  
+
   if (!navList) return;
 
   // Check if admin link already exists
   let adminLink = document.getElementById('admin-nav-link');
-  
+
   if (user && user.email === ADMIN_EMAIL) {
     // User is admin - show admin link
     if (!adminLink) {
@@ -194,7 +194,7 @@ function updateAdminLink(user) {
       adminLink = document.createElement('li');
       adminLink.id = 'admin-nav-link';
       adminLink.innerHTML = '<a href="admin.html" class="nav__link"><i class="ri-shield-user-line"></i> Admin Portal</a>';
-      
+
       // Insert before the close button or at the end
       const therapaiLink = Array.from(navList.children).find(li => li.querySelector('a[href*="therapai"]'));
       if (therapaiLink) {
@@ -560,20 +560,20 @@ document.addEventListener('DOMContentLoaded', () => {
   if (signupForm) {
     console.log('[Auth] Signup form found');
     signupForm.addEventListener('submit', handleSignUpSubmit);
-    
+
     // Also add click handler to submit button as fallback
     const signupButton = signupForm.querySelector('button[type="submit"]');
     if (signupButton) {
       signupButton.addEventListener('click', async (e) => {
         e.preventDefault();
         e.stopPropagation();
-        
+
         // Check form validity first
         if (!signupForm.checkValidity()) {
           signupForm.reportValidity();
           return;
         }
-        
+
         // If form is valid, trigger the submit handler directly
         await handleSignUpSubmit(e);
       });
@@ -587,20 +587,20 @@ document.addEventListener('DOMContentLoaded', () => {
   if (loginForm) {
     console.log('[Auth] Login form found');
     loginForm.addEventListener('submit', handleSignInSubmit);
-    
+
     // Also add click handler to submit button as fallback
     const loginButton = loginForm.querySelector('button[type="submit"]');
     if (loginButton) {
       loginButton.addEventListener('click', async (e) => {
         e.preventDefault();
         e.stopPropagation();
-        
+
         // Check form validity first
         if (!loginForm.checkValidity()) {
           loginForm.reportValidity();
           return;
         }
-        
+
         // If form is valid, trigger the submit handler directly
         await handleSignInSubmit(e);
       });
@@ -693,4 +693,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log('[Auth] Event listeners setup complete');
 });
+
 

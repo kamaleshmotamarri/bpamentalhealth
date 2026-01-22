@@ -1,0 +1,110 @@
+/* About Section */
+/* Extracted from styles.css */
+
+/*=============== ABOUT ===============*/
+.about__container {
+  background: linear-gradient(135deg, var(--first-color), var(--first-color-alt));
+  padding: 4rem 2rem;
+  row-gap: 4rem;
+  border-radius: 3rem;
+  box-shadow: 0 16px 40px hsla(220, 80%, 50%, .2);
+  overflow: hidden;
+  position: relative;
+}
+
+.about__data {
+  display: grid;
+  row-gap: 3rem;
+  position: relative;
+  z-index: 10;
+}
+
+.about__data .section__title {
+  color: var(--white-color);
+}
+
+.about__description {
+  color: var(--white-color-light);
+  text-align: center;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.about__info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  gap: 1rem;
+}
+
+.about__stat {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform .3s;
+}
+
+.about__stat:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.about__number {
+  font-size: 2.5rem;
+  /* Larger numbers */
+  color: var(--white-color);
+  margin-bottom: .5rem;
+  font-weight: var(--font-bold);
+}
+
+.about__details {
+  font-size: var(--small-font-size);
+  color: var(--white-color-light);
+  font-weight: var(--font-medium);
+}
+
+.about__stat:not(:last-child) {
+  border-inline-end: none;
+  /* Remove separator lines, use cards instead */
+}
+
+.about__img {
+  width: 300px;
+  border-radius: 2rem;
+  box-shadow: 0 16px 32px hsla(220, 60%, 20%, .4);
+  justify-self: center;
+  /* Center image */
+  transform: rotate(-3deg);
+  /* Jaunty angle */
+  border: 4px solid rgba(255, 255, 255, 0.2);
+}
+
+.about__button {
+  background-color: var(--white-color);
+  color: var(--first-color);
+  display: inline-flex;
+  justify-self: center;
+  align-items: center;
+  column-gap: .5rem;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  font-weight: var(--font-semi-bold);
+  transition: transform .3s, box-shadow .3s;
+  box-shadow: 0 4px 12px hsla(220, 60%, 20%, .2);
+}
+
+.about__button i {
+  font-size: 1.5rem;
+  transition: transform .4s;
+}
+
+.about__button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px hsla(220, 60%, 20%, .3);
+}
+
+.about__button:hover i {
+  transform: translateX(.25rem);
+}

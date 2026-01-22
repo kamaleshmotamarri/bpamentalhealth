@@ -1,0 +1,78 @@
+/* Footer */
+/* Extracted from styles.css */
+
+/*=============== FOOTER ===============*/
+.footer {
+  background-color: var(--white-color);
+  padding-block: 4rem 2rem;
+  border-top: 1px solid var(--white-color-light);
+}
+
+.footer__container {
+  row-gap: 3rem;
+}
+
+.footer__logo,
+.footer__links,
+.footer__social {
+  display: flex;
+}
+
+.footer__logo {
+  align-items: center;
+  justify-self: center;
+  column-gap: .25rem;
+  color: var(--title-color);
+  font-size: var(--h2-font-size);
+  font-weight: var(--font-bold);
+  margin-bottom: 1.5rem;
+  transition: color .4s;
+}
+
+.footer__logo i {
+  font-weight: initial;
+  font-size: 2rem;
+  color: var(--first-color);
+}
+
+.footer__logo:hover {
+  color: var(--first-color);
+}
+
+.footer__links {
+  justify-content: center;
+  column-gap: 3rem;
+}
+
+.footer__link {
+  font-size: var(--h3-font-size);
+  color: var(--title-color);
+  transition: color .4s;
+}
+
+.footer__link:hover {
+  color: var(--first-color);
+}
+
+.footer__social {
+  justify-content: center;
+  column-gap: 1rem;
+}
+
+.footer__social-link {
+  font-size: 1.5rem;
+  color: var(--first-color);
+  transition: transform .4s;
+}
+
+.footer__social-link:hover {
+  transform: translateY(-.25rem);
+}
+
+.footer__copy {
+  display: block;
+  margin-top: 5.5rem;
+  text-align: center;
+  font-size: var(--small-font-size);
+  color: var(--text-color-light);
+}

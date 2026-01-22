@@ -4,6 +4,23 @@
 const fs = require('fs');
 const path = require('path');
 
+// Manually load .env file if it exists (since we don't have dotenv)
+const envPath = path.join(__dirname, '..', '.env');
+if (fs.existsSync(envPath)) {
+  const envConfig = fs.readFileSync(envPath, 'utf8');
+  envConfig.split('\n').forEach(line => {
+    const match = line.match(/^([^#\s=]+)\s*=\s*(.*)$/);
+    if (match) {
+      const key = match[1];
+      let value = match[2].trim();
+      // Remove quotes if present
+      if (value.startsWith('"') && value.endsWith('"')) value = value.substring(1, value.length - 1);
+      if (value.startsWith("'") && value.endsWith("'")) value = value.substring(1, value.length - 1);
+      if (!process.env[key]) process.env[key] = value;
+    }
+  });
+}
+
 // Determine environment (default to 'test')
 const env = process.env.ENVIRONMENT || 'test';
 const isProduction = env === 'production';
@@ -82,9 +99,11 @@ window.FIREBASE_CONFIG_PROD = firebaseConfigProd;
 `;
 
 // Create environment injection file (loaded before env.js in HTML)
+const geminiApiKey = process.env.GEMINI_API_KEY || '';
 const envInjectContent = `// Build-time environment injection
 // Auto-generated during Vercel build
 window.BUILD_ENVIRONMENT = "${env}";
+window.GEMINI_API_KEY = "${escapeJS(geminiApiKey)}";
 `;
 fs.writeFileSync(path.join(configDir, 'env-inject.js'), envInjectContent, 'utf8');
 console.log('✅ Generated env-inject.js with environment:', env);

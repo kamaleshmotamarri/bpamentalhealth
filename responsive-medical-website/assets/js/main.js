@@ -126,3 +126,71 @@ sr.reveal(`.disorders__card`, { interval: 100, origin: 'bottom' })
 sr.reveal(`.resources__card`, { interval: 100, origin: 'bottom' })
 
 sr.reveal(`.footer__container`)
+
+sr.reveal(`.contact-form__data`, { origin: 'top' })
+sr.reveal(`.contact-form__form`, { origin: 'bottom', delay: 400 })
+
+/*=============== CONTACT FORM SUBMISSION ===============*/
+const contactForm = document.getElementById('contact-form-element')
+const contactFormMessage = document.getElementById('contact-form-message')
+
+if (contactForm) {
+   contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault()
+
+      // Get form data
+      const formData = new FormData(contactForm)
+      const submitButton = contactForm.querySelector('button[type="submit"]')
+      const originalButtonText = submitButton.innerHTML
+
+      // Disable submit button and show loading state
+      submitButton.disabled = true
+      submitButton.innerHTML = '<i class="ri-loader-4-line"></i> Sending...'
+
+      // Hide previous messages
+      contactFormMessage.style.display = 'none'
+      contactFormMessage.classList.remove('success', 'error')
+
+      try {
+         const response = await fetch(contactForm.action, {
+            method: 'POST',
+            body: formData
+         })
+
+         const result = await response.json()
+
+         if (response.ok && result.success) {
+            // Show success message
+            contactFormMessage.textContent = 'Thank you! Your message has been sent successfully. We\'ll get back to you soon.'
+            contactFormMessage.classList.add('success')
+            contactFormMessage.style.display = 'block'
+
+            // Reset form
+            contactForm.reset()
+
+            // Scroll to message
+            contactFormMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+         } else {
+            // Show error message
+            contactFormMessage.textContent = result.message || 'Sorry, there was an error sending your message. Please try again later.'
+            contactFormMessage.classList.add('error')
+            contactFormMessage.style.display = 'block'
+
+            // Scroll to message
+            contactFormMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+         }
+      } catch (error) {
+         // Show error message
+         contactFormMessage.textContent = 'Sorry, there was an error sending your message. Please check your connection and try again.'
+         contactFormMessage.classList.add('error')
+         contactFormMessage.style.display = 'block'
+
+         // Scroll to message
+         contactFormMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      } finally {
+         // Re-enable submit button
+         submitButton.disabled = false
+         submitButton.innerHTML = originalButtonText
+      }
+   })
+}

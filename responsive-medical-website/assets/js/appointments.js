@@ -30,7 +30,7 @@ const TIME_SLOTS = [
 // Initialize appointment scheduler
 function initAppointmentScheduler() {
   console.log('[Appointments] Initializing scheduler...');
-  
+
   // Wait for Firebase to be ready
   const checkFirebase = setInterval(() => {
     if (window.firebaseInitialized && getAuth()) {
@@ -85,13 +85,13 @@ async function checkUserAppointment(userId) {
     if (!querySnapshot.empty) {
       const appointmentDoc = querySnapshot.docs[0];
       const appointmentData = appointmentDoc.data();
-      
+
       // Check if appointment date is in the past
       const appointmentDate = appointmentData.date.toDate();
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       appointmentDate.setHours(0, 0, 0, 0);
-      
+
       // If appointment is in the past, automatically delete it
       if (appointmentDate < today) {
         console.log('[Appointments] Appointment is in the past, auto-deleting...');
@@ -100,7 +100,7 @@ async function checkUserAppointment(userId) {
         hideExistingAppointment();
         return false;
       }
-      
+
       userAppointment = {
         id: appointmentDoc.id,
         ...appointmentData
@@ -132,11 +132,11 @@ async function showExistingAppointment() {
   } else {
     date = new Date(userAppointment.date);
   }
-  
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   date.setHours(0, 0, 0, 0);
-  
+
   // If appointment is in the past, delete it and refresh
   if (date < today) {
     console.log('[Appointments] Appointment is in the past, auto-deleting...');
@@ -155,11 +155,11 @@ async function showExistingAppointment() {
 
   const messageEl = document.getElementById('existing-appointment-message');
   const detailsEl = document.getElementById('existing-appointment-details');
-  
+
   if (messageEl && detailsEl) {
     const formattedDate = formatDate(date);
     const timeSlot = TIME_SLOTS.find(slot => slot.value === userAppointment.timeSlot);
-    
+
     detailsEl.innerHTML = `
       <p><strong>Date:</strong> ${formattedDate}</p>
       <p><strong>Time:</strong> ${timeSlot ? timeSlot.time : userAppointment.timeSlot}</p>
@@ -167,10 +167,10 @@ async function showExistingAppointment() {
         <i class="ri-delete-bin-line"></i> Delete Appointment
       </button>
     `;
-    
+
     messageEl.style.display = 'flex';
     document.getElementById('appointment-scheduler').style.display = 'none';
-    
+
     // Add event listener for delete button
     const deleteBtn = document.getElementById('delete-appointment-btn');
     if (deleteBtn) {
@@ -191,7 +191,7 @@ function hideExistingAppointment() {
 function showAuthRequired() {
   const messageEl = document.getElementById('auth-required-message');
   const schedulerEl = document.getElementById('appointment-scheduler');
-  
+
   if (messageEl) messageEl.style.display = 'flex';
   if (schedulerEl) schedulerEl.style.display = 'none';
   hideExistingAppointment();
@@ -201,7 +201,7 @@ function showAuthRequired() {
 function showScheduler() {
   const messageEl = document.getElementById('auth-required-message');
   const schedulerEl = document.getElementById('appointment-scheduler');
-  
+
   if (messageEl) messageEl.style.display = 'none';
   if (schedulerEl && !userAppointment) {
     schedulerEl.style.display = 'block';
@@ -220,7 +220,7 @@ function setupEventListeners() {
   // Month navigation
   const prevMonthBtn = document.getElementById('prev-month');
   const nextMonthBtn = document.getElementById('next-month');
-  
+
   if (prevMonthBtn) {
     prevMonthBtn.addEventListener('click', () => {
       const newDate = new Date(currentDate);
@@ -234,7 +234,7 @@ function setupEventListeners() {
       }
     });
   }
-  
+
   if (nextMonthBtn) {
     nextMonthBtn.addEventListener('click', () => {
       const newDate = new Date(currentDate);
@@ -263,11 +263,11 @@ function setupEventListeners() {
   // Modal close buttons
   const closeModalBtn = document.getElementById('close-modal');
   const cancelAppointmentBtn = document.getElementById('cancel-appointment');
-  
+
   if (closeModalBtn) {
     closeModalBtn.addEventListener('click', closeAppointmentModal);
   }
-  
+
   if (cancelAppointmentBtn) {
     cancelAppointmentBtn.addEventListener('click', closeAppointmentModal);
   }
@@ -293,7 +293,7 @@ function setupEventListeners() {
 async function renderCalendar() {
   const calendarGrid = document.getElementById('calendar-grid');
   const monthYearTitle = document.getElementById('current-month-year');
-  
+
   if (!calendarGrid || !monthYearTitle) return;
 
   // Update month/year title
@@ -335,19 +335,19 @@ async function renderCalendar() {
 function createDayCell(date, day, dateKey) {
   const dayCell = document.createElement('div');
   dayCell.className = 'appointment-calendar__day';
-  
+
   // Check if date is in the past (relative to today, but we're only showing 2026)
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const cellDate = new Date(date);
   cellDate.setHours(0, 0, 0, 0);
-  
+
   // Check if this is today
-  const isToday = cellDate.getTime() === today.getTime() && 
-                  date.getFullYear() === today.getFullYear() &&
-                  date.getMonth() === today.getMonth() &&
-                  date.getDate() === today.getDate();
-  
+  const isToday = cellDate.getTime() === today.getTime() &&
+    date.getFullYear() === today.getFullYear() &&
+    date.getMonth() === today.getMonth() &&
+    date.getDate() === today.getDate();
+
   // Only allow dates in 2026
   if (date.getFullYear() !== 2026) {
     dayCell.classList.add('appointment-calendar__day--disabled');
@@ -355,14 +355,14 @@ function createDayCell(date, day, dateKey) {
     // Get appointments for this date
     const dateAppointments = appointmentsCache[dateKey] || [];
     const availableSlots = getAvailableSlots(dateAppointments);
-    
+
     if (availableSlots.length === 0) {
       dayCell.classList.add('appointment-calendar__day--full');
     } else {
       dayCell.classList.add('appointment-calendar__day--available');
       dayCell.addEventListener('click', () => selectDate(date, dateKey));
     }
-    
+
     // Add today indicator
     if (isToday) {
       dayCell.classList.add('appointment-calendar__day--today');
@@ -394,7 +394,7 @@ async function loadAppointmentsForMonth(year, month) {
   try {
     const startDate = new Date(year, month, 1);
     const endDate = new Date(year, month + 1, 0, 23, 59, 59);
-    
+
     const appointmentsRef = db.collection('appointments');
     const querySnapshot = await appointmentsRef
       .where('date', '>=', firebase.firestore.Timestamp.fromDate(startDate))
@@ -414,7 +414,7 @@ async function loadAppointmentsForMonth(year, month) {
       const appointment = doc.data();
       const appointmentDate = appointment.date.toDate();
       const dateKey = formatDateKey(appointmentDate);
-      
+
       if (!appointmentsCache[dateKey]) {
         appointmentsCache[dateKey] = [];
       }
@@ -447,10 +447,10 @@ function formatDate(date) {
 function selectDate(date, dateKey) {
   selectedDate = date;
   selectedTimeSlot = null;
-  
+
   const dateAppointments = appointmentsCache[dateKey] || [];
   const availableSlots = getAvailableSlots(dateAppointments);
-  
+
   if (availableSlots.length === 0) {
     showAppointmentMessage('No available slots for this date.', 'warning');
     return;
@@ -460,11 +460,11 @@ function selectDate(date, dateKey) {
   const selectedDateInfo = document.getElementById('selected-date-info');
   const selectedDateTitle = document.getElementById('selected-date-title');
   const timeSlotsContainer = document.getElementById('time-slots');
-  
+
   if (selectedDateInfo && selectedDateTitle && timeSlotsContainer) {
     selectedDateTitle.textContent = formatDate(date);
     selectedDateInfo.style.display = 'block';
-    
+
     // Render time slots
     timeSlotsContainer.innerHTML = '';
     availableSlots.forEach(slot => {
@@ -483,7 +483,7 @@ function selectDate(date, dateKey) {
 // Select time slot
 function selectTimeSlot(slot) {
   selectedTimeSlot = slot;
-  
+
   // Update UI - highlight selected slot
   const timeSlots = document.querySelectorAll('.time-slot');
   timeSlots.forEach(btn => {
@@ -504,7 +504,7 @@ function showAppointmentModal() {
   const confirmTime = document.getElementById('confirm-time');
   const confirmPatient = document.getElementById('confirm-patient');
   const auth = getAuth();
-  
+
   if (modal && confirmDate && confirmTime && confirmPatient && auth && auth.currentUser) {
     confirmDate.textContent = formatDate(selectedDate);
     confirmTime.textContent = selectedTimeSlot.time;
@@ -527,7 +527,7 @@ function closeAppointmentModal() {
 async function confirmAppointment() {
   const auth = getAuth();
   const db = getFirestore();
-  
+
   if (!auth || !auth.currentUser) {
     showAppointmentMessage('You must be signed in to make an appointment.', 'error');
     return;
@@ -592,14 +592,14 @@ async function confirmAppointment() {
 
     // Show success message
     showAppointmentMessage('Appointment scheduled successfully!', 'success');
-    
+
     // Close modal
     closeAppointmentModal();
-    
+
     // Refresh UI
     await checkUserAppointment(auth.currentUser.uid);
     renderCalendar();
-    
+
     // Clear selection
     selectedDate = null;
     selectedTimeSlot = null;
@@ -661,7 +661,7 @@ async function handleDeleteAppointment() {
     // Store appointment data before deletion for cache update
     const appointmentToDelete = { ...userAppointment };
     const success = await deleteAppointment(userAppointment.id);
-    
+
     if (success) {
       // Update cache - remove from cache if it exists
       let date;
@@ -672,20 +672,20 @@ async function handleDeleteAppointment() {
       } else {
         date = new Date(appointmentToDelete.date);
       }
-      
+
       const dateKey = formatDateKey(date);
       if (appointmentsCache[dateKey]) {
         appointmentsCache[dateKey] = appointmentsCache[dateKey].filter(
           apt => apt.id !== appointmentToDelete.id
         );
       }
-      
+
       // Clear user appointment
       userAppointment = null;
-      
+
       // Show success message
       showAppointmentMessage('Appointment deleted successfully!', 'success');
-      
+
       // Hide existing appointment message and show scheduler
       hideExistingAppointment();
       showScheduler();

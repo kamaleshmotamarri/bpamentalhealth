@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+   <link rel="stylesheet" href="assets/css/styles.css">
+   <title>Journal - MentalMed</title>
+   <style>
+      :root {
+         --glass-bg: rgba(255, 255, 255, 0.7);
+         --glass-border: rgba(255, 255, 255, 0.4);
+         --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+         --hover-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+      }
+
+      .journal__container {
+         padding-top: calc(var(--header-height) + 2rem);
+         padding-bottom: 5rem;
+         background: radial-gradient(circle at top right, hsla(220, 80%, 50%, 0.05), transparent),
+            radial-gradient(circle at bottom left, hsla(170, 75%, 40%, 0.05), transparent);
+         min-height: calc(100vh - var(--header-height));
+      }
+
+      /* Hero Section */
+      .journal__hero {
+         position: relative;
+         border-radius: 3rem;
+         overflow: hidden;
+         margin-top: 2rem;
+         margin-bottom: 3rem;
+         display: flex;
+         align-items: center;
+         min-height: 300px;
+         background: linear-gradient(135deg, var(--first-color) 0%, var(--second-color) 100%);
+      }
+
+      .journal__hero-overlay {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: rgba(0, 0, 0, 0.1);
+         z-index: 1;
+      }
+
+      .journal__hero-content {
+         position: relative;
+         z-index: 2;
+         max-width: 800px;
+         padding: 3rem;
+         text-align: center;
+         color: var(--white-color);
+      }
+
+      .journal__subtitle {
+         display: inline-block;
+         padding: 0.5rem 1.25rem;
+         background: rgba(255, 255, 255, 0.2);
+         backdrop-filter: blur(10px);
+         color: var(--white-color);
+         border-radius: 2rem;
+         font-size: var(--small-font-size);
+         font-weight: var(--font-bold);
+         text-transform: uppercase;
+         letter-spacing: 1px;
+         margin-bottom: 1.5rem;
+      }
+
+      .journal__title {
+         font-size: clamp(2.5rem, 5vw, 4rem);
+         line-height: 1.1;
+         margin-bottom: 1rem;
+         color: var(--white-color);
+      }
+
+      .journal__intro {
+         font-size: var(--h3-font-size);
+         color: rgba(255, 255, 255, 0.9);
+         line-height: 1.6;
+      }
+
+      /* Main Content */
+      .journal__main {
+         display: grid;
+         grid-template-columns: 1fr 350px;
+         gap: 2rem;
+         margin-top: 2rem;
+      }
+
+      @media (max-width: 968px) {
+         .journal__main {
+            grid-template-columns: 1fr;
+         }
+      }
+
+      /* Journal Entry Form */
+      .journal__entry-form {
+         background: var(--white-color);
+         border-radius: 2rem;
+         padding: 2.5rem;
+         box-shadow: var(--card-shadow);
+         border: 1px solid rgba(0, 0, 0, 0.03);
+      }
+
+      .journal__form-group {
+         margin-bottom: 1.5rem;
+      }
+
+      .journal__form-label {
+         display: block;
+         font-size: var(--normal-font-size);
+         font-weight: var(--font-semi-bold);
+         color: var(--title-color);
+         margin-bottom: 0.75rem;
+      }
+
+      .journal__form-input,
+      .journal__form-textarea {
+         width: 100%;
+         padding: 1rem;
+         border: 1px solid var(--gray-color);
+         border-radius: 1rem;
+         font-size: var(--normal-font-size);
+         font-family: inherit;
+         color: var(--text-color);
+         background: var(--container-color);
+         transition: all 0.3s;
+      }
+
+      .journal__form-textarea {
+         min-height: 300px;
+         resize: vertical;
+      }
+
+      .journal__form-input:focus,
+      .journal__form-textarea:focus {
+         outline: none;
+         border-color: var(--first-color);
+         box-shadow: 0 0 0 3px rgba(64, 112, 244, 0.1);
+      }
+
+      .journal__form-actions {
+         display: flex;
+         gap: 1rem;
+         margin-top: 1.5rem;
+      }
+
+      .journal__btn {
+         padding: 0.875rem 2rem;
+         border-radius: 1rem;
+         font-size: var(--normal-font-size);
+         font-weight: var(--font-semi-bold);
+         cursor: pointer;
+         transition: all 0.3s;
+         border: none;
+         display: inline-flex;
+         align-items: center;
+         gap: 0.5rem;
+      }
+
+      .journal__btn--primary {
+         background: var(--first-color);
+         color: var(--white-color);
+      }
+
+      .journal__btn--primary:hover {
+         background: var(--first-color-alt);
+         transform: translateY(-2px);
+         box-shadow: 0 10px 20px rgba(64, 112, 244, 0.3);
+      }
+
+      .journal__btn--secondary {
+         background: var(--container-color);
+         color: var(--text-color);
+         border: 1px solid var(--gray-color);
+      }
+
+      .journal__btn--secondary:hover {
+         background: var(--body-color);
+         border-color: var(--first-color);
+         color: var(--first-color);
+      }
+
+      /* Progress Sidebar */
+      .journal__sidebar {
+         display: flex;
+         flex-direction: column;
+         gap: 1.5rem;
+      }
+
+      .journal__stats-card {
+         background: var(--white-color);
+         border-radius: 2rem;
+         padding: 2rem;
+         box-shadow: var(--card-shadow);
+         border: 1px solid rgba(0, 0, 0, 0.03);
+      }
+
+      .journal__stats-title {
+         font-size: var(--h3-font-size);
+         font-weight: var(--font-bold);
+         color: var(--title-color);
+         margin-bottom: 1.5rem;
+         display: flex;
+         align-items: center;
+         gap: 0.5rem;
+      }
+
+      .journal__stat-item {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 1rem 0;
+         border-bottom: 1px solid var(--gray-color);
+      }
+
+      .journal__stat-item:last-child {
+         border-bottom: none;
+      }
+
+      .journal__stat-label {
+         font-size: var(--normal-font-size);
+         color: var(--text-color);
+      }
+
+      .journal__stat-value {
+         font-size: var(--h2-font-size);
+         font-weight: var(--font-bold);
+         color: var(--first-color);
+      }
+
+      /* Entries List */
+      .journal__entries {
+         margin-top: 2rem;
+      }
+
+      .journal__entries-title {
+         font-size: var(--h2-font-size);
+         font-weight: var(--font-bold);
+         color: var(--title-color);
+         margin-bottom: 1.5rem;
+      }
+
+      .journal__entry-card {
+         background: var(--white-color);
+         border-radius: 1.5rem;
+         padding: 2rem;
+         margin-bottom: 1.5rem;
+         box-shadow: var(--card-shadow);
+         border: 1px solid rgba(0, 0, 0, 0.03);
+         transition: all 0.3s;
+      }
+
+      .journal__entry-card:hover {
+         transform: translateY(-5px);
+         box-shadow: var(--hover-shadow);
+      }
+
+      .journal__entry-header {
+         display: flex;
+         justify-content: space-between;
+         align-items: flex-start;
+         margin-bottom: 1rem;
+      }
+
+      .journal__entry-date {
+         font-size: var(--small-font-size);
+         color: var(--text-color-light);
+         font-weight: var(--font-semi-bold);
+      }
+
+      .journal__entry-actions {
+         display: flex;
+         gap: 0.5rem;
+      }
+
+      .journal__entry-btn {
+         padding: 0.5rem;
+         border: none;
+         background: transparent;
+         color: var(--text-color-light);
+         cursor: pointer;
+         border-radius: 0.5rem;
+         transition: all 0.3s;
+         font-size: 1.2rem;
+      }
+
+      .journal__entry-btn:hover {
+         background: var(--container-color);
+         color: var(--first-color);
+      }
+
+      .journal__entry-title {
+         font-size: var(--h3-font-size);
+         font-weight: var(--font-bold);
+         color: var(--title-color);
+         margin-bottom: 0.75rem;
+      }
+
+      .journal__entry-content {
+         font-size: var(--normal-font-size);
+         color: var(--text-color);
+         line-height: 1.7;
+         white-space: pre-wrap;
+         word-wrap: break-word;
+      }
+
+      .journal__entry-content-preview {
+         display: -webkit-box;
+         -webkit-line-clamp: 3;
+         line-clamp: 3;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+      }
+
+      .journal__empty-state {
+         text-align: center;
+         padding: 4rem 2rem;
+         color: var(--text-color-light);
+      }
+
+      .journal__empty-state i {
+         font-size: 4rem;
+         color: var(--first-color);
+         opacity: 0.3;
+         margin-bottom: 1rem;
+      }
+
+      .journal__empty-state p {
+         font-size: var(--h3-font-size);
+      }
+
+      /* Auth Required Message */
+      .journal__auth-message {
+         background: var(--white-color);
+         border-radius: 2rem;
+         padding: 3rem;
+         text-align: center;
+         box-shadow: var(--card-shadow);
+         border: 1px solid rgba(0, 0, 0, 0.03);
+      }
+
+      .journal__auth-message i {
+         font-size: 4rem;
+         color: var(--first-color);
+         margin-bottom: 1.5rem;
+      }
+
+      .journal__auth-message h2 {
+         font-size: var(--h2-font-size);
+         color: var(--title-color);
+         margin-bottom: 1rem;
+      }
+
+      .journal__auth-message p {
+         font-size: var(--normal-font-size);
+         color: var(--text-color);
+         margin-bottom: 2rem;
+      }
+
+      /* Dark Theme */
+      .dark-theme .journal__entry-form,
+      .dark-theme .journal__stats-card,
+      .dark-theme .journal__entry-card,
+      .dark-theme .journal__auth-message {
+         background: hsla(220, 24%, 12%, 0.8);
+         border-color: hsla(220, 24%, 20%, 0.5);
+      }
+
+      .dark-theme .journal__form-input,
+      .dark-theme .journal__form-textarea {
+         background: hsla(220, 24%, 18%, 0.8);
+         border-color: hsla(220, 24%, 30%, 0.5);
+         color: var(--text-color);
+      }
+
+      /* Loading State */
+      .journal__loading {
+         text-align: center;
+         padding: 3rem;
+         color: var(--text-color-light);
+      }
+
+      .journal__loading i {
+         font-size: 2rem;
+         animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+         from {
+            transform: rotate(0deg);
+         }
+
+         to {
+            transform: rotate(360deg);
+         }
+      }
+   </style>
+</head>
+
+<body>
+   <header class="header" id="header">
+      <nav class="nav container">
+         <a href="index.html" class="nav__logo">
+            <i class="ri-stethoscope-fill"></i> MentalMed
+         </a>
+         <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+               <li><a href="index.html#home" class="nav__link">Home</a></li>
+               <li><a href="index.html#delivery" class="nav__link">Delivery</a></li>
+               <li><a href="about.html" class="nav__link">About Us</a></li>
+               <li><a href="index.html#prices" class="nav__link">Prices</a></li>
+               <li><a href="index.html#contact" class="nav__link">Contact</a></li>
+               <li><a href="therapai.html" class="nav__link">TherapAI</a></li>
+            </ul>
+            <div class="nav__close" id="nav-close">
+               <i class="ri-close-large-line"></i>
+            </div>
+         </div>
+         <div class="nav__buttons">
+            <!-- User info (shown when logged in) -->
+            <div class="nav__user-info" id="user-info" style="display: none;">
+               <span class="user-name"></span>
+               <span class="user-email" style="display: none;"></span>
+               <button class="nav__logout" id="logout-button" style="display: none;">
+                  <i class="ri-logout-box-line"></i> Logout
+               </button>
+            </div>
+
+            <!-- Login button (shown when logged out) -->
+            <button class="nav__login" id="login-button">
+               <i class="ri-login-box-line"></i> Login
+            </button>
+
+            <!-- Settings button -->
+            <i class="ri-settings-3-fill nav__settings" id="settings-button" title="Settings"></i>
+            <div class="nav__toggle" id="nav-toggle">
+               <i class="ri-menu-line"></i>
+            </div>
+         </div>
+      </nav>
+   </header>
+
+   <main class="main">
+      <section class="section journal__container">
+         <div class="container">
+            <div class="journal__hero">
+               <div class="journal__hero-overlay"></div>
+               <div class="journal__hero-content">
+                  <span class="journal__subtitle">Personal Reflection</span>
+                  <h1 class="journal__title">Your Personal Journal</h1>
+                  <p class="journal__intro">
+                     Write down your thoughts, track your progress, and reflect on your mental health journey.
+                     Your journal entries are private and saved securely.
+                  </p>
+               </div>
+            </div>
+
+            <!-- Auth Required Message -->
+            <div id="auth-required-message" class="journal__auth-message" style="display: none;">
+               <i class="ri-lock-line"></i>
+               <h2>Sign In Required</h2>
+               <p>Please sign in to access your personal journal and save your entries.</p>
+               <button class="journal__btn journal__btn--primary" id="auth-login-button">
+                  <i class="ri-login-box-line"></i> Sign In
+               </button>
+            </div>
+
+            <!-- Main Journal Interface -->
+            <div id="journal-interface" style="display: none;">
+               <div class="journal__main">
+                  <!-- Entry Form -->
+                  <div class="journal__entry-form">
+                     <h2 class="journal__entries-title">New Entry</h2>
+                     <form id="journal-entry-form">
+                        <div class="journal__form-group">
+                           <label for="entry-title" class="journal__form-label">Title</label>
+                           <input type="text" id="entry-title" class="journal__form-input"
+                              placeholder="Give your entry a title..." required>
+                        </div>
+                        <div class="journal__form-group">
+                           <label for="entry-content" class="journal__form-label">Your Thoughts</label>
+                           <textarea id="entry-content" class="journal__form-textarea"
+                              placeholder="Write down your thoughts, feelings, experiences, or anything you'd like to remember..."
+                              required></textarea>
+                        </div>
+                        <div class="journal__form-actions">
+                           <button type="submit" class="journal__btn journal__btn--primary">
+                              <i class="ri-save-line"></i> Save Entry
+                           </button>
+                           <button type="button" class="journal__btn journal__btn--secondary" id="clear-form-btn">
+                              <i class="ri-close-line"></i> Clear
+                           </button>
+                        </div>
+                     </form>
+                  </div>
+
+                  <!-- Progress Sidebar -->
+                  <div class="journal__sidebar">
+                     <div class="journal__stats-card">
+                        <h3 class="journal__stats-title">
+                           <i class="ri-bar-chart-line"></i> Your Progress
+                        </h3>
+                        <div class="journal__stat-item">
+                           <span class="journal__stat-label">Total Entries</span>
+                           <span class="journal__stat-value" id="total-entries">0</span>
+                        </div>
+                        <div class="journal__stat-item">
+                           <span class="journal__stat-label">This Month</span>
+                           <span class="journal__stat-value" id="month-entries">0</span>
+                        </div>
+                        <div class="journal__stat-item">
+                           <span class="journal__stat-label">This Week</span>
+                           <span class="journal__stat-value" id="week-entries">0</span>
+                        </div>
+                        <div class="journal__stat-item">
+                           <span class="journal__stat-label">Streak</span>
+                           <span class="journal__stat-value" id="streak-days">0 days</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Entries List -->
+               <div class="journal__entries">
+                  <h2 class="journal__entries-title">Your Entries</h2>
+                  <div id="entries-list">
+                     <div class="journal__loading">
+                        <i class="ri-loader-4-line"></i>
+                        <p>Loading your entries...</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+   </main>
+
+   <footer class="footer">
+      <div class="footer__container container grid">
+         <a href="index.html" class="footer__logo">
+            <i class="ri-stethoscope-fill"></i> MentalMed
+         </a>
+         <div class="footer__links">
+            <a href="index.html#home" class="footer__link">Home</a>
+            <a href="about.html" class="footer__link">About Us</a>
+            <a href="index.html#prices" class="footer__link">Prices</a>
+         </div>
+         <div class="footer__social">
+            <a href="https://www.facebook.com/bedimcode" target="_blank" class="footer__social-link">
+               <i class="ri-facebook-circle-fill"></i>
+            </a>
+            <a href="https://www.instagram.com/bedimcode/" target="_blank" class="footer__social-link">
+               <i class="ri-instagram-fill"></i>
+            </a>
+            <a href="twitter.com/" target="_blank" class="footer__social-link">
+               <i class="ri-twitter-x-line"></i>
+            </a>
+            <a href="https://www.youtube.com/@Bedimcode" target="_blank" class="footer__social-link">
+               <i class="ri-youtube-fill"></i>
+            </a>
+         </div>
+      </div>
+      <span class="footer__copy">
+         &#169; Made by Kamalesh Motamarri, Harshul Neelam, Adithya Aanand and Yojitsri Thirrukovalur
+      </span>
+   </footer>
+
+   <a href="#" class="scrollup" id="scroll-up">
+      <i class="ri-arrow-up-line"></i>
+   </a>
+
+   <!--==================== SETTINGS MODAL ====================-->
+   <div class="settings-modal" id="settings-modal">
+      <div class="settings-modal__content">
+         <div class="settings-modal__header">
+            <h2 class="settings-modal__title">Settings & Dashboard</h2>
+            <button class="settings-modal-close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="settings-modal__body">
+            <div class="settings-dashboard" id="settings-dashboard">
+               <h3 class="settings-section__title">
+                  <i class="ri-dashboard-line"></i> Dashboard
+               </h3>
+               <div class="settings-dashboard__info">
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Name:</span>
+                     <span class="settings-info__value" id="dashboard-name">-</span>
+                  </div>
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Email:</span>
+                     <span class="settings-info__value" id="dashboard-email">-</span>
+                  </div>
+                  <div class="settings-info__item">
+                     <span class="settings-info__label">Account Created:</span>
+                     <span class="settings-info__value" id="dashboard-created">-</span>
+                  </div>
+               </div>
+            </div>
+            <div class="settings-profile" id="settings-profile">
+               <h3 class="settings-section__title">
+                  <i class="ri-user-settings-line"></i> Update Profile
+               </h3>
+               <form id="profile-update-form" class="settings-form">
+                  <div class="settings-form__group">
+                     <label for="profile-name" class="settings-form__label">Full Name</label>
+                     <input type="text" id="profile-name" class="settings-form__input"
+                        placeholder="Enter your full name">
+                  </div>
+                  <div class="settings-form__group">
+                     <label for="profile-email" class="settings-form__label">Email</label>
+                     <input type="email" id="profile-email" class="settings-form__input" placeholder="Enter your email"
+                        disabled>
+                     <small class="settings-form__hint">Email cannot be changed</small>
+                  </div>
+                  <button type="submit" class="settings-form__button button">Update Profile</button>
+               </form>
+            </div>
+            <div class="settings-login-prompt" id="settings-login-prompt" style="display: none;">
+               <p class="settings-login-prompt__text">Please log in to access your settings and dashboard.</p>
+               <button class="settings-login-prompt__button button" id="settings-login-button">Login</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!--=============== ENVIRONMENT CONFIG ===============-->
+   <script src="config/env-inject.js"></script>
+   <script src="config/env.js"></script>
+
+   <!--=============== FIREBASE CONFIG (Environment Based) ===============-->
+   <script src="config/firebase-config.test.js"></script>
+   <script src="config/firebase-config.prod.js"></script>
+
+   <!--=============== FIREBASE SDK ===============-->
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+   <!--=============== FIREBASE INITIALIZATION ===============-->
+   <script src="assets/js/firebase-config.js"></script>
+
+   <!--=============== AUTH JS ===============-->
+   <script src="assets/js/auth.js"></script>
+
+   <!--=============== SETTINGS JS ===============-->
+   <script src="assets/js/settings.js"></script>
+
+   <!--=============== JOURNAL JS ===============-->
+   <script src="assets/js/journal.js"></script>
+
+   <!--==================== AUTHENTICATION MODALS ====================-->
+   <!-- Login Modal -->
+   <div class="auth-modal" id="login-modal">
+      <div class="auth-modal__content">
+         <div class="auth-modal__header">
+            <h2 class="auth-modal__title">Sign In</h2>
+            <button class="auth-modal-close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="auth-modal__body">
+            <form id="login-form" class="auth-form">
+               <div class="auth-form__group">
+                  <label for="login-email" class="auth-form__label">Email</label>
+                  <input type="email" id="login-email" class="auth-form__input" placeholder="Enter your email" required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="login-password" class="auth-form__label">Password</label>
+                  <input type="password" id="login-password" class="auth-form__input" placeholder="Enter your password"
+                     required>
+               </div>
+               <button type="submit" class="auth-form__button button">Sign In</button>
+            </form>
+            <div class="auth-divider">
+               <span>OR</span>
+            </div>
+            <button id="google-signin-btn" class="auth-google-button">
+               <i class="ri-google-fill"></i>
+               Sign in with Google
+            </button>
+            <p class="auth-switch">
+               Don't have an account? <a href="#" id="switch-to-signup">Sign up</a>
+            </p>
+         </div>
+      </div>
+   </div>
+
+   <!-- Signup Modal -->
+   <div class="auth-modal" id="signup-modal">
+      <div class="auth-modal__content">
+         <div class="auth-modal__header">
+            <h2 class="auth-modal__title">Sign Up</h2>
+            <button class="auth-modal-close" aria-label="Close">
+               <i class="ri-close-line"></i>
+            </button>
+         </div>
+         <div class="auth-modal__body">
+            <form id="signup-form" class="auth-form">
+               <div class="auth-form__group">
+                  <label for="signup-name" class="auth-form__label">Full Name</label>
+                  <input type="text" id="signup-name" class="auth-form__input" placeholder="Enter your full name"
+                     required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="signup-email" class="auth-form__label">Email</label>
+                  <input type="email" id="signup-email" class="auth-form__input" placeholder="Enter your email"
+                     required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="signup-password" class="auth-form__label">Password</label>
+                  <input type="password" id="signup-password" class="auth-form__input"
+                     placeholder="Enter your password (min 6 characters)" required>
+               </div>
+               <div class="auth-form__group">
+                  <label for="signup-confirm-password" class="auth-form__label">Confirm Password</label>
+                  <input type="password" id="signup-confirm-password" class="auth-form__input"
+                     placeholder="Confirm your password" required>
+               </div>
+               <button type="submit" class="auth-form__button button">Sign Up</button>
+            </form>
+            <div class="auth-divider">
+               <span>OR</span>
+            </div>
+            <button id="google-signup-btn" class="auth-google-button">
+               <i class="ri-google-fill"></i>
+               Sign up with Google
+            </button>
+            <p class="auth-switch">
+               Already have an account? <a href="#" id="switch-to-login">Sign in</a>
+            </p>
+         </div>
+      </div>
+   </div>
+
+   <!--=============== MAIN JS ===============-->
+   <script src="assets/js/main.js"></script>
+</body>
+
+</html>

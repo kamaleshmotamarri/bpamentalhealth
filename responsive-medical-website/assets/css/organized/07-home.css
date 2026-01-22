@@ -1,0 +1,228 @@
+/* Home Section */
+/* Extracted from styles.css */
+
+/*=============== HOME ===============*/
+.home {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--header-height);
+}
+
+.home__container {
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  padding-top: 5rem;
+  padding-bottom: 4rem;
+}
+
+/* Better spacing on larger mobile */
+@media screen and (min-width: 480px) {
+  .home__container {
+    gap: 2rem;
+    padding-top: 5rem;
+    padding-bottom: 4rem;
+  }
+}
+
+.home__data {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.home__title {
+  font-size: var(--biggest-font-size);
+  margin-bottom: 0;
+  line-height: 1.2;
+}
+
+.home__title span {
+  font-weight: var(--font-regular);
+  color: var(--first-color);
+  display: block;
+}
+
+.home__description {
+  margin-bottom: 0;
+  color: var(--text-color);
+  line-height: 1.6;
+  font-size: var(--normal-font-size);
+}
+
+.home__content {
+  background: linear-gradient(135deg, var(--first-color), var(--first-color-alt));
+  padding: 1.5rem 1.25rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 16px 40px hsla(220, 80%, 50%, .25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Better padding on larger screens */
+@media screen and (min-width: 480px) {
+  .home__content {
+    padding: 2rem;
+    border-radius: 2rem;
+  }
+}
+
+.home__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+.home__name {
+  font-size: var(--h2-font-size);
+  color: var(--white-color);
+  margin-bottom: 0.5rem;
+  font-weight: var(--font-semi-bold);
+}
+
+.home__profession {
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-medium);
+  color: var(--white-color-light);
+  margin-bottom: 1.5rem;
+  display: block;
+  opacity: 0.9;
+}
+
+.home__icons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.home__box {
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  color: var(--white-color);
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  border-radius: 1rem;
+  font-size: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform .3s, background-color .3s;
+}
+
+.home__box:hover {
+  transform: translateY(-4px);
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.home__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  color: var(--white-color);
+  font-weight: var(--font-medium);
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  transition: all .3s;
+  width: fit-content;
+}
+
+.home__button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(0.25rem);
+}
+
+.home__button i {
+  font-weight: initial;
+  font-size: 1.5rem;
+  transition: transform .3s;
+}
+
+.home__button:hover i {
+  transform: translateX(.25rem);
+}
+
+.home__image {
+  display: none;
+}
+
+.home__img {
+  display: none;
+}
+
+.home__image-wrapper {
+  width: 100%;
+  max-width: 800px;
+  margin-inline: auto;
+  margin-top: 1.5rem;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 16px 40px hsla(220, 40%, 15%, .15);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Better image spacing on larger screens */
+@media screen and (min-width: 480px) {
+  .home__image-wrapper {
+    margin-top: 2rem;
+    border-radius: 2rem;
+  }
+}
+
+.home__hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  transition: transform .4s ease;
+}
+
+@media screen and (min-width: 480px) {
+  .home__hero-image {
+    border-radius: 2rem;
+  }
+}
+
+.home__hero-image:hover {
+  transform: scale(1.02);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}

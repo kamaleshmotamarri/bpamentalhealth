@@ -1,0 +1,236 @@
+/* Disorder Modal */
+/* Extracted from styles.css */
+
+/*=============== DISORDER MODAL ===============*/
+.disorder-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsla(220, 20%, 10%, .8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s, visibility .4s;
+  padding: 1rem;
+}
+
+.disorder-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.disorder-modal__content {
+  background-color: var(--white-color);
+  border-radius: 1.5rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px hsla(220, 20%, 10%, .3);
+  transform: scale(0.9) translateY(20px);
+  transition: transform .4s;
+}
+
+.disorder-modal.show .disorder-modal__content {
+  transform: scale(1) translateY(0);
+}
+
+.disorder-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--white-color-light);
+  position: sticky;
+  top: 0;
+  background-color: var(--white-color);
+  z-index: 10;
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.disorder-modal__title {
+  font-size: var(--h2-font-size);
+  color: var(--title-color);
+  font-weight: var(--font-bold);
+}
+
+.disorder-modal__close {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: var(--white-color-light);
+  color: var(--text-color);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: background-color .4s, transform .4s;
+}
+
+.disorder-modal__close:hover {
+  background-color: var(--first-color);
+  color: var(--white-color);
+  transform: rotate(90deg);
+}
+
+.disorder-modal__body {
+  padding: 1.5rem;
+}
+
+.disorder-modal__section {
+  margin-bottom: 2rem;
+}
+
+.disorder-modal__section:last-child {
+  margin-bottom: 0;
+}
+
+.disorder-modal__section-title {
+  font-size: var(--h3-font-size);
+  color: var(--title-color);
+  font-weight: var(--font-bold);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.disorder-modal__section-title::before {
+  content: "";
+  width: 4px;
+  height: 1.5rem;
+  background: linear-gradient(135deg, var(--first-color), var(--second-color));
+  border-radius: 2px;
+}
+
+.disorder-modal__description {
+  font-size: var(--normal-font-size);
+  color: var(--text-color);
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+
+.disorder-modal__symptoms,
+.disorder-modal__actions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.disorder-modal__symptoms li,
+.disorder-modal__actions li {
+  font-size: var(--normal-font-size);
+  color: var(--text-color);
+  line-height: 1.8;
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.disorder-modal__symptoms li::before,
+.disorder-modal__actions li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--first-color);
+  font-weight: var(--font-bold);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.disorder-modal__footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--white-color-light);
+  text-align: center;
+}
+
+.disorder-modal__wikipedia-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--first-color);
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-medium);
+  text-decoration: none;
+  transition: color .4s, transform .4s;
+}
+
+.disorder-modal__wikipedia-link:hover {
+  color: var(--first-color-alt);
+  transform: translateX(4px);
+}
+
+/* Dark theme for modal */
+.dark-theme .disorder-modal__content {
+  background-color: hsl(220, 24%, 12%);
+}
+
+.dark-theme .disorder-modal__header {
+  background-color: hsl(220, 24%, 12%);
+  border-bottom-color: hsl(220, 24%, 20%);
+}
+
+.dark-theme .disorder-modal__close {
+  background-color: hsl(220, 24%, 20%);
+  color: var(--text-color);
+}
+
+.dark-theme .disorder-modal__close:hover {
+  background-color: var(--first-color);
+  color: var(--white-color);
+}
+
+.dark-theme .disorder-modal__footer {
+  border-top-color: hsl(220, 24%, 20%);
+}
+
+/* Responsive styles for disorder modal */
+@media screen and (max-width: 575px) {
+  .disorder-modal {
+    padding: 0.5rem;
+  }
+
+  .disorder-modal__content {
+    max-height: 95vh;
+    border-radius: 1rem;
+  }
+
+  .disorder-modal__header {
+    padding: 1rem;
+  }
+
+  .disorder-modal__title {
+    font-size: var(--h3-font-size);
+  }
+
+  .disorder-modal__body {
+    padding: 1rem;
+  }
+
+  .disorder-modal__section {
+    margin-bottom: 1.5rem;
+  }
+
+  .disorders__info-btn {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 1149px) {
+  .disorder-modal__content {
+    max-width: 550px;
+  }
+}

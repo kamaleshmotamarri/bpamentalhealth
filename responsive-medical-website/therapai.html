@@ -36,7 +36,7 @@
                </li>
 
                <li>
-                  <a href="index.html#about" class="nav__link">About Us</a>
+                  <a href="about.html" class="nav__link">About Us</a>
                </li>
 
                <li>
@@ -86,7 +86,8 @@
                   Welcome to <span>TherapAI</span>
                </h1>
                <p class="therapai-hero__description">
-                  Your compassionate AI mental health assistant, available 24/7 to listen, support, and guide you on your wellness journey.
+                  Your compassionate AI mental health assistant, available 24/7 to listen, support, and guide you on
+                  your wellness journey.
                </p>
                <div class="therapai-hero__features">
                   <div class="therapai-hero__feature">
@@ -136,15 +137,8 @@
                      <i class="ri-robot-2-fill"></i>
                   </div>
                   <h3 class="chatbot__welcome-title">Hello! I'm TherapAI</h3>
-                  <p class="chatbot__welcome-text">I'm here to listen and provide support. You can share your thoughts, feelings, or concerns with me. How are you feeling today?</p>
-               </div>
-            </div>
-
-            <div class="chatbot__typing-indicator" id="chatbot-typing" style="display: none;">
-               <div class="chatbot__typing-dots">
-                  <span></span>
-                  <span></span>
-                  <span></span>
+                  <p class="chatbot__welcome-text">I'm here to listen and provide support. You can share your thoughts,
+                     feelings, or concerns with me. How are you feeling today?</p>
                </div>
             </div>
 
@@ -171,11 +165,8 @@
                   <button class="chatbot__attach-btn" id="chatbot-attach" title="Attach file">
                      <i class="ri-attachment-line"></i>
                   </button>
-                  <input type="text" 
-                         class="chatbot__input" 
-                         id="chatbot-input" 
-                         placeholder="Share what's on your mind..."
-                         autocomplete="off">
+                  <input type="text" class="chatbot__input" id="chatbot-input"
+                     placeholder="Share what's on your mind..." autocomplete="off">
                   <button class="chatbot__send-btn" id="chatbot-send" title="Send message">
                      <i class="ri-send-plane-fill"></i>
                   </button>
@@ -183,7 +174,8 @@
                <div class="chatbot__footer">
                   <p class="chatbot__disclaimer">
                      <i class="ri-information-line"></i>
-                     This is a supportive tool. For emergencies, please contact a mental health professional or emergency services.
+                     This is a supportive tool. For emergencies, please contact a mental health professional or
+                     emergency services.
                   </p>
                   <a href="helplines.html" class="chatbot__helpline-link">
                      <i class="ri-phone-line"></i>
@@ -205,7 +197,7 @@
          <div class="footer__links">
             <a href="index.html#home" class="footer__link">Home</a>
 
-            <a href="index.html#about" class="footer__link">About Us</a>
+            <a href="about.html" class="footer__link">About Us</a>
 
             <a href="index.html#prices" class="footer__link">Prices</a>
          </div>
@@ -283,11 +275,13 @@
                <form id="profile-update-form" class="settings-form">
                   <div class="settings-form__group">
                      <label for="profile-name" class="settings-form__label">Full Name</label>
-                     <input type="text" id="profile-name" class="settings-form__input" placeholder="Enter your full name">
+                     <input type="text" id="profile-name" class="settings-form__input"
+                        placeholder="Enter your full name">
                   </div>
                   <div class="settings-form__group">
                      <label for="profile-email" class="settings-form__label">Email</label>
-                     <input type="email" id="profile-email" class="settings-form__input" placeholder="Enter your email" disabled>
+                     <input type="email" id="profile-email" class="settings-form__input" placeholder="Enter your email"
+                        disabled>
                      <small class="settings-form__hint">Email cannot be changed</small>
                   </div>
                   <button type="submit" class="settings-form__button button">Update Profile</button>
@@ -301,6 +295,22 @@
       </div>
    </div>
 
+   <!--=============== ENVIRONMENT CONFIG ===============-->
+   <!-- Build-time environment injection (generated during Vercel build) -->
+   <script src="config/env-inject.js"></script>
+   <script src="config/env.js"></script>
+
+   <!--=============== FIREBASE CONFIG (Environment Based) ===============-->
+   <script src="config/firebase-config.test.js"></script>
+   <script src="config/firebase-config.prod.js"></script>
+
+   <!--=============== FIREBASE SDK ===============-->
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+   <!--=============== FIREBASE INITIALIZATION ===============-->
+   <script src="assets/js/firebase-config.js"></script>
+
    <!--=============== MAIN JS ===============-->
    <script src="assets/js/auth.js"></script>
    <script src="assets/js/settings.js"></script>
@@ -309,4 +319,3 @@
 </body>
 
 </html>
-

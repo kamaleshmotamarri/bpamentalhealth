@@ -1,0 +1,140 @@
+/* TherapAI Hero */
+/* Extracted from styles.css */
+
+/*=============== THERAPAI HERO ===============*/
+.therapai-hero {
+  padding-top: calc(var(--header-height) + 3rem);
+  padding-bottom: 3rem;
+  background: linear-gradient(135deg, hsla(218, 94%, 45%, .05) 0%, hsla(218, 94%, 45%, .02) 100%);
+}
+
+.therapai-hero__container {
+  text-align: center;
+}
+
+.therapai-hero__content {
+  max-width: 700px;
+  margin-inline: auto;
+}
+
+.therapai-hero__icon-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.therapai-hero__icon {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, var(--first-color) 0%, var(--first-color-alt) 100%);
+  color: var(--white-color);
+  border-radius: 2rem;
+  display: grid;
+  place-items: center;
+  font-size: 4rem;
+  box-shadow: 0 8px 32px hsla(218, 94%, 45%, .3);
+  position: relative;
+  z-index: 1;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.therapai-hero__glow {
+  position: absolute;
+  inset: -20px;
+  background: linear-gradient(135deg, var(--first-color) 0%, var(--first-color-alt) 100%);
+  border-radius: 2rem;
+  opacity: .3;
+  filter: blur(20px);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: .3;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: .5;
+    transform: scale(1.1);
+  }
+}
+
+.therapai-hero__title {
+  font-size: var(--biggest-font-size);
+  margin-bottom: 1rem;
+  color: var(--title-color);
+}
+
+.therapai-hero__title span {
+  background: linear-gradient(135deg, var(--first-color) 0%, var(--first-color-alt) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: var(--font-semi-bold);
+}
+
+.therapai-hero__description {
+  font-size: var(--normal-font-size);
+  color: var(--text-color);
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+
+.therapai-hero__features {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.therapai-hero__feature {
+  display: flex;
+  align-items: center;
+  column-gap: .5rem;
+  padding: .75rem 1.5rem;
+  background-color: var(--white-color);
+  border-radius: 2rem;
+  box-shadow: 0 4px 16px hsla(218, 68%, 18%, .1);
+  transition: transform .3s, box-shadow .3s;
+}
+
+.therapai-hero__feature:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px hsla(218, 68%, 18%, .15);
+}
+
+.therapai-hero__feature i {
+  font-size: 1.5rem;
+  color: var(--first-color);
+}
+
+.therapai-hero__feature span {
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+  color: var(--title-color);
+}
+
+/* Dark theme */
+.dark-theme .therapai-hero {
+  background: linear-gradient(135deg, hsla(218, 24%, 12%, .5) 0%, hsla(218, 24%, 8%, .3) 100%);
+}
+
+.dark-theme .therapai-hero__feature {
+  background-color: hsl(218, 24%, 15%);
+  box-shadow: 0 4px 16px hsla(218, 68%, 4%, .3);
+}

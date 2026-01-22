@@ -1,0 +1,89 @@
+/* Resources Section */
+/* Extracted from styles.css */
+
+/*=============== RESOURCES ===============*/
+/*=============== RESOURCES ===============*/
+.resources__container {
+  row-gap: 4rem;
+}
+
+.resources__description {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.resources__content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.resources__card {
+  background-color: var(--white-color);
+  padding: 2.5rem 2rem;
+  /* More padding */
+  border-radius: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 20px hsla(220, 20%, 80%, .3);
+  transition: transform .4s, box-shadow .4s, border-color .4s;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-color);
+  border: 1px solid var(--white-color-light);
+}
+
+.resources__card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px hsla(220, 20%, 80%, .5);
+  border-color: var(--second-color);
+  /* Teal border on hover */
+}
+
+.resources__icon {
+  display: inline-flex;
+  font-size: 3rem;
+  /* Bigger icon */
+  color: var(--second-color);
+  /* Teal icon */
+  margin-bottom: 1.5rem;
+  background-color: hsla(170, 75%, 40%, .1);
+  padding: 1rem;
+  border-radius: 50%;
+  /* Circle */
+  transition: transform .4s, background-color .4s, color .4s;
+}
+
+.resources__card:hover .resources__icon {
+  background-color: var(--second-color);
+  color: var(--white-color);
+  transform: scale(1.1);
+}
+
+.resources__title {
+  font-size: var(--h3-font-size);
+  margin-bottom: .75rem;
+  color: var(--title-color);
+  font-weight: var(--font-bold);
+}
+
+.resources__subtitle {
+  font-size: var(--small-font-size);
+  color: var(--text-color-light);
+  line-height: 1.6;
+}
+
+/* Dark theme adjustments */
+.dark-theme .resources__card {
+  background-color: hsl(220, 24%, 12%);
+  border-color: hsl(220, 24%, 20%);
+  box-shadow: none;
+}
+
+.dark-theme .resources__card:hover {
+  background-color: hsl(220, 24%, 15%);
+  box-shadow: 0 8px 24px hsla(0, 0%, 0%, .3);
+  border-color: var(--second-color);
+}

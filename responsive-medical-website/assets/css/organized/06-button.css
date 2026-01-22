@@ -1,0 +1,81 @@
+/* Button Styles */
+/* Extracted from styles.css */
+
+/*=============== BUTTON ===============*/
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--first-color), var(--first-color-alt));
+  color: var(--white-color);
+  font-weight: var(--font-semi-bold);
+  padding: 0.875rem 1.75rem;
+  border-radius: 2rem;
+  /* Pill shape */
+  box-shadow: 0 8px 20px hsla(220, 80%, 50%, .3);
+  transition: transform .4s, box-shadow .4s;
+  font-size: 0.9375rem;
+  min-height: 44px; /* Better touch target for mobile */
+  text-align: center;
+  white-space: nowrap;
+  gap: 0.5rem;
+}
+
+/* Better button sizing on larger screens */
+@media screen and (min-width: 576px) {
+  .button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .button {
+    padding: 1rem 2.5rem;
+  }
+}
+
+.button:hover {
+  background-color: var(--first-color-alt);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px hsla(220, 80%, 50%, .4);
+}
+
+.button__dark {
+  position: relative;
+  background: linear-gradient(var(--dark-color), var(--dark-color)),
+    linear-gradient(225deg, var(--second-color) 0%, var(--dark-color) 25%);
+  border: 3px solid transparent;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  color: var(--white-color);
+  font-weight: var(--font-semi-bold);
+  padding: 1rem 2rem;
+  border-radius: .75rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  box-shadow: 0 4px 16px hsla(218, 68%, 18%, .4);
+  overflow: hidden;
+}
+
+.button__dark::after {
+  content: "";
+  width: 40px;
+  height: 40px;
+  background-color: var(--second-color);
+  border-radius: 50%;
+  position: absolute;
+  top: -.5rem;
+  right: -.5rem;
+  filter: blur(25px);
+}
+
+.button__dark i {
+  transition: transform .4s;
+  font-size: 1.5rem;
+}
+
+.button__dark:hover i {
+  transform: translateX(.25rem);
+}
