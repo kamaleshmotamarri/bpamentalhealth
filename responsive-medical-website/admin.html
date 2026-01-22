@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,12 @@
    <link rel="stylesheet" href="assets/css/styles.css">
    <title>Admin Portal - MentalMed</title>
 </head>
+
 <body class="admin-page">
    <header class="header" id="header">
       <nav class="nav container">
          <a href="index.html" class="nav__logo">
-            <i class="ri-stethoscope-fill"></i> MentalMed Admin
+            <i class="ri-stethoscope-fill"></i> MentalMed
          </a>
          <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
@@ -51,7 +53,8 @@
 
    <main class="main">
       <!--==================== ADMIN ACCESS DENIED ====================-->
-      <section class="admin-access-denied section" id="admin-access-denied" style="display: none; padding-top: calc(var(--header-height) + 3rem);">
+      <section class="admin-access-denied section" id="admin-access-denied"
+         style="display: none; padding-top: calc(var(--header-height) + 3rem);">
          <div class="admin-access-denied__container container">
             <div class="admin-access-denied__content">
                <div class="admin-access-denied__icon">
@@ -59,7 +62,7 @@
                </div>
                <h1 class="admin-access-denied__title">Access Denied</h1>
                <p class="admin-access-denied__description">
-                  You do not have permission to access the admin portal. 
+                  You do not have permission to access the admin portal.
                   Only authorized administrators can access this page.
                </p>
                <a href="index.html" class="button">
@@ -70,7 +73,8 @@
       </section>
 
       <!--==================== ADMIN PORTAL ====================-->
-      <section class="admin-portal section" id="admin-portal" style="display: none; padding-top: calc(var(--header-height) + 3rem);">
+      <section class="admin-portal section" id="admin-portal"
+         style="display: none; padding-top: calc(var(--header-height) + 3rem);">
          <!-- Admin Hero -->
          <div class="admin-hero">
             <div class="admin-hero__container container">
@@ -140,9 +144,10 @@
             <div class="admin-info-banner">
                <i class="ri-information-line"></i>
                <div class="admin-info-banner__content">
-                  <strong>User Tracking:</strong> Users are automatically tracked when they sign up or log in. 
-                  Users from forum posts and comments are also included. 
-                  <span class="admin-info-banner__note">Note: This shows users from this browser's localStorage. For all Firebase users, use Firebase Admin SDK.</span>
+                  <strong>User Tracking:</strong> Users are automatically tracked when they sign up or log in.
+                  Users from forum posts and comments are also included.
+                  <span class="admin-info-banner__note">Note: This shows users from this browser's localStorage. For all
+                     Firebase users, use Firebase Admin SDK.</span>
                </div>
             </div>
 
@@ -200,12 +205,14 @@
          <form class="admin-modal__form" id="add-user-form">
             <div class="admin-modal__group">
                <label for="new-user-email" class="admin-modal__label">Email Address</label>
-               <input type="email" id="new-user-email" class="admin-modal__input" placeholder="user@example.com" required>
+               <input type="email" id="new-user-email" class="admin-modal__input" placeholder="user@example.com"
+                  required>
                <small class="admin-modal__hint">User will receive an email invitation</small>
             </div>
             <div class="admin-modal__group">
                <label for="new-user-password" class="admin-modal__label">Temporary Password</label>
-               <input type="password" id="new-user-password" class="admin-modal__input" placeholder="Enter temporary password" required minlength="6">
+               <input type="password" id="new-user-password" class="admin-modal__input"
+                  placeholder="Enter temporary password" required minlength="6">
                <small class="admin-modal__hint">User should change this on first login</small>
             </div>
             <div class="admin-modal__group">
@@ -290,7 +297,8 @@
                </div>
                <div class="auth-form__group">
                   <label for="auth-password" class="auth-form__label">Password</label>
-                  <input type="password" id="auth-password" class="auth-form__input" placeholder="Enter your password" required>
+                  <input type="password" id="auth-password" class="auth-form__input" placeholder="Enter your password"
+                     required>
                </div>
                <button type="submit" class="auth-form__button button" id="auth-submit-btn">
                   <span id="auth-submit-text">Login</span>
@@ -339,5 +347,5 @@
    <!--=============== ADMIN JS ===============-->
    <script src="assets/js/admin.js"></script>
 </body>
-</html>
 
+</html>

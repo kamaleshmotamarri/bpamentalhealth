@@ -25,6 +25,15 @@
   align-items: center;
 }
 
+/* Allow more space for navbar items on large screens */
+@media screen and (min-width: 1150px) {
+  .header .container {
+    max-width: 1400px;
+    margin-inline: auto;
+  }
+}
+
+
 .nav__logo {
   display: flex;
   align-items: center;
@@ -143,6 +152,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  white-space: nowrap;
 }
 
 .nav__link i {
