@@ -132,7 +132,7 @@
     padding-block: 2rem 4.5rem;
     padding-top: calc(var(--header-height) + 2rem);
     transition: top .4s ease-in-out;
-    z-index: var(--z-fixed);
+    z-index: calc(var(--z-fixed) + 2);
     /* Menu is below header but above content */
     overflow-y: auto;
   }

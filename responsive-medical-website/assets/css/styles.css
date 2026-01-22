@@ -39,6 +39,7 @@
 @import url('organized/26-testimonials.css');
 @import url('organized/27-forum.css');
 @import url('organized/28-admin.css');
+@import url('organized/30-article.css');
 
 /* Responsive Styles (must be last) */
 @import url('organized/21-responsive.css');

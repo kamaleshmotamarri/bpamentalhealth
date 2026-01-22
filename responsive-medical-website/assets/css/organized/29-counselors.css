@@ -1,0 +1,578 @@
+/* Counselors Page Styles */
+
+/* Main Container Background - Matching Journal Style */
+.counselors {
+    padding-top: calc(var(--header-height) + 2rem);
+    padding-bottom: 5rem;
+    min-height: 100vh;
+    background: radial-gradient(circle at top right, hsla(220, 80%, 50%, 0.05), transparent),
+        radial-gradient(circle at bottom left, hsla(170, 75%, 40%, 0.05), transparent);
+}
+
+/* Hero Section */
+.counselors__hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--first-color) 0%, var(--first-color-alt) 100%);
+    border-radius: 2.5rem;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: var(--white-color);
+    margin-bottom: 3rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Abstract shapes for visual interest in hero */
+.counselors__hero::before,
+.counselors__hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 0;
+}
+
+.counselors__hero::before {
+    width: 200px;
+    height: 200px;
+    top: -30px;
+    left: -30px;
+}
+
+.counselors__hero::after {
+    width: 150px;
+    height: 150px;
+    bottom: -20px;
+    right: 10%;
+}
+
+.counselors__hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.counselors__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: 1rem;
+    font-weight: var(--font-bold);
+    letter-spacing: -0.5px;
+}
+
+.counselors__description {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: var(--normal-font-size);
+    opacity: 0.95;
+    line-height: 1.6;
+}
+
+/* Role Selection */
+.counselors__role-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.role-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 4rem 2rem;
+    border-radius: 2rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    border: 1px solid var(--white-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.role-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border-color: var(--first-color);
+}
+
+.role-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--first-color);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+    transform-origin: left;
+}
+
+.role-card:hover::before {
+    transform: scaleX(1);
+}
+
+.role-icon {
+    font-size: 4.5rem;
+    color: var(--first-color);
+    margin-bottom: 2rem;
+    transition: transform 0.4s ease;
+    background: hsla(220, 80%, 50%, 0.1);
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
+    border-radius: 50%;
+    margin-inline: auto;
+}
+
+.role-card:hover .role-icon {
+    transform: scale(1.1) rotate(5deg);
+    background: var(--first-color);
+    color: var(--white-color);
+}
+
+.role-card h3 {
+    font-size: var(--h2-font-size);
+    margin-bottom: 1rem;
+    color: var(--title-color);
+}
+
+.role-card p {
+    color: var(--text-color);
+    font-size: var(--normal-font-size);
+}
+
+/* Views */
+.view-section {
+    animation: fadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.section-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    background: var(--white-color);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.section-header h2 {
+    font-size: var(--h2-font-size);
+    color: var(--title-color);
+    margin-bottom: 0.5rem;
+}
+
+.section-header p {
+    color: var(--text-color-light);
+}
+
+.button--ghost {
+    background: transparent;
+    border: 2px solid var(--first-color);
+    color: var(--first-color);
+    padding: 0.75rem 2rem;
+    font-weight: var(--font-semi-bold);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.button--ghost:hover {
+    background: var(--first-color);
+    color: var(--white-color);
+    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.25);
+    transform: translateY(-2px);
+}
+
+.button--ghost:disabled,
+.button--ghost[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.button--ghost:disabled:hover,
+.button--ghost[disabled]:hover {
+    background: transparent;
+    color: var(--first-color);
+    box-shadow: none;
+    transform: none;
+}
+
+/* Counselor Grid */
+.counselors__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+.counselor-card {
+    background-image: url(../../img/card-bg-pattern.svg);
+    background-color: var(--white-color);
+    background-size: cover;
+    padding: 2.5rem;
+    border-radius: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow: hidden;
+}
+
+.counselor-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+.counselor-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.counselor-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #e0e7ff 0%, #fae8ff 100%);
+    border-radius: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: var(--first-color);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+}
+
+.counselor-info h4 {
+    font-size: 1.25rem;
+    color: var(--title-color);
+    margin-bottom: 0.5rem;
+    font-weight: var(--font-bold);
+}
+
+.speciality-tag {
+    display: inline-block;
+    background: rgba(59, 130, 246, 0.08);
+    color: var(--first-color);
+    padding: 0.35rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: var(--font-bold);
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    cursor: default;
+    transition: background 0.3s;
+}
+
+.speciality-tag:hover {
+    background: rgba(59, 130, 246, 0.15);
+}
+
+.counselor-bio {
+    font-size: var(--normal-font-size);
+    color: var(--text-color);
+    line-height: 1.7;
+    flex-grow: 1;
+}
+
+/* Forms */
+.counselor-form-container {
+    background: var(--white-color);
+    padding: 3.5rem;
+    border-radius: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group:last-of-type {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-color-light);
+    font-weight: var(--font-semi-bold);
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    color: var(--title-color);
+    border-radius: 1rem;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    background: var(--white-color);
+    border-color: var(--first-color);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.speciality-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 2px solid #e2e8f0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    background: var(--white-color);
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s;
+    font-weight: 500;
+    flex: 1 1 auto;
+    justify-content: center;
+}
+
+.checkbox-label:hover {
+    border-color: var(--first-color);
+}
+
+.checkbox-label input {
+    accent-color: var(--first-color);
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Bookings */
+.bookings-section {
+    border-top: 2px dashed rgba(0, 0, 0, 0.05);
+    padding-top: 4rem;
+    margin-top: 4rem;
+}
+
+.bookings-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    color: var(--title-color);
+}
+
+.bookings__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.booking-card {
+    background: var(--white-color);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s;
+}
+
+.booking-info h4 {
+    font-size: 1.125rem;
+    color: var(--title-color);
+    margin-bottom: 0.35rem;
+    font-weight: var(--font-semi-bold);
+}
+
+.booking-info p {
+    font-size: var(--small-font-size);
+    color: var(--text-color-light);
+}
+
+.booking-card:hover {
+    transform: translateX(10px);
+    border-left: 5px solid var(--second-color);
+}
+
+.delete-btn {
+    background: #fee2e2;
+    color: #ef4444;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.delete-btn:hover {
+    background: #ef4444;
+    color: white;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.empty-message {
+    text-align: center;
+    color: var(--text-color-light);
+    font-style: italic;
+    padding: 3rem;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 1rem;
+}
+
+/* Counselors page responsive */
+@media screen and (max-width: 767px) {
+    .counselors {
+        padding-top: calc(var(--header-height) + 1.5rem);
+        padding-bottom: 3rem;
+    }
+
+    .counselors__hero {
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+        border-radius: 1.5rem;
+    }
+
+    .counselors__role-selection {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0;
+    }
+
+    .role-card {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .role-icon {
+        width: 90px;
+        height: 90px;
+        line-height: 90px;
+        font-size: 3rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .section-header .button--ghost {
+        align-self: flex-start;
+    }
+
+    .counselors__grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .counselor-card {
+        padding: 1.5rem;
+    }
+
+    .counselor-form-container {
+        padding: 1.5rem;
+        border-radius: 1.5rem;
+    }
+
+    .speciality-selector {
+        grid-template-columns: 1fr;
+    }
+
+    .bookings-section {
+        padding-top: 2.5rem;
+        margin-top: 2.5rem;
+    }
+
+    .booking-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dark Theme Adjustments */
+.dark-theme .counselors__hero {
+    box-shadow: none;
+}
+
+.dark-theme .section-header,
+.dark-theme .counselor-card,
+.dark-theme .role-card,
+.dark-theme .counselor-form-container,
+.dark-theme .booking-card {
+    background: hsla(220, 24%, 12%, 0.8);
+    border-color: hsla(220, 24%, 20%, 0.5);
+    box-shadow: none;
+}
+
+.dark-theme .role-card:hover,
+.dark-theme .counselor-card:hover {
+    background: hsla(220, 24%, 15%, 0.9);
+    border-color: var(--first-color);
+}
+
+.dark-theme .form-group input[type="text"],
+.dark-theme .form-group textarea {
+    background: hsla(220, 24%, 18%, 1);
+    border-color: hsla(220, 24%, 25%, 1);
+    color: var(--white-color);
+}
+
+.dark-theme .speciality-selector {
+    background: hsla(220, 24%, 18%, 1);
+    border-color: hsla(220, 24%, 25%, 1);
+}
+
+.dark-theme .checkbox-label {
+    background: hsla(220, 24%, 15%, 1);
+    border-color: hsla(220, 24%, 25%, 1);
+    color: var(--text-color-light);
+}
+
+.dark-theme .delete-btn {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+}
+
+.dark-theme .delete-btn:hover {
+    background: #ef4444;
+    color: white;
+}

@@ -22,43 +22,45 @@ const navLink = document.querySelectorAll('.nav__link')
 
 const linkAction = () => {
    const navMenu = document.getElementById('nav-menu')
-   // When we click on each nav__link, we remove the show-menu class
-   navMenu.classList.remove('show-menu')
+   if (navMenu) navMenu.classList.remove('show-menu')
 }
 navLink.forEach(n => n.addEventListener('click', linkAction))
 
 /*=============== ADD SHADOW HEADER ===============*/
 const shadowHeader = () => {
    const header = document.getElementById('header')
-   // Add a class if the bottom offset is greater than 50 of the viewport
-   this.scrollY >= 50 ? header.classList.add('shadow-header')
+   if (!header) return
+   window.scrollY >= 50 ? header.classList.add('shadow-header')
       : header.classList.remove('shadow-header')
 }
 window.addEventListener('scroll', shadowHeader)
 
 /*=============== SWIPER PRICES ===============*/
-const swiperPrices = new Swiper('.prices__swiper', {
-   loop: true,
-   grabCursor: true,
-   spaceBetween: 24,
+const swiperEl = document.querySelector('.prices__swiper')
+if (typeof Swiper !== 'undefined' && swiperEl) {
+   const swiperPrices = new Swiper('.prices__swiper', {
+      loop: true,
+      grabCursor: true,
+      spaceBetween: 24,
 
-   pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-   },
+      pagination: {
+         el: '.swiper-pagination',
+         clickable: true,
+      },
 
-   autoplay: {
-      delay: 3000,
-      disableOnInteraction: false,
-   },
-})
+      autoplay: {
+         delay: 3000,
+         disableOnInteraction: false,
+      },
+   })
+}
 
 /*=============== SHOW SCROLL UP ===============*/
+const scrollUpEl = document.getElementById('scroll-up')
 const scrollUp = () => {
-   const scrollUp = document.getElementById('scroll-up')
-   // When the scroll is higher than 350 viewport height, add the show-scroll class to the a tag with the scrollup class
-   this.scrollY >= 350 ? scrollUp.classList.add('show-scroll')
-      : scrollUp.classList.remove('show-scroll')
+   if (!scrollUpEl) return
+   window.scrollY >= 350 ? scrollUpEl.classList.add('show-scroll')
+      : scrollUpEl.classList.remove('show-scroll')
 }
 window.addEventListener('scroll', scrollUp)
 
@@ -69,15 +71,18 @@ const scrollActive = () => {
    const scrollDown = window.scrollY
 
    sections.forEach(current => {
-      const sectionHeight = current.offsetHeight,
-         sectionTop = current.offsetTop - 58,
-         sectionId = current.getAttribute('id'),
-         sectionsClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']')
+      const sectionId = current.getAttribute('id')
+      if (!sectionId) return
+      const linkEl = document.querySelector('.nav__menu a[href*="' + sectionId + '"]')
+      if (!linkEl) return
+
+      const sectionHeight = current.offsetHeight
+      const sectionTop = current.offsetTop - 58
 
       if (scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight) {
-         sectionsClass.classList.add('active-link')
+         linkEl.classList.add('active-link')
       } else {
-         sectionsClass.classList.remove('active-link')
+         linkEl.classList.remove('active-link')
       }
    })
 }
@@ -98,37 +103,38 @@ if (settingsButton) {
 }
 
 /*=============== SCROLL REVEAL ANIMATION ===============*/
-const sr = ScrollReveal({
-   origin: 'top',
-   distance: '60px',
-   duration: 2000,
-   // reset: true, // Animations repeat
-})
+if (typeof ScrollReveal !== 'undefined') {
+   const sr = ScrollReveal({
+      origin: 'top',
+      distance: '60px',
+      duration: 2000,
+   })
 
-sr.reveal(`.home__content`, { origin: 'bottom' })
-sr.reveal(`.home__info`, { origin: 'bottom', delay: 800 })
-sr.reveal(`.home__data`, { delay: 1400 })
-sr.reveal(`.home__button`, { origin: 'left', delay: 1800 })
+   sr.reveal(`.home__content`, { origin: 'bottom' })
+   sr.reveal(`.home__info`, { origin: 'bottom', delay: 800 })
+   sr.reveal(`.home__data`, { delay: 1400 })
+   sr.reveal(`.home__button`, { origin: 'left', delay: 1800 })
 
-sr.reveal(`.delivery__data`, { origin: 'right' })
-sr.reveal(`.delivery__content`, { origin: 'left', delay: 600 })
-sr.reveal(`.delivery__img`, { delay: 1200 })
+   sr.reveal(`.delivery__data`, { origin: 'right' })
+   sr.reveal(`.delivery__content`, { origin: 'left', delay: 600 })
+   sr.reveal(`.delivery__img`, { delay: 1200 })
 
-sr.reveal(`.about__data, .contact__map`, { origin: 'left' })
-sr.reveal(`.about__img, .contact__data`, { origin: 'right' })
+   sr.reveal(`.about__data, .contact__map`, { origin: 'left' })
+   sr.reveal(`.about__img, .contact__data`, { origin: 'right' })
 
-sr.reveal(`.prices__box`)
-sr.reveal(`.prices__swiper`, { origin: 'bottom', delay: 600 })
+   sr.reveal(`.prices__box`)
+   sr.reveal(`.prices__swiper`, { origin: 'bottom', delay: 600 })
 
-sr.reveal(`.gallery__image`, { interval: 100 })
+   sr.reveal(`.gallery__image`, { interval: 100 })
 
-sr.reveal(`.disorders__card`, { interval: 100, origin: 'bottom' })
-sr.reveal(`.resources__card`, { interval: 100, origin: 'bottom' })
+   sr.reveal(`.disorders__card`, { interval: 100, origin: 'bottom' })
+   sr.reveal(`.resources__card`, { interval: 100, origin: 'bottom' })
 
-sr.reveal(`.footer__container`)
+   sr.reveal(`.footer__container`)
 
-sr.reveal(`.contact-form__data`, { origin: 'top' })
-sr.reveal(`.contact-form__form`, { origin: 'bottom', delay: 400 })
+   sr.reveal(`.contact-form__data`, { origin: 'top' })
+   sr.reveal(`.contact-form__form`, { origin: 'bottom', delay: 400 })
+}
 
 /*=============== CONTACT FORM SUBMISSION ===============*/
 const contactForm = document.getElementById('contact-form-element')

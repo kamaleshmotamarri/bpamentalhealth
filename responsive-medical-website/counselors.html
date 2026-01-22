@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="assets/css/organized/01-variables.css">
+    <link rel="stylesheet" href="assets/css/organized/02-base.css">
+    <link rel="stylesheet" href="assets/css/organized/03-theme.css">
+    <link rel="stylesheet" href="assets/css/organized/04-layout.css">
+    <link rel="stylesheet" href="assets/css/organized/05-header.css">
+    <link rel="stylesheet" href="assets/css/organized/06-button.css">
+    <link rel="stylesheet" href="assets/css/organized/14-footer.css">
+    <link rel="stylesheet" href="assets/css/organized/15-scroll.css">
+    <link rel="stylesheet" href="assets/css/organized/22-auth.css">
+    <link rel="stylesheet" href="assets/css/organized/23-settings.css">
+    <link rel="stylesheet" href="assets/css/organized/21-responsive.css">
+
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="assets/css/organized/29-counselors.css">
+
+    <title>Counselors - MentalMed</title>
+</head>
+
+<body>
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="index.html" class="nav__logo">
+                <i class="ri-stethoscope-fill"></i> MentalMed
+            </a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li><a href="index.html#home" class="nav__link">Home</a></li>
+                    <li><a href="index.html#delivery" class="nav__link">Therapy</a></li>
+                    <li><a href="about.html" class="nav__link">About Us</a></li>
+                    <li><a href="index.html#prices" class="nav__link">Prices</a></li>
+                    <li><a href="index.html#contact" class="nav__link">Contact</a></li>
+                    <li><a href="therapai.html" class="nav__link">TherapAI</a></li>
+                    <li><a href="counselors.html" class="nav__link active-link">Counselors</a></li>
+                </ul>
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-large-line"></i>
+                </div>
+            </div>
+            <div class="nav__buttons">
+                <!-- User info (shown when logged in) -->
+                <div class="nav__user-info" id="user-info" style="display: none;">
+                    <span class="user-name"></span>
+                    <button class="nav__logout" id="logout-button" style="display: none;">
+                        <i class="ri-logout-box-line"></i> Logout
+                    </button>
+                </div>
+
+                <!-- Login button (shown when logged out) -->
+                <button class="nav__login" id="login-button">
+                    <i class="ri-login-box-line"></i> Login
+                </button>
+
+                <!-- Settings button -->
+                <i class="ri-settings-3-fill nav__settings" id="settings-button" title="Settings"></i>
+
+                <!-- Toggle button -->
+                <div class="nav__toggle" id="nav-toggle" aria-label="Open menu">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="counselors section">
+            <div class="container">
+                <!-- Hero Section -->
+                <div class="counselors__hero">
+                    <div class="counselors__hero-content">
+                        <h1 class="counselors__title">Professional Counselors</h1>
+                        <p class="counselors__description">
+                            Connect with certified professionals tailored to your needs.
+                            Choose your role to get started.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Role Selection -->
+                <div id="role-selection" class="counselors__role-selection">
+                    <div class="role-card" onclick="selectRole('patient')">
+                        <div class="role-icon"><i class="ri-user-heart-line"></i></div>
+                        <h3>I am a Patient</h3>
+                        <p>Find and book appointments with counselors.</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('counselor')">
+                        <div class="role-icon"><i class="ri-nurse-line"></i></div>
+                        <h3>I am a Counselor</h3>
+                        <p>List your services and manage your profile.</p>
+                    </div>
+                </div>
+
+                <!-- Patient View -->
+                <div id="patient-view" class="view-section" style="display: none;">
+                    <div class="section-header">
+                        <div>
+                            <h2>Find a Counselor</h2>
+                            <p>Browse our list of specialists.</p>
+                        </div>
+                        <button class="button button--ghost" onclick="resetRole()">Switch Role</button>
+                    </div>
+
+                    <div class="counselors__grid" id="counselors-list">
+                        <!-- JS will populate this -->
+                    </div>
+
+                    <div class="bookings-section">
+                        <h2>My Bookings</h2>
+                        <div id="my-bookings-list" class="bookings__grid">
+                            <!-- JS will populate this -->
+                            <p class="empty-message">No bookings yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Counselor View -->
+                <div id="counselor-view" class="view-section" style="display: none;">
+                    <div class="section-header">
+                        <div>
+                            <h2>Counselor Profile</h2>
+                            <p>Manage your public profile and specialities.</p>
+                        </div>
+                        <button class="button button--ghost" onclick="resetRole()">Switch Role</button>
+                    </div>
+
+                    <div class="counselor-form-container">
+                        <form id="counselor-form" onsubmit="handleCounselorSubmit(event)">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="counselor-name" required placeholder="Dr. Jane Doe">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Specialities</label>
+                                <div class="speciality-selector" id="speciality-selector">
+                                    <label class="checkbox-label"><input type="checkbox" value="Anxiety">
+                                        Anxiety</label>
+                                    <label class="checkbox-label"><input type="checkbox" value="Depression">
+                                        Depression</label>
+                                    <label class="checkbox-label"><input type="checkbox" value="PTSD"> PTSD</label>
+                                    <label class="checkbox-label"><input type="checkbox" value="Bipolar">
+                                        Bipolar</label>
+                                    <label class="checkbox-label"><input type="checkbox" value="Stress"> Stress
+                                        Management</label>
+                                    <label class="checkbox-label"><input type="checkbox" value="Relationships">
+                                        Relationship Counseling</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Bio</label>
+                                <textarea id="counselor-bio" rows="4"
+                                    placeholder="Tell patients about your experience..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="button">Save Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__container container grid">
+            <a href="index.html" class="footer__logo">
+                <i class="ri-stethoscope-fill"></i> MentalMed
+            </a>
+            <div class="footer__links">
+                <a href="index.html#home" class="footer__link">Home</a>
+                <a href="about.html" class="footer__link">About Us</a>
+                <a href="index.html#prices" class="footer__link">Prices</a>
+            </div>
+            <span class="footer__copy">
+                &#169; Made by Kamalesh Motamarri, Harshul Neelam, Adithya Aanand and Yojitsri Thirrukovalur
+            </span>
+        </div>
+    </footer>
+
+    <!-- Scroll Up -->
+    <a href="#" class="scrollup" id="scroll-up" aria-label="Scroll to top">
+        <i class="ri-arrow-up-line"></i>
+    </a>
+
+    <!-- Auth Modals -->
+    <div class="auth-modal" id="login-modal">
+        <div class="auth-modal__content">
+            <div class="auth-modal__header">
+                <h2 class="auth-modal__title">Sign In</h2>
+                <button class="auth-modal-close" aria-label="Close"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="auth-modal__body">
+                <form id="login-form" class="auth-form">
+                    <div class="auth-form__group">
+                        <label for="login-email" class="auth-form__label">Email</label>
+                        <input type="email" id="login-email" class="auth-form__input" placeholder="Enter your email" required>
+                    </div>
+                    <div class="auth-form__group">
+                        <label for="login-password" class="auth-form__label">Password</label>
+                        <input type="password" id="login-password" class="auth-form__input" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="auth-form__button button">Sign In</button>
+                </form>
+                <div class="auth-divider"><span>OR</span></div>
+                <button id="google-signin-btn" class="auth-google-button">
+                    <i class="ri-google-fill"></i> Sign in with Google
+                </button>
+                <p class="auth-switch">Don't have an account? <a href="#" id="switch-to-signup">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-modal" id="signup-modal">
+        <div class="auth-modal__content">
+            <div class="auth-modal__header">
+                <h2 class="auth-modal__title">Sign Up</h2>
+                <button class="auth-modal-close" aria-label="Close"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="auth-modal__body">
+                <form id="signup-form" class="auth-form">
+                    <div class="auth-form__group">
+                        <label for="signup-name" class="auth-form__label">Full Name</label>
+                        <input type="text" id="signup-name" class="auth-form__input" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="auth-form__group">
+                        <label for="signup-email" class="auth-form__label">Email</label>
+                        <input type="email" id="signup-email" class="auth-form__input" placeholder="Enter your email" required>
+                    </div>
+                    <div class="auth-form__group">
+                        <label for="signup-password" class="auth-form__label">Password</label>
+                        <input type="password" id="signup-password" class="auth-form__input" placeholder="Enter your password (min 6 characters)" required>
+                    </div>
+                    <div class="auth-form__group">
+                        <label for="signup-confirm-password" class="auth-form__label">Confirm Password</label>
+                        <input type="password" id="signup-confirm-password" class="auth-form__input" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="auth-form__button button">Sign Up</button>
+                </form>
+                <div class="auth-divider"><span>OR</span></div>
+                <button id="google-signup-btn" class="auth-google-button">
+                    <i class="ri-google-fill"></i> Sign up with Google
+                </button>
+                <p class="auth-switch">Already have an account? <a href="#" id="switch-to-login">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settings-modal">
+        <div class="settings-modal__content">
+            <div class="settings-modal__header">
+                <h2 class="settings-modal__title">Settings & Dashboard</h2>
+                <button class="settings-modal-close" aria-label="Close"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="settings-modal__body">
+                <div class="settings-dashboard" id="settings-dashboard">
+                    <h3 class="settings-section__title"><i class="ri-dashboard-line"></i> Dashboard</h3>
+                    <div class="settings-dashboard__info">
+                        <div class="settings-info__item">
+                            <span class="settings-info__label">Name:</span>
+                            <span class="settings-info__value" id="dashboard-name">-</span>
+                        </div>
+                        <div class="settings-info__item">
+                            <span class="settings-info__label">Email:</span>
+                            <span class="settings-info__value" id="dashboard-email">-</span>
+                        </div>
+                        <div class="settings-info__item">
+                            <span class="settings-info__label">Account Created:</span>
+                            <span class="settings-info__value" id="dashboard-created">-</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-profile" id="settings-profile">
+                    <h3 class="settings-section__title"><i class="ri-user-settings-line"></i> Update Profile</h3>
+                    <form id="profile-update-form" class="settings-form">
+                        <div class="settings-form__group">
+                            <label for="profile-name" class="settings-form__label">Full Name</label>
+                            <input type="text" id="profile-name" class="settings-form__input" placeholder="Enter your full name">
+                        </div>
+                        <div class="settings-form__group">
+                            <label for="profile-email" class="settings-form__label">Email</label>
+                            <input type="email" id="profile-email" class="settings-form__input" placeholder="Enter your email" disabled>
+                            <small class="settings-form__hint">Email cannot be changed</small>
+                        </div>
+                        <button type="submit" class="settings-form__button button">Update Profile</button>
+                    </form>
+                </div>
+                <div class="settings-login-prompt" id="settings-login-prompt" style="display: none;">
+                    <p class="settings-login-prompt__text">Please log in to access your settings and dashboard.</p>
+                    <button class="settings-login-prompt__button button" id="settings-login-button">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="config/env-inject.js"></script>
+    <script src="config/env.js"></script>
+    <script src="config/firebase-config.test.js"></script>
+    <script src="config/firebase-config.prod.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/settings.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/counselors.js"></script>
+</body>
+
+</html>

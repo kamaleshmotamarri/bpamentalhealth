@@ -371,14 +371,16 @@
 }
 
 .cta__button {
-    background-color: var(--white-color);
-    color: var(--first-color);
+    background-color: transparent !important;
+    color: var(--white-color) !important;
+    border: 2px solid var(--white-color) !important;
     font-weight: var(--font-semi-bold);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .cta__button:hover {
-    background-color: var(--white-color);
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: var(--white-color) !important;
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
