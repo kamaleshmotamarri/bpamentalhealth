@@ -17,6 +17,15 @@ function initializeChatbot() {
       chatbotWelcome = chatbotMessages.querySelector('.chatbot__welcome');
    }
 
+   // Check API key availability (for debugging)
+   setTimeout(() => {
+      if (window.GEMINI_API_KEY && window.GEMINI_API_KEY !== 'not_set' && window.GEMINI_API_KEY.trim()) {
+         console.log('[TherapAI] API key loaded successfully');
+      } else {
+         console.warn('[TherapAI] API key not found. Make sure config/env-inject.js is loaded and GEMINI_API_KEY is set.');
+      }
+   }, 500);
+
    // Setup event listeners
    setupEventListeners();
 }
@@ -185,15 +194,24 @@ async function generateBotResponse(userMessage) {
    // Wait for API key to be available (with timeout)
    let API_KEY = window.GEMINI_API_KEY;
    let attempts = 0;
-   while ((!API_KEY || API_KEY === 'not_set') && attempts < 10) {
+   const maxAttempts = 20; // Increased timeout for slower loading
+   while ((!API_KEY || API_KEY === 'not_set' || API_KEY === '') && attempts < maxAttempts) {
       await new Promise(resolve => setTimeout(resolve, 100));
       API_KEY = window.GEMINI_API_KEY;
       attempts++;
    }
 
+   // Debug logging
    if (!API_KEY || API_KEY === 'not_set' || !API_KEY.trim()) {
       console.error('Gemini API Key is not configured');
-      return "I'm having trouble connecting to my brain right now. Please make sure the API key is configured correctly. If you're the administrator, please check the configuration files.";
+      console.error('window.GEMINI_API_KEY:', window.GEMINI_API_KEY);
+      console.error('Attempts made:', attempts);
+      return "I'm having trouble connecting to my brain right now. Please make sure the API key is configured correctly. If you're the administrator, please check the configuration files (config/env-inject.js) and ensure GEMINI_API_KEY environment variable is set.";
+   }
+
+   // Validate API key format (should start with AIza)
+   if (!API_KEY.startsWith('AIza')) {
+      console.warn('API key format may be incorrect. Expected to start with "AIza"');
    }
 
    // Using Gemini 2.5 Flash model
@@ -209,7 +227,7 @@ async function generateBotResponse(userMessage) {
             'Content-Type': 'application/json',
          },
          body: JSON.stringify({
-            system_instruction: {
+            systemInstruction: {
                parts: [{ text: systemPrompt }]
             },
             contents: [
@@ -236,13 +254,23 @@ async function generateBotResponse(userMessage) {
             errorData = { error: { message: errorText } };
          }
          console.error('Gemini API Error:', errorData);
+         console.error('API Key present:', !!API_KEY);
+         console.error('API Key length:', API_KEY ? API_KEY.length : 0);
 
-         // Provide user-friendly error messages
+         // Provide user-friendly error messages with more context
          if (response.status === 401 || response.status === 403) {
-            return "I'm having authentication issues. Please check the API key configuration.";
+            const errorMsg = errorData?.error?.message || 'Authentication failed';
+            console.error('Authentication error details:', errorMsg);
+            return "I'm having authentication issues. Please check the API key configuration. If you're the administrator, verify that the GEMINI_API_KEY is set correctly in your environment variables.";
          } else if (response.status === 429) {
             return "I'm receiving too many requests right now. Please wait a moment and try again.";
+         } else if (response.status === 400) {
+            const errorMsg = errorData?.error?.message || 'Bad request';
+            console.error('Bad request error:', errorMsg);
+            return "I'm having trouble processing your request. Please try rephrasing your message.";
          } else {
+            const errorMsg = errorData?.error?.message || 'Unknown error';
+            console.error('API error:', response.status, errorMsg);
             return "I'm experiencing some technical difficulties. Please try again in a moment.";
          }
       }
