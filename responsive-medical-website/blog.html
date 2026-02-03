@@ -49,30 +49,47 @@
                </p>
             </div>
 
-            <div class="blog__grid">
-               <!-- Article 1 -->
-               <article class="blog__card">
-                  <div class="blog__img-container">
-                     <a href="article-mindfulness.html">
-                        <img src="assets/img/blog-1.png" alt="Mental Clarity" class="blog__img">
-                     </a>
-                     <span class="blog__tag">Wellness</span>
+            <!-- Featured Article Section -->
+            <section class="blog__featured container">
+               <div class="blog__featured-content">
+                  <span class="blog__tag">Wellness</span>
+                  <h2 class="blog__featured-title">The Power of Mindfulness: Improving Mental Clarity</h2>
+                  <p class="blog__featured-description">
+                     Discover how daily mindfulness practices can reduce stress and enhance your cognitive focus in
+                     our fast-paced world. This deep dive explores techniques you can start today.
+                  </p>
+                  <div class="blog__featured-meta">
+                     <span class="blog__date"><i class="ri-calendar-line"></i> Dec 20, 2024</span>
+                     <span class="blog__reading-time"><i class="ri-time-line"></i> 5 min read</span>
                   </div>
-                  <div class="blog__content">
-                     <span class="blog__date">Dec 20, 2024</span>
-                     <a href="article-mindfulness.html" class="blog__title">The Power of Mindfulness: Improving Mental Clarity</a>
-                     <p class="blog__excerpt">
-                        Discover how daily mindfulness practices can reduce stress and enhance your cognitive focus in
-                        our fast-paced world.
-                     </p>
-                     <a href="article-mindfulness.html" class="blog__button">
-                        Read Article <i class="ri-arrow-right-line"></i>
-                     </a>
-                  </div>
-               </article>
+                  <a href="article-mindfulness.html" class="blog__button blog__button--featured">
+                     Read Article <i class="ri-arrow-right-line"></i>
+                  </a>
+               </div>
+               <div class="blog__featured-img-container">
+                  <a href="article-mindfulness.html">
+                     <img src="assets/img/blog-1.png" alt="Mental Clarity" class="blog__featured-img">
+                  </a>
+               </div>
+            </section>
 
+            <!-- Filters & Search -->
+            <div class="blog__filters container">
+               <div class="blog__categories">
+                  <button class="blog__filter-btn active-filter" data-filter="all">All View</button>
+                  <button class="blog__filter-btn" data-filter="Wellness">Wellness</button>
+                  <button class="blog__filter-btn" data-filter="Neuroscience">Neuroscience</button>
+                  <button class="blog__filter-btn" data-filter="Psychology">Psychology</button>
+               </div>
+               <div class="blog__search">
+                  <i class="ri-search-line"></i>
+                  <input type="text" placeholder="Search articles..." id="blog-search-input">
+               </div>
+            </div>
+
+            <div class="blog__grid">
                <!-- Article 2 -->
-               <article class="blog__card">
+               <article class="blog__card" data-category="Neuroscience">
                   <div class="blog__img-container">
                      <a href="article-neuroplasticity.html">
                         <img src="assets/img/blog-2.png" alt="Neuroplasticity" class="blog__img">
@@ -80,20 +97,22 @@
                      <span class="blog__tag">Neuroscience</span>
                   </div>
                   <div class="blog__content">
-                     <span class="blog__date">Dec 18, 2024</span>
-                     <a href="article-neuroplasticity.html" class="blog__title">Understanding Neuroplasticity: How Your Brain Adapts</a>
+                     <div class="blog__meta">
+                        <span class="blog__date">Dec 18, 2024</span>
+                     </div>
+                     <a href="article-neuroplasticity.html" class="blog__title">Understanding Neuroplasticity</a>
                      <p class="blog__excerpt">
                         Learn about the brain's incredible ability to reorganize itself by forming new neural
                         connections throughout life.
                      </p>
                      <a href="article-neuroplasticity.html" class="blog__button">
-                        Read Article <i class="ri-arrow-right-line"></i>
+                        Read More <i class="ri-arrow-right-line"></i>
                      </a>
                   </div>
                </article>
 
                <!-- Article 3 -->
-               <article class="blog__card">
+               <article class="blog__card" data-category="Psychology">
                   <div class="blog__img-container">
                      <a href="article-cbt.html">
                         <img src="assets/img/blog-3.png" alt="CBT Guide" class="blog__img">
@@ -101,20 +120,22 @@
                      <span class="blog__tag">Psychology</span>
                   </div>
                   <div class="blog__content">
-                     <span class="blog__date">Dec 15, 2024</span>
-                     <a href="article-cbt.html" class="blog__title">Cognitive Behavioral Therapy: A Beginner's Guide</a>
+                     <div class="blog__meta">
+                        <span class="blog__date">Dec 15, 2024</span>
+                     </div>
+                     <a href="article-cbt.html" class="blog__title">Cognitive Behavioral Therapy</a>
                      <p class="blog__excerpt">
                         An introduction to CBT techniques helping you identifying and challenging negative thought
                         patterns.
                      </p>
                      <a href="article-cbt.html" class="blog__button">
-                        Read Article <i class="ri-arrow-right-line"></i>
+                        Read More <i class="ri-arrow-right-line"></i>
                      </a>
                   </div>
                </article>
 
                <!-- Article 4 -->
-               <article class="blog__card">
+               <article class="blog__card" data-category="Wellness">
                   <div class="blog__img-container">
                      <a href="article-sleep.html">
                         <img src="assets/img/blog-1.png" alt="Sleep Hygiene" class="blog__img">
@@ -122,20 +143,22 @@
                      <span class="blog__tag">Wellness</span>
                   </div>
                   <div class="blog__content">
-                     <span class="blog__date">Dec 12, 2024</span>
-                     <a href="article-sleep.html" class="blog__title">Sleep Hygiene: The Foundation of Mental Health</a>
+                     <div class="blog__meta">
+                        <span class="blog__date">Dec 12, 2024</span>
+                     </div>
+                     <a href="article-sleep.html" class="blog__title">Sleep Hygiene: Mental Health Foundation</a>
                      <p class="blog__excerpt">
                         Why sleep is crucial for emotional regulation and simple tips to improve your nightly rest
                         routine.
                      </p>
                      <a href="article-sleep.html" class="blog__button">
-                        Read Article <i class="ri-arrow-right-line"></i>
+                        Read More <i class="ri-arrow-right-line"></i>
                      </a>
                   </div>
                </article>
 
                <!-- Article 5 -->
-               <article class="blog__card">
+               <article class="blog__card" data-category="Neuroscience">
                   <div class="blog__img-container">
                      <a href="article-gut-brain.html">
                         <img src="assets/img/blog-2.png" alt="Gut-Brain Axis" class="blog__img">
@@ -143,20 +166,22 @@
                      <span class="blog__tag">Neuroscience</span>
                   </div>
                   <div class="blog__content">
-                     <span class="blog__date">Dec 10, 2024</span>
-                     <a href="article-gut-brain.html" class="blog__title">The Gut-Brain Axis: What Science Tells Us</a>
+                     <div class="blog__meta">
+                        <span class="blog__date">Dec 10, 2024</span>
+                     </div>
+                     <a href="article-gut-brain.html" class="blog__title">The Gut-Brain Axis: Science</a>
                      <p class="blog__excerpt">
                         Exploring the fascinating connection between your digestive health and your mood and mental
                         state.
                      </p>
                      <a href="article-gut-brain.html" class="blog__button">
-                        Read Article <i class="ri-arrow-right-line"></i>
+                        Read More <i class="ri-arrow-right-line"></i>
                      </a>
                   </div>
                </article>
 
                <!-- Article 6 -->
-               <article class="blog__card">
+               <article class="blog__card" data-category="Psychology">
                   <div class="blog__img-container">
                      <a href="article-social-anxiety.html">
                         <img src="assets/img/blog-3.png" alt="Social Anxiety" class="blog__img">
@@ -164,14 +189,16 @@
                      <span class="blog__tag">Psychology</span>
                   </div>
                   <div class="blog__content">
-                     <span class="blog__date">Dec 05, 2024</span>
-                     <a href="article-social-anxiety.html" class="blog__title">Overcoming Social Anxiety: Practical Steps</a>
+                     <div class="blog__meta">
+                        <span class="blog__date">Dec 05, 2024</span>
+                     </div>
+                     <a href="article-social-anxiety.html" class="blog__title">Overcoming Social Anxiety</a>
                      <p class="blog__excerpt">
                         Actionable advice and psychological strategies to help you navigate social situations with more
                         confidence.
                      </p>
                      <a href="article-social-anxiety.html" class="blog__button">
-                        Read Article <i class="ri-arrow-right-line"></i>
+                        Read More <i class="ri-arrow-right-line"></i>
                      </a>
                   </div>
                </article>
@@ -238,6 +265,7 @@
 
    <script src="assets/js/auth.js"></script>
    <script src="assets/js/settings.js"></script>
+   <script src="assets/js/blog.js"></script>
    <script src="assets/js/main.js"></script>
 </body>
 

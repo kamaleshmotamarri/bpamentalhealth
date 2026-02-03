@@ -282,16 +282,18 @@ document.addEventListener('DOMContentLoaded', function () {
    });
 
    // Display helplines based on selection
+   // Display helplines based on selection
    function displayHelplines(country, region) {
       resultsContainer.innerHTML = '';
       emptyState.style.display = 'none';
+      let cardCount = 0;
 
       if (!country) {
          // Show all helplines
          for (const countryName in helplinesData) {
             for (const regionName in helplinesData[countryName]) {
                const helplines = helplinesData[countryName][regionName];
-               resultsContainer.appendChild(createHelplineCard(countryName, regionName, helplines));
+               resultsContainer.appendChild(createHelplineCard(countryName, regionName, helplines, cardCount++));
             }
          }
       } else {
@@ -306,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Show specific region
             const helplines = countryData[region];
             if (helplines) {
-               resultsContainer.appendChild(createHelplineCard(country, region, helplines));
+               resultsContainer.appendChild(createHelplineCard(country, region, helplines, cardCount++));
             } else {
                emptyState.style.display = 'block';
             }
@@ -314,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Show all regions in country
             for (const regionName in countryData) {
                const helplines = countryData[regionName];
-               resultsContainer.appendChild(createHelplineCard(country, regionName, helplines));
+               resultsContainer.appendChild(createHelplineCard(country, regionName, helplines, cardCount++));
             }
          }
       }
@@ -325,9 +327,11 @@ document.addEventListener('DOMContentLoaded', function () {
    }
 
    // Create helpline card
-   function createHelplineCard(country, region, helplines) {
+   function createHelplineCard(country, region, helplines, index = 0) {
       const card = document.createElement('div');
       card.className = 'helplines__card';
+      // Stagger animation
+      card.style.animationDelay = `${index * 0.1}s`;
 
       const regionLabel = region === 'National' ? 'National Support' : region;
       const locationText = region === 'National' ? country : `${region}, ${country}`;
@@ -368,6 +372,16 @@ document.addEventListener('DOMContentLoaded', function () {
       `;
 
       return card;
+   }
+
+   // Quick Exit Functionality
+   const quickExitBtn = document.getElementById('quick-exit-btn');
+   if (quickExitBtn) {
+      quickExitBtn.addEventListener('click', function (e) {
+         e.preventDefault();
+         // Open Google in current tab and replace history
+         window.location.replace('https://www.google.com');
+      });
    }
 });
 
