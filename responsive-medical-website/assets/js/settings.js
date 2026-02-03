@@ -108,13 +108,13 @@ function loadUserProfile(user) {
 async function updateUserProfile(displayName) {
   const auth = getAuth();
   if (!auth) {
-    showMessage('Authentication service is not available. Please refresh the page.', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
   const user = auth.currentUser;
   if (!user) {
-    showMessage('You must be logged in to update your profile.', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
@@ -144,7 +144,7 @@ async function updateUserProfile(displayName) {
     }, 1000);
   } catch (error) {
     console.error('[Settings] Profile update error:', error);
-    showMessage('Failed to update profile. Please try again.', 'error');
+    showMessage('bad internet', 'error');
   }
 }
 
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const displayName = nameInput ? nameInput.value.trim() : '';
 
       if (!displayName) {
-        showMessage('Please enter a name.', 'error');
+        showMessage('bad internet', 'error');
         return;
       }
 

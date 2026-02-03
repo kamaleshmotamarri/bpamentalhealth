@@ -206,7 +206,7 @@ async function generateBotResponse(userMessage) {
       console.error('Gemini API Key is not configured');
       console.error('window.GEMINI_API_KEY:', window.GEMINI_API_KEY);
       console.error('Attempts made:', attempts);
-      return "I'm having trouble connecting to my brain right now. Please make sure the API key is configured correctly. If you're the administrator, please check the configuration files (config/env-inject.js) and ensure GEMINI_API_KEY environment variable is set.";
+      return "bad internet";
    }
 
    // Validate API key format (should start with AIza)
@@ -261,17 +261,17 @@ async function generateBotResponse(userMessage) {
          if (response.status === 401 || response.status === 403) {
             const errorMsg = errorData?.error?.message || 'Authentication failed';
             console.error('Authentication error details:', errorMsg);
-            return "I'm having authentication issues. Please check the API key configuration. If you're the administrator, verify that the GEMINI_API_KEY is set correctly in your environment variables.";
+            return "bad internet";
          } else if (response.status === 429) {
-            return "I'm receiving too many requests right now. Please wait a moment and try again.";
+            return "bad internet";
          } else if (response.status === 400) {
             const errorMsg = errorData?.error?.message || 'Bad request';
             console.error('Bad request error:', errorMsg);
-            return "I'm having trouble processing your request. Please try rephrasing your message.";
+            return "bad internet";
          } else {
             const errorMsg = errorData?.error?.message || 'Unknown error';
             console.error('API error:', response.status, errorMsg);
-            return "I'm experiencing some technical difficulties. Please try again in a moment.";
+            return "bad internet";
          }
       }
 
@@ -280,14 +280,14 @@ async function generateBotResponse(userMessage) {
          return data.candidates[0].content.parts[0].text;
       } else {
          console.warn('Unexpected response format:', data);
-         return "I'm sorry, I'm finding it hard to process that right now. Could you try rephrasing?";
+         return "bad internet";
       }
    } catch (error) {
       console.error('Chatbot Error:', error);
       if (error.message && error.message.includes('fetch')) {
-         return "I'm having trouble connecting to the server. Please check your internet connection and try again.";
+         return "bad internet";
       }
-      return "I'm sorry, I'm experiencing some technical difficulties. Please try again in a moment.";
+      return "bad internet";
    }
 }
 
@@ -323,7 +323,7 @@ async function sendMessage() {
    } catch (error) {
       console.error('Error in sendMessage:', error);
       hideTypingIndicator();
-      addMessage("I'm sorry, I encountered an error. Please try again.", false);
+      addMessage("bad internet", false);
    } finally {
       // Re-enable input
       chatbotInput.disabled = false;

@@ -34,7 +34,7 @@ function initializeAdmin() {
         checkAdminAccess();
       } else if (retries >= maxRetries) {
         clearInterval(checkInterval);
-        showAccessDenied('Firebase authentication failed to initialize.');
+        showAccessDenied('bad internet');
       }
     }, 500);
   }
@@ -73,9 +73,9 @@ function checkAdminAccess() {
 
     // If not logged in, show access denied
     if (!currentUser) {
-      showAccessDenied('Please log in with an admin account.');
+      showAccessDenied('bad internet');
     } else {
-      showAccessDenied('You do not have admin privileges.');
+      showAccessDenied('bad internet');
     }
   }
 }
@@ -209,7 +209,7 @@ async function loadUsers() {
 
   } catch (error) {
     console.error('[Admin] Error loading users:', error);
-    showMessage('Failed to load users: ' + error.message, 'error');
+    showMessage('bad internet', 'error');
   } finally {
     if (loadingEl) loadingEl.style.display = 'none';
   }
@@ -652,14 +652,14 @@ async function handleToggleUserStatus(user) {
 
   } catch (error) {
     console.error('[Admin] Error toggling user status:', error);
-    showMessage('Failed to update user status: ' + error.message, 'error');
+    showMessage('bad internet', 'error');
   }
 }
 
 // Handle delete user
 async function handleDeleteUser(user) {
   if (user.email === ADMIN_EMAIL) {
-    showMessage('Cannot delete admin account', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
@@ -682,7 +682,7 @@ async function handleDeleteUser(user) {
 
   } catch (error) {
     console.error('[Admin] Error deleting user:', error);
-    showMessage('Failed to delete user: ' + error.message, 'error');
+    showMessage('bad internet', 'error');
   }
 }
 
@@ -695,12 +695,12 @@ async function handleAddUser(e) {
   const displayName = document.getElementById('new-user-name').value.trim();
 
   if (!email || !password) {
-    showMessage('Please fill in all required fields', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
   if (password.length < 6) {
-    showMessage('Password must be at least 6 characters', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
@@ -740,7 +740,7 @@ async function handleAddUser(e) {
 
   } catch (error) {
     console.error('[Admin] Error creating user:', error);
-    showMessage('Failed to create user: ' + error.message, 'error');
+    showMessage('bad internet', 'error');
   }
 }
 

@@ -44,7 +44,7 @@ function initAppointmentScheduler() {
   setTimeout(() => {
     clearInterval(checkFirebase);
     if (!window.firebaseInitialized) {
-      showAppointmentMessage('Firebase initialization failed. Please refresh the page.', 'error');
+      showAppointmentMessage('bad internet', 'error');
     }
   }, 10000);
 }
@@ -114,7 +114,7 @@ async function checkUserAppointment(userId) {
     }
   } catch (error) {
     console.error('[Appointments] Error checking user appointment:', error);
-    showAppointmentMessage('Error checking appointments. Please try again.', 'error');
+    showAppointmentMessage('bad internet', 'error');
     return false;
   }
 }
@@ -529,24 +529,24 @@ async function confirmAppointment() {
   const db = getFirestore();
 
   if (!auth || !auth.currentUser) {
-    showAppointmentMessage('You must be signed in to make an appointment.', 'error');
+    showAppointmentMessage('bad internet', 'error');
     return;
   }
 
   if (!db) {
-    showAppointmentMessage('Database not available. Please refresh the page.', 'error');
+    showAppointmentMessage('bad internet', 'error');
     return;
   }
 
   if (!selectedDate || !selectedTimeSlot) {
-    showAppointmentMessage('Please select a date and time slot.', 'error');
+    showAppointmentMessage('bad internet', 'error');
     return;
   }
 
   // Check if user already has an appointment
   const hasAppointment = await checkUserAppointment(auth.currentUser.uid);
   if (hasAppointment) {
-    showAppointmentMessage('You already have an appointment scheduled. Each user can only have one appointment.', 'error');
+    showAppointmentMessage('bad internet', 'error');
     closeAppointmentModal();
     return;
   }
@@ -610,7 +610,7 @@ async function confirmAppointment() {
 
   } catch (error) {
     console.error('[Appointments] Error creating appointment:', error);
-    showAppointmentMessage('Failed to schedule appointment. Please try again.', 'error');
+    showAppointmentMessage('bad internet', 'error');
   } finally {
     showLoading(false);
   }
@@ -645,7 +645,7 @@ async function deleteAppointment(appointmentId) {
 // Handle delete appointment button click
 async function handleDeleteAppointment() {
   if (!userAppointment || !userAppointment.id) {
-    showAppointmentMessage('No appointment to delete.', 'error');
+    showAppointmentMessage('bad internet', 'error');
     return;
   }
 
@@ -691,11 +691,11 @@ async function handleDeleteAppointment() {
       showScheduler();
       // Note: showScheduler() already calls renderCalendar(), so no need to call it again
     } else {
-      showAppointmentMessage('Failed to delete appointment. Please try again.', 'error');
+      showAppointmentMessage('bad internet', 'error');
     }
   } catch (error) {
     console.error('[Appointments] Error in handleDeleteAppointment:', error);
-    showAppointmentMessage('An error occurred while deleting the appointment.', 'error');
+    showAppointmentMessage('bad internet', 'error');
   } finally {
     showLoading(false);
   }

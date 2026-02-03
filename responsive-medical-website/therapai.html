@@ -14,8 +14,13 @@
    <!--=============== CSS ===============-->
    <link rel="stylesheet" href="assets/css/styles.css">
 
-   <title>TherapAI - Mental Health Chatbot</title>
-</head>
+   </title>
+   <!--=============== GOOGLE FONTS ===============-->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet">
 
 <body>
    <!--==================== HEADER ====================-->
@@ -71,35 +76,36 @@
    </header>
 
    <!--==================== MAIN ====================-->
-   <main class="main">
+   <main class="main therapai-page">
       <!--==================== HERO SECTION ====================-->
-      <section class="therapai-hero section" id="therapai-hero">
+      <section class="therapai-hero section" id="therapai-hero" aria-labelledby="therapai-heading">
+         <div class="therapai-hero__bg" aria-hidden="true"></div>
          <div class="therapai-hero__container container">
             <div class="therapai-hero__content">
                <div class="therapai-hero__icon-wrapper">
                   <div class="therapai-hero__icon">
-                     <i class="ri-robot-2-fill"></i>
+                     <i class="ri-robot-2-fill" aria-hidden="true"></i>
                   </div>
                   <div class="therapai-hero__glow"></div>
                </div>
-               <h1 class="therapai-hero__title">
+               <h1 class="therapai-hero__title" id="therapai-heading">
                   Welcome to <span>TherapAI</span>
                </h1>
                <p class="therapai-hero__description">
                   Your compassionate AI mental health assistant, available 24/7 to listen, support, and guide you on
                   your wellness journey.
                </p>
-               <div class="therapai-hero__features">
-                  <div class="therapai-hero__feature">
-                     <i class="ri-shield-check-fill"></i>
+               <div class="therapai-hero__features" role="list">
+                  <div class="therapai-hero__feature" role="listitem">
+                     <i class="ri-shield-check-fill" aria-hidden="true"></i>
                      <span>Private & Secure</span>
                   </div>
-                  <div class="therapai-hero__feature">
-                     <i class="ri-time-line"></i>
+                  <div class="therapai-hero__feature" role="listitem">
+                     <i class="ri-time-line" aria-hidden="true"></i>
                      <span>Available 24/7</span>
                   </div>
-                  <div class="therapai-hero__feature">
-                     <i class="ri-heart-3-fill"></i>
+                  <div class="therapai-hero__feature" role="listitem">
+                     <i class="ri-heart-3-fill" aria-hidden="true"></i>
                      <span>Compassionate Support</span>
                   </div>
                </div>
@@ -108,33 +114,34 @@
       </section>
 
       <!--==================== CHATBOT ====================-->
-      <section class="chatbot section" id="chatbot">
-         <div class="chatbot__container">
+      <section class="chatbot section" id="chatbot" aria-label="TherapAI chat">
+         <div class="chatbot__container" role="application" aria-label="Chat with TherapAI">
             <div class="chatbot__header">
                <div class="chatbot__header-content">
                   <div class="chatbot__icon">
-                     <i class="ri-robot-2-fill"></i>
+                     <i class="ri-robot-2-fill" aria-hidden="true"></i>
                   </div>
                   <div class="chatbot__header-text">
-                     <h1 class="chatbot__title">TherapAI</h1>
+                     <h2 class="chatbot__title">TherapAI</h2>
                      <p class="chatbot__subtitle">Your AI Mental Health Assistant</p>
                   </div>
                </div>
                <div class="chatbot__header-actions">
-                  <button class="chatbot__action-btn" id="chatbot-clear" title="Clear conversation">
-                     <i class="ri-delete-bin-line"></i>
+                  <button class="chatbot__action-btn" id="chatbot-clear" type="button" title="Clear conversation"
+                     aria-label="Clear conversation">
+                     <i class="ri-delete-bin-line" aria-hidden="true"></i>
                   </button>
-                  <div class="chatbot__status">
+                  <div class="chatbot__status" aria-live="polite">
                      <span class="chatbot__status-dot"></span>
                      <span class="chatbot__status-text">Online</span>
                   </div>
                </div>
             </div>
 
-            <div class="chatbot__messages" id="chatbot-messages">
+            <div class="chatbot__messages" id="chatbot-messages" role="log" aria-label="Chat messages">
                <div class="chatbot__welcome">
                   <div class="chatbot__welcome-icon">
-                     <i class="ri-robot-2-fill"></i>
+                     <i class="ri-robot-2-fill" aria-hidden="true"></i>
                   </div>
                   <h3 class="chatbot__welcome-title">Hello! I'm TherapAI</h3>
                   <p class="chatbot__welcome-text">I'm here to listen and provide support. You can share your thoughts,
@@ -143,42 +150,44 @@
             </div>
 
             <div class="chatbot__input-container">
-               <div class="chatbot__suggestions" id="chatbot-suggestions">
-                  <button class="chatbot__suggestion-btn">
-                     <i class="ri-emotion-sad-line"></i>
+               <div class="chatbot__suggestions" id="chatbot-suggestions" role="group" aria-label="Quick starters">
+                  <button type="button" class="chatbot__suggestion-btn">
+                     <i class="ri-emotion-sad-line" aria-hidden="true"></i>
                      <span>I'm feeling anxious</span>
                   </button>
-                  <button class="chatbot__suggestion-btn">
-                     <i class="ri-stress-line"></i>
+                  <button type="button" class="chatbot__suggestion-btn">
+                     <i class="ri-stress-line" aria-hidden="true"></i>
                      <span>I need help with stress</span>
                   </button>
-                  <button class="chatbot__suggestion-btn">
-                     <i class="ri-heart-pulse-line"></i>
+                  <button type="button" class="chatbot__suggestion-btn">
+                     <i class="ri-heart-pulse-line" aria-hidden="true"></i>
                      <span>I'm feeling down</span>
                   </button>
-                  <button class="chatbot__suggestion-btn">
-                     <i class="ri-chat-3-line"></i>
+                  <button type="button" class="chatbot__suggestion-btn">
+                     <i class="ri-chat-3-line" aria-hidden="true"></i>
                      <span>I want to talk</span>
                   </button>
                </div>
                <div class="chatbot__input-wrapper">
-                  <button class="chatbot__attach-btn" id="chatbot-attach" title="Attach file">
-                     <i class="ri-attachment-line"></i>
+                  <button type="button" class="chatbot__attach-btn" id="chatbot-attach" title="Attach file"
+                     aria-label="Attach file">
+                     <i class="ri-attachment-line" aria-hidden="true"></i>
                   </button>
                   <input type="text" class="chatbot__input" id="chatbot-input"
-                     placeholder="Share what's on your mind..." autocomplete="off">
-                  <button class="chatbot__send-btn" id="chatbot-send" title="Send message">
-                     <i class="ri-send-plane-fill"></i>
+                     placeholder="Share what's on your mind..." autocomplete="off" aria-label="Message TherapAI">
+                  <button type="button" class="chatbot__send-btn" id="chatbot-send" title="Send message"
+                     aria-label="Send message">
+                     <i class="ri-send-plane-fill" aria-hidden="true"></i>
                   </button>
                </div>
                <div class="chatbot__footer">
                   <p class="chatbot__disclaimer">
-                     <i class="ri-information-line"></i>
+                     <i class="ri-information-line" aria-hidden="true"></i>
                      This is a supportive tool. For emergencies, please contact a mental health professional or
                      emergency services.
                   </p>
                   <a href="helplines.html" class="chatbot__helpline-link">
-                     <i class="ri-phone-line"></i>
+                     <i class="ri-phone-line" aria-hidden="true"></i>
                      Need immediate help?
                   </a>
                </div>

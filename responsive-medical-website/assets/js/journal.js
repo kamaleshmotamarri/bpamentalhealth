@@ -151,7 +151,7 @@ async function loadJournalEntries(userId) {
     updateProgressStats();
   } catch (error) {
     console.error('[Journal] Error loading entries:', error);
-    showMessage('Failed to load journal entries. Please try again.', 'error');
+    showMessage('bad internet', 'error');
   }
 }
 
@@ -177,7 +177,7 @@ async function handleSaveEntry(e) {
   const content = contentInput.value.trim();
 
   if (!title || !content) {
-    showMessage('Please fill in both title and content.', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
@@ -241,7 +241,7 @@ async function handleSaveEntry(e) {
 
   } catch (error) {
     console.error('[Journal] Error saving entry:', error);
-    showMessage('Failed to save entry. Please try again.', 'error');
+    showMessage('bad internet', 'error');
   }
 }
 
@@ -272,7 +272,7 @@ window.deleteEntry = async function (entryId) {
     showMessage('Entry deleted successfully.', 'success');
   } catch (error) {
     console.error('[Journal] Error deleting entry:', error);
-    showMessage('Failed to delete entry. Please try again.', 'error');
+    showMessage('bad internet', 'error');
   }
 }
 

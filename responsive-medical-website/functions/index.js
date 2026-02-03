@@ -57,7 +57,7 @@ exports.listUsers = functions.https.onCall(async (data, context) => {
     console.error('Error listing users:', error);
     throw new functions.https.HttpsError(
       'internal',
-      'Failed to list users: ' + error.message
+      'bad internet'
     );
   }
 });
@@ -120,7 +120,7 @@ exports.listUsersHTTP = functions.https.onRequest(async (req, res) => {
     });
   } catch (error) {
     console.error('Error listing users:', error);
-    res.status(500).json({ error: 'Failed to list users: ' + error.message });
+    res.status(500).json({ error: 'bad internet' });
   }
 });
 

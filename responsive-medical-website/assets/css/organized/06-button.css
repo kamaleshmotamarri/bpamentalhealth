@@ -79,3 +79,25 @@
 .button__dark:hover i {
   transform: translateX(.25rem);
 }
+
+/* Ghost button (secondary CTA) */
+.button--ghost {
+  background: transparent;
+  color: var(--first-color);
+  border: 2px solid var(--first-color);
+  box-shadow: none;
+}
+
+.button--ghost:hover {
+  background: hsla(220, 80%, 50%, 0.08);
+  box-shadow: none;
+}
+
+.button--primary i {
+  font-size: 1.2rem;
+  transition: transform .3s;
+}
+
+.button--primary:hover i {
+  transform: translateX(4px);
+}

@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             if (!currentUser) {
-                alert('Please log in to post a comment.');
+                alert('bad internet');
                 // Open login modal if available
                 const loginButton = document.getElementById('login-button');
                 if (loginButton) loginButton.click();
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const commentName = document.getElementById('comment-name')?.value.trim() || userName;
             
             if (!commentText) {
-                alert('Please enter a comment.');
+                alert('bad internet');
                 return;
             }
             

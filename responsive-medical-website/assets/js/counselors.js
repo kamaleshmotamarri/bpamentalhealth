@@ -162,7 +162,7 @@ function handleCounselorSubmit(e) {
     const selectedSpecs = Array.from(checkboxes).map(cb => cb.value);
 
     if (selectedSpecs.length === 0) {
-        alert('Please select at least one speciality.');
+        alert('bad internet');
         return;
     }
 

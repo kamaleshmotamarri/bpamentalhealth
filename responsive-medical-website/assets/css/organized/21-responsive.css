@@ -269,7 +269,6 @@
 /* For medium devices */
 @media screen and (min-width: 440px) {
 
-  .home__container,
   .delivery__container,
   .contact__container {
     grid-template-columns: 350px;
@@ -290,9 +289,7 @@
 
 @media screen and (min-width: 768px) {
   .home__container {
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-    align-items: center;
+    align-items: start;
   }
 
   .home__data {
@@ -313,8 +310,7 @@
   }
 
   .home__image-wrapper {
-    grid-column: 1 / -1;
-    margin-top: 2.5rem;
+    margin-top: -2.5rem;
   }
 
   .home__info {
@@ -492,8 +488,6 @@
   }
 
   .home__container {
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
     padding-top: 5rem;
     padding-bottom: 3rem;
   }
@@ -507,15 +501,13 @@
   }
 
   .home__content {
-    max-width: 800px;
     padding: 2.5rem 3rem;
     border-radius: 2.5rem;
   }
 
   .home__image-wrapper {
-    grid-column: 1 / -1;
-    max-width: 1000px;
-    margin-top: 3rem;
+    max-width: none;
+    margin-top: -2.5rem;
   }
 
   .home__hero-image {
@@ -775,6 +767,10 @@
   .therapai-hero {
     padding-top: calc(var(--header-height) + 2rem);
     padding-bottom: 2rem;
+  }
+
+  .therapai-hero__bg {
+    opacity: 0.9;
   }
 
   .therapai-hero__icon {

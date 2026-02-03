@@ -268,7 +268,7 @@ async function handleCreatePost(e) {
   const content = document.getElementById('post-content').value.trim();
 
   if (!title || !category || !content) {
-    showMessage('Please fill in all fields', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
@@ -311,7 +311,7 @@ async function handleCreatePost(e) {
     showMessage('Post created successfully!', 'success');
   } catch (error) {
     console.error('Error creating post:', error);
-    showMessage('Failed to create post. Please try again.', 'error');
+    showMessage('bad internet', 'error');
   }
 }
 
@@ -460,7 +460,7 @@ function loadPosts() {
     console.error('[Forum] Critical error loading posts:', error);
     if (loadingEl) loadingEl.style.display = 'none';
     // Show error message
-    showMessage('Error loading forum. Please refresh the page.', 'error');
+    showMessage('bad internet', 'error');
   }
 }
 

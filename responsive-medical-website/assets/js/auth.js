@@ -32,7 +32,7 @@ function initializeAuth() {
       return;
     } else {
       console.error('[Auth] Firebase Auth failed to initialize after multiple retries. Check Firebase configuration.');
-      showMessage('Firebase authentication failed to initialize. Please check the console for errors.', 'error');
+      showMessage('bad internet', 'error');
       return;
     }
   }
@@ -233,7 +233,7 @@ async function signUpWithEmail(email, password, displayName) {
       windowFirebaseAuth: !!window.firebaseAuth,
       configTest: !!window.FIREBASE_CONFIG_TEST
     });
-    showMessage('Authentication service is not available. Please refresh the page and check the console for errors.', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
@@ -289,7 +289,7 @@ async function signInWithEmail(email, password) {
       windowFirebaseAuth: !!window.firebaseAuth,
       configTest: !!window.FIREBASE_CONFIG_TEST
     });
-    showMessage('Authentication service is not available. Please refresh the page and check the console for errors.', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
@@ -321,7 +321,7 @@ async function signInWithGoogle() {
   const auth = getAuth();
   const provider = getProvider();
   if (!auth || !provider) {
-    showMessage('Authentication service is not available. Please refresh the page.', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
@@ -350,7 +350,7 @@ async function signInWithGoogle() {
 async function signOut() {
   const auth = getAuth();
   if (!auth) {
-    showMessage('Authentication service is not available. Please refresh the page.', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
@@ -364,38 +364,38 @@ async function signOut() {
 
 // Handle authentication errors
 function handleAuthError(error) {
-  let errorMessage = 'An error occurred. Please try again.';
+  let errorMessage = 'bad internet';
 
   switch (error.code) {
     case 'auth/email-already-in-use':
-      errorMessage = 'This email is already registered. Please sign in instead.';
+      errorMessage = 'bad internet';
       break;
     case 'auth/invalid-email':
-      errorMessage = 'Invalid email address.';
+      errorMessage = 'bad internet';
       break;
     case 'auth/operation-not-allowed':
-      errorMessage = 'This operation is not allowed.';
+      errorMessage = 'bad internet';
       break;
     case 'auth/weak-password':
-      errorMessage = 'Password should be at least 6 characters.';
+      errorMessage = 'bad internet';
       break;
     case 'auth/user-disabled':
-      errorMessage = 'This account has been disabled.';
+      errorMessage = 'bad internet';
       break;
     case 'auth/user-not-found':
-      errorMessage = 'No account found with this email.';
+      errorMessage = 'bad internet';
       break;
     case 'auth/wrong-password':
-      errorMessage = 'Incorrect password.';
+      errorMessage = 'bad internet';
       break;
     case 'auth/popup-closed-by-user':
-      errorMessage = 'Sign-in popup was closed.';
+      errorMessage = 'bad internet';
       break;
     case 'auth/cancelled-popup-request':
-      errorMessage = 'Only one popup request is allowed at a time.';
+      errorMessage = 'bad internet';
       break;
     default:
-      errorMessage = error.message || errorMessage;
+      errorMessage = 'bad internet';
   }
 
   showMessage(errorMessage, 'error');
@@ -497,19 +497,19 @@ async function handleSignUpSubmit(e) {
 
   // Validate required fields
   if (!email || !password) {
-    showMessage('Please fill in all required fields.', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
   // Validate passwords match
   if (password !== confirmPassword) {
-    showMessage('Passwords do not match!', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
   // Validate password length
   if (password.length < 6) {
-    showMessage('Password must be at least 6 characters!', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 
@@ -540,7 +540,7 @@ async function handleSignInSubmit(e) {
 
   // Validate required fields
   if (!email || !password) {
-    showMessage('Please fill in all required fields.', 'error');
+    showMessage('bad internet', 'error');
     return;
   }
 

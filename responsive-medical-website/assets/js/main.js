@@ -178,7 +178,7 @@ if (contactForm) {
             contactFormMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
          } else {
             // Show error message
-            contactFormMessage.textContent = result.message || 'Sorry, there was an error sending your message. Please try again later.'
+            contactFormMessage.textContent = 'bad internet'
             contactFormMessage.classList.add('error')
             contactFormMessage.style.display = 'block'
 
@@ -187,7 +187,7 @@ if (contactForm) {
          }
       } catch (error) {
          // Show error message
-         contactFormMessage.textContent = 'Sorry, there was an error sending your message. Please check your connection and try again.'
+         contactFormMessage.textContent = 'bad internet'
          contactFormMessage.classList.add('error')
          contactFormMessage.style.display = 'block'
 

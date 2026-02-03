@@ -130,21 +130,32 @@
    <main class="main">
       <!--==================== HOME ====================-->
       <section class="home section" id="home">
+         <div class="home__bg" aria-hidden="true">
+            <span class="home__bg-shape home__bg-shape--1"></span>
+            <span class="home__bg-shape home__bg-shape--2"></span>
+            <span class="home__bg-shape home__bg-shape--3"></span>
+         </div>
          <div class="home__container container grid">
             <div class="home__data">
+               <span class="home__badge">Professional support · You're not alone</span>
                <h1 class="home__title">
                   <span>Get Mental</span>
                   <br> Health Service
                </h1>
 
                <p class="home__description">
-                  Get your mental health service from a certified
-                  doctor and health professional. We are also raising
-                  awareness about mental health. Join our online community
-                  and let's make mental health a priority.
+                  Connect with certified professionals and a caring community.
+                  We're here to support your journey—whether you need therapy,
+                  resources, or someone to talk to. Your well-being matters.
                </p>
 
-               <a href="#delivery" class="button">Get Started</a>
+               <div class="home__cta">
+                  <a href="#delivery" class="button button--primary">
+                     <i class="ri-arrow-right-line"></i>
+                     Get Started
+                  </a>
+                  <a href="#disorders" class="button button--ghost">Learn about disorders</a>
+               </div>
             </div>
 
             <div class="home__content grid">
@@ -172,6 +183,7 @@
             </div>
 
             <div class="home__image-wrapper">
+               <div class="home__image-frame"></div>
                <img src="assets/img/happiness.jpg" alt="Happiness and Mental Well-being" class="home__hero-image">
             </div>
          </div>
