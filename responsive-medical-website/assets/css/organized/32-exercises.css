@@ -1,0 +1,425 @@
+/*=============== EXERCISES PAGE ===============*/
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --premium-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    --card-hover-shadow: 0 25px 50px rgba(0, 163, 255, 0.12);
+}
+
+.exercises {
+    padding-top: 9rem;
+    background: #f8fbff;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background Blobs */
+.exercises__bg-blobs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.blob {
+    position: absolute;
+    filter: blur(80px);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: blobPulse 10s infinite alternate;
+}
+
+.blob--1 {
+    width: 400px;
+    height: 400px;
+    background: #e0f2fe;
+    top: -100px;
+    right: -100px;
+}
+
+.blob--2 {
+    width: 300px;
+    height: 300px;
+    background: #f0f7ff;
+    bottom: 50px;
+    left: -50px;
+    animation-delay: -2s;
+}
+
+.blob--3 {
+    width: 250px;
+    height: 250px;
+    background: #e0faff;
+    top: 40%;
+    right: 20%;
+    animation-delay: -5s;
+}
+
+@keyframes blobPulse {
+    from {
+        transform: translate(0, 0) scale(1);
+    }
+
+    to {
+        transform: translate(20px, 40px) scale(1.1);
+    }
+}
+
+.exercises .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hero Section */
+.exercises__hero {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.exercises__subtitle {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    background: rgba(0, 163, 255, 0.1);
+    color: var(--first-color);
+    border-radius: 2rem;
+    font-size: var(--smaller-font-size);
+    font-weight: var(--font-semi-bold);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    backdrop-filter: blur(5px);
+}
+
+.exercises__title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--title-color) 0%, var(--first-color) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+}
+
+.exercises__description {
+    max-width: 650px;
+    margin: 0 auto;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Tabs */
+.exercises__tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 4rem;
+    background: var(--glass-bg);
+    padding: 0.5rem;
+    border-radius: 3rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--premium-shadow);
+}
+
+.tab-btn {
+    padding: 0.8rem 1.8rem;
+    border: none;
+    border-radius: 2.5rem;
+    background: transparent;
+    color: var(--text-color);
+    font-weight: var(--font-medium);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-btn:hover {
+    color: var(--first-color);
+}
+
+.tab-btn.active {
+    background: var(--first-color);
+    color: var(--white-color);
+    box-shadow: 0 5px 15px rgba(0, 163, 255, 0.3);
+}
+
+/* Grid */
+.exercises__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 6rem;
+}
+
+/* Cards */
+.exercise-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 3rem 2rem;
+    border-radius: 2rem;
+    text-align: center;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--premium-shadow);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.exercise-card:hover {
+    transform: translateY(-15px);
+    box-shadow: var(--card-hover-shadow);
+    border-color: rgba(0, 163, 255, 0.3);
+}
+
+.exercise-icon {
+    font-size: 2.5rem;
+    color: var(--white-color);
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, var(--first-color) 0%, var(--first-color-alt) 100%);
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2rem;
+    box-shadow: 0 10px 20px rgba(0, 163, 255, 0.2);
+    transition: all 0.5s ease;
+    transform: rotate(-10deg);
+}
+
+.exercise-card:hover .exercise-icon {
+    transform: rotate(0deg) scale(1.1);
+    border-radius: 50%;
+}
+
+.exercise-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--title-color);
+}
+
+.exercise-card p {
+    margin-bottom: 2.5rem;
+    color: var(--text-color);
+    font-size: var(--normal-font-size);
+    line-height: 1.5;
+}
+
+.exercise-card .button {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: var(--font-semi-bold);
+    transition: all 0.3s ease;
+}
+
+.exercise-card .button:hover {
+    transform: scale(1.02);
+}
+
+/*=============== MODAL & OVERLAY ===============*/
+.exercise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 15, 30, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.exercise-modal {
+    background: var(--white-color);
+    width: 100%;
+    max-width: 850px;
+    max-height: 90vh;
+    border-radius: 2.5rem;
+    position: relative;
+    padding: 4rem 3rem;
+    overflow-y: auto;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
+    transform: scale(0.9);
+    animation: modalSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes modalSlide {
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.close-exercise {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 45px;
+    height: 45px;
+    background: #f0f7ff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--title-color);
+    transition: all 0.3s ease;
+}
+
+.close-exercise:hover {
+    background: var(--first-color);
+    color: var(--white-color);
+    transform: rotate(90deg);
+}
+
+/*=============== CONTENT STYLING ===============*/
+.exercise-content h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    background: linear-gradient(135deg, var(--title-color) 0%, var(--first-color) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.exercise-content p {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+/* Breathing */
+.breathing-container {
+    padding: 2rem 0;
+}
+
+.breath-circle {
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, var(--first-color) 0%, var(--first-color-alt) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 50px rgba(0, 163, 255, 0.4);
+    transition: all 4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0 auto;
+}
+
+.breath-circle.inhale {
+    width: 300px;
+    height: 300px;
+    box-shadow: 0 0 80px rgba(0, 163, 255, 0.6);
+}
+
+.breath-text {
+    margin-top: 4rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--first-color);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    min-height: 4rem;
+}
+
+/* Gratitude Game */
+.game-area {
+    background: #f0f8ff;
+    border: 2px solid #e0f0ff;
+    border-radius: 2rem;
+    box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.02);
+}
+
+.bubble {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 5px 15px rgba(0, 163, 255, 0.1);
+    color: var(--title-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 15px;
+}
+
+.bubble:hover {
+    background: var(--first-color);
+    color: white;
+}
+
+/* Mindset Challenge */
+.mindset-box {
+    background: var(--white-color);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+    border: 1px solid #eee;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+}
+
+.fixed-mindset {
+    border-left: 5px solid #ff4d4d;
+}
+
+.growth-mindset {
+    border-left: 5px solid #00c853;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 968px) {
+    .exercises__title {
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .exercises {
+        padding-top: 7rem;
+    }
+
+    .exercises__title {
+        font-size: 2rem;
+    }
+
+    .exercises__tabs {
+        flex-direction: column;
+        border-radius: 1.5rem;
+        padding: 1rem;
+    }
+
+    .exercise-modal {
+        padding: 3rem 1.5rem;
+    }
+}

@@ -1,6 +1,105 @@
 /* Appointment Scheduler */
 /* Extracted from styles.css */
 
+/*=============== APPOINTMENTS PAGE LAYOUT ===============*/
+.appointments-page {
+  padding-top: 0;
+}
+
+.appointments-hero {
+  padding: calc(var(--header-height) + 3rem) 1.5rem 3rem;
+  background: linear-gradient(160deg, var(--first-color) 0%, var(--second-color) 50%, var(--first-color-alt) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.appointments-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 45%);
+  pointer-events: none;
+}
+
+.appointments-hero__container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.appointments-hero__icon {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.appointments-hero__icon i {
+  font-size: 2.25rem;
+  color: var(--white-color);
+}
+
+.appointments-hero__title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: var(--font-bold);
+  color: var(--white-color);
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.appointments-hero__subtitle {
+  font-size: var(--normal-font-size);
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+}
+
+.appointments-hero__steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+}
+
+.appointments-hero__step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.appointments-hero__step i {
+  font-size: 1.1rem;
+  opacity: 0.95;
+}
+
+.appointments-section {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.appointments-container {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
 /*=============== APPOINTMENT SCHEDULER ===============*/
 
 /* Appointment Messages */
@@ -87,6 +186,12 @@
   text-decoration: underline;
 }
 
+.appointment-message__link {
+  color: var(--first-color) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
+}
+
 /* Existing Appointment Details */
 .existing-appointment-details {
   margin-top: 0.75rem;
@@ -113,12 +218,12 @@
 
 /* Appointment Scheduler */
 .appointment-scheduler {
-  max-width: 1000px;
+  max-width: 100%;
   margin: 2rem auto;
   padding: 2.5rem;
-  background: linear-gradient(135deg, var(--white-color) 0%, #f8fafc 100%);
+  background: var(--white-color);
   border-radius: 1.5rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04);
   position: relative;
   overflow: hidden;
 }
@@ -129,8 +234,9 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 5px;
   background: linear-gradient(90deg, var(--first-color), var(--second-color));
+  border-radius: 1.5rem 1.5rem 0 0;
 }
 
 /* Month Navigation */
@@ -138,9 +244,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 2px solid var(--gray-color);
+  border-bottom: 1px solid var(--gray-color);
   position: relative;
 }
 
@@ -154,8 +260,8 @@
 }
 
 .appointment-nav__title::before {
-  content: '📅';
-  font-size: 1.5rem;
+  content: '';
+  display: none;
 }
 
 .appointment-nav__button {
@@ -229,11 +335,11 @@
 .appointment-calendar__day-name {
   text-align: center;
   font-weight: var(--font-semi-bold);
-  color: var(--title-color);
-  padding: 0.75rem;
-  font-size: var(--small-font-size);
+  color: var(--text-color-light);
+  padding: 0.75rem 0.5rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
 }
 
 .appointment-calendar__grid {
@@ -244,15 +350,16 @@
 
 .appointment-calendar__day {
   aspect-ratio: 1;
+  min-height: 52px;
   border: 2px solid var(--gray-color);
   border-radius: 0.75rem;
-  padding: 0.75rem 0.5rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s ease;
   background-color: var(--white-color);
   position: relative;
   overflow: hidden;
@@ -277,20 +384,20 @@
 }
 
 .appointment-calendar__day--available {
-  border-color: var(--second-color);
-  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.15);
+  border-color: hsla(220, 80%, 50%, 0.35);
+  background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%);
+  color: var(--first-color);
 }
 
 .appointment-calendar__day--available::before {
-  opacity: 1;
+  opacity: 0;
 }
 
 .appointment-calendar__day--available:hover {
   border-color: var(--first-color);
-  background: linear-gradient(135deg, #bae6fd 0%, #7dd3fc 100%);
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 20px rgba(33, 150, 243, 0.25);
+  background: linear-gradient(180deg, #dbeafe 0%, #bfdbfe 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px hsla(220, 80%, 50%, 0.2);
   z-index: 1;
 }
 
@@ -380,12 +487,12 @@
 /* Selected Date Info */
 .selected-date-info {
   margin-top: 2rem;
-  padding: 2.5rem;
-  background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+  padding: 2rem 2.5rem;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
   border-radius: 1rem;
-  border: 2px solid var(--second-color);
-  box-shadow: 0 4px 16px rgba(33, 150, 243, 0.1);
-  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--gray-color);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  animation: slideIn 0.35s ease-out;
   position: relative;
   overflow: hidden;
 }
@@ -398,6 +505,7 @@
   right: 0;
   height: 4px;
   background: linear-gradient(90deg, var(--first-color), var(--second-color));
+  border-radius: 1rem 1rem 0 0;
 }
 
 @keyframes slideIn {
@@ -422,8 +530,8 @@
 }
 
 .selected-date-info__title::before {
-  content: '📆';
-  font-size: 1.5rem;
+  content: '';
+  display: none;
 }
 
 .selected-date-info__subtitle {
@@ -441,16 +549,16 @@
 
 .time-slot {
   flex: 1;
-  min-width: 140px;
-  padding: 1.25rem 1.5rem;
-  background: linear-gradient(135deg, var(--white-color) 0%, #f8fafc 100%);
-  border: 2px solid var(--second-color);
+  min-width: 120px;
+  padding: 1rem 1.25rem;
+  background: var(--white-color);
+  border: 2px solid var(--gray-color);
   border-radius: 0.75rem;
   font-size: var(--normal-font-size);
   font-weight: var(--font-semi-bold);
   color: var(--title-color);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s ease;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -460,8 +568,8 @@
 }
 
 .time-slot::before {
-  content: '🕐';
-  font-size: 1.2rem;
+  content: '';
+  display: none;
 }
 
 .time-slot::after {
@@ -479,15 +587,15 @@
 
 .time-slot:hover {
   border-color: var(--first-color);
-  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 20px rgba(33, 150, 243, 0.25);
+  background: #eff6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px hsla(220, 80%, 50%, 0.15);
   z-index: 1;
 }
 
 .time-slot:hover::after {
-  width: 200px;
-  height: 200px;
+  width: 0;
+  height: 0;
 }
 
 .time-slot:active {
@@ -498,18 +606,16 @@
   background: linear-gradient(135deg, var(--first-color), var(--first-color-alt));
   color: var(--white-color);
   border-color: var(--first-color);
-  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
-  transform: scale(1.05);
+  box-shadow: 0 4px 16px hsla(220, 80%, 50%, 0.35);
 }
 
 .time-slot--selected::before {
-  filter: brightness(0) invert(1);
+  display: none;
 }
 
 .time-slot--selected:hover {
   background: linear-gradient(135deg, var(--first-color-alt), var(--first-color));
-  transform: scale(1.08);
-  box-shadow: 0 8px 24px rgba(33, 150, 243, 0.5);
+  box-shadow: 0 6px 20px hsla(220, 80%, 50%, 0.4);
 }
 
 /* Appointment Modal */
@@ -741,6 +847,29 @@
 
 /* Responsive Appointment Scheduler */
 @media screen and (max-width: 768px) {
+  .appointments-hero {
+    padding: calc(var(--header-height) + 2rem) 1rem 2.5rem;
+  }
+
+  .appointments-hero__icon {
+    width: 3.75rem;
+    height: 3.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .appointments-hero__icon i {
+    font-size: 1.75rem;
+  }
+
+  .appointments-hero__steps {
+    gap: 0.75rem;
+  }
+
+  .appointments-hero__step {
+    font-size: 0.813rem;
+    padding: 0.4rem 0.75rem;
+  }
+
   .appointment-scheduler {
     padding: 1.5rem;
     margin: 1rem;
@@ -862,7 +991,16 @@
   }
 }
 
-/* Dark Theme Support for Appointment Scheduler */
+/* Dark Theme Support for Appointments Page */
+.dark-theme .appointments-hero {
+  background: linear-gradient(160deg, var(--first-color-alt) 0%, var(--second-color) 50%, var(--first-color) 100%);
+}
+
+.dark-theme .appointments-hero__icon {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
 .dark-theme .appointment-scheduler {
   background: linear-gradient(135deg, var(--body-color) 0%, hsl(218, 24%, 12%) 100%);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);

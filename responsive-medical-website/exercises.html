@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="assets/css/organized/01-variables.css">
+    <link rel="stylesheet" href="assets/css/organized/02-base.css">
+    <link rel="stylesheet" href="assets/css/organized/03-theme.css">
+    <link rel="stylesheet" href="assets/css/organized/04-layout.css">
+    <link rel="stylesheet" href="assets/css/organized/05-header.css">
+    <link rel="stylesheet" href="assets/css/organized/06-button.css">
+    <link rel="stylesheet" href="assets/css/organized/14-footer.css">
+    <link rel="stylesheet" href="assets/css/organized/15-scroll.css">
+    <link rel="stylesheet" href="assets/css/organized/22-auth.css">
+    <link rel="stylesheet" href="assets/css/organized/23-settings.css">
+    <link rel="stylesheet" href="assets/css/organized/21-responsive.css">
+
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="assets/css/organized/32-exercises.css">
+
+    <title>Mental Health Exercises & Games - MentalMed</title>
+</head>
+
+<body>
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="index.html" class="nav__logo">
+                <i class="ri-stethoscope-fill"></i> MentalMed
+            </a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li><a href="index.html#home" class="nav__link">Home</a></li>
+                    <li><a href="index.html#delivery" class="nav__link">Therapy</a></li>
+                    <li><a href="about.html" class="nav__link">About Us</a></li>
+                    <li><a href="index.html#prices" class="nav__link">Prices</a></li>
+                    <li><a href="index.html#contact" class="nav__link">Contact</a></li>
+                    <li><a href="therapai.html" class="nav__link">TherapAI</a></li>
+                    <li><a href="exercises.html" class="nav__link active-link">Exercises</a></li>
+                </ul>
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-large-line"></i>
+                </div>
+            </div>
+            <div class="nav__buttons">
+                <!-- User info (shown when logged in) -->
+                <div class="nav__user-info" id="user-info" style="display: none;">
+                    <span class="user-name"></span>
+                    <button class="nav__logout" id="logout-button" style="display: none;">
+                        <i class="ri-logout-box-line"></i> Logout
+                    </button>
+                </div>
+
+                <!-- Login button (shown when logged out) -->
+                <button class="nav__login" id="login-button">
+                    <i class="ri-login-box-line"></i> Login
+                </button>
+
+                <!-- Settings button -->
+                <i class="ri-settings-3-fill nav__settings" id="settings-button" title="Settings"></i>
+
+                <!-- Toggle button -->
+                <div class="nav__toggle" id="nav-toggle" aria-label="Open menu">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="exercises section">
+            <div class="exercises__bg-blobs">
+                <div class="blob blob--1"></div>
+                <div class="blob blob--2"></div>
+                <div class="blob blob--3"></div>
+            </div>
+
+            <div class="container">
+                <!-- Hero Section -->
+                <div class="exercises__hero">
+                    <div class="exercises__hero-content">
+                        <span class="exercises__subtitle">Mental Fitness</span>
+                        <h1 class="exercises__title">Mental Wellness Exercises</h1>
+                        <p class="exercises__description">
+                            Take a moment for yourself. Explore our interactive games and exercises designed to boost
+                            your mood, reduce stress, and build a positive mindset.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Exercise Categories -->
+                <div class="exercises__tabs">
+                    <button class="tab-btn active" onclick="showCategory('all')">All</button>
+                    <button class="tab-btn" onclick="showCategory('games')">Games</button>
+                    <button class="tab-btn" onclick="showCategory('meditation')">Meditation</button>
+                    <button class="tab-btn" onclick="showCategory('mindset')">Mindset</button>
+                </div>
+
+                <div class="exercises__grid">
+                    <!-- Gratitude Bubbles Game -->
+                    <div class="exercise-card" data-category="games">
+                        <div class="exercise-icon"><i class="ri-bubble-chart-line"></i></div>
+                        <h3>Gratitude Bubbles</h3>
+                        <p>Catch the positive thoughts and reflect on what you're thankful for today.</p>
+                        <button class="button button--primary" onclick="openExercise('gratitude-game')">Play
+                            Now</button>
+                    </div>
+
+                    <!-- Growth Mindset Challenge -->
+                    <div class="exercise-card" data-category="mindset">
+                        <div class="exercise-icon"><i class="ri-seedling-line"></i></div>
+                        <h3>Growth vs Fixed Mindset</h3>
+                        <p>Learn to reframe your challenges into opportunities for growth.</p>
+                        <button class="button button--primary" onclick="openExercise('mindset-challenge')">Start
+                            Challenge</button>
+                    </div>
+
+                    <!-- Zen Breathing -->
+                    <div class="exercise-card" data-category="meditation">
+                        <div class="exercise-icon"><i class="ri-windy-line"></i></div>
+                        <h3>Zen Breathing</h3>
+                        <p>Slow down your breath with our interactive guide to reach a state of calm.</p>
+                        <button class="button button--primary" onclick="openExercise('breathing')">Breathe</button>
+                    </div>
+
+                    <!-- Daily Affirmations -->
+                    <div class="exercise-card" data-category="mindset">
+                        <div class="exercise-icon"><i class="ri-sparkling-fill"></i></div>
+                        <h3>Daily Affirmations</h3>
+                        <p>Generate a positive affirmation to power your day with confidence.</p>
+                        <button class="button button--primary" onclick="openExercise('affirmations')">Get
+                            Inspired</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercise Modals -->
+        <div id="exercise-overlay" class="exercise-overlay">
+            <div class="exercise-modal">
+                <button class="close-exercise" onclick="closeExercise()"><i class="ri-close-line"></i></button>
+                <div id="exercise-content" class="exercise-content">
+                    <!-- Content dynamicly loaded -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__container container grid">
+            <a href="index.html" class="footer__logo">
+                <i class="ri-stethoscope-fill"></i> MentalMed
+            </a>
+            <div class="footer__links">
+                <a href="index.html#home" class="footer__link">Home</a>
+                <a href="about.html" class="footer__link">About Us</a>
+                <a href="index.html#prices" class="footer__link">Prices</a>
+            </div>
+            <span class="footer__copy">
+                &#169; Made by Kamalesh Motamarri, Harshul Neelam, Adithya Aanand and Yojitsri Thirrukovalur
+            </span>
+        </div>
+    </footer>
+
+    <!-- Scroll Up -->
+    <a href="#" class="scrollup" id="scroll-up" aria-label="Scroll to top">
+        <i class="ri-arrow-up-line"></i>
+    </a>
+
+    <!-- Auth Modals -->
+    <!-- (Reusing the same auth modals structure as other pages for consistency) -->
+    <div class="auth-modal" id="login-modal">
+        <div class="auth-modal__content">
+            <div class="auth-modal__header">
+                <h2 class="auth-modal__title">Sign In</h2>
+                <button class="auth-modal-close" aria-label="Close"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="auth-modal__body">
+                <form id="login-form" class="auth-form">
+                    <div class="auth-form__group">
+                        <label for="login-email" class="auth-form__label">Email</label>
+                        <input type="email" id="login-email" class="auth-form__input" placeholder="Enter your email"
+                            required>
+                    </div>
+                    <div class="auth-form__group">
+                        <label for="login-password" class="auth-form__label">Password</label>
+                        <input type="password" id="login-password" class="auth-form__input"
+                            placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="auth-form__button button">Sign In</button>
+                </form>
+                <div class="auth-divider"><span>OR</span></div>
+                <button id="google-signin-btn" class="auth-google-button">
+                    <i class="ri-google-fill"></i> Sign in with Google
+                </button>
+                <p class="auth-switch">Don't have an account? <a href="#" id="switch-to-signup">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config/env-inject.js"></script>
+    <script src="config/env.js"></script>
+    <script src="config/firebase-config.test.js"></script>
+    <script src="config/firebase-config.prod.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/settings.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/exercises.js"></script>
+</body>
+
+</html>
