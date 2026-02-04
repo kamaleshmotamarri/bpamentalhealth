@@ -9,7 +9,7 @@
 config/firebase-config.prod.js
 config/firebase-config.test.js
 
-# Note: env-inject.js is committed for local dev, but gets overwritten during Vercel builds
+# Note: env-inject.js is committed with placeholder only; do not commit real API keys
 
 # Keep example files (safe to commit
 !.env.example
